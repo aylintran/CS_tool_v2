@@ -1396,35 +1396,17 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           </div>
         </div>
       `).join('');
-            Channel: <strong class="text-slate-200 font-mono">${t.channel}</strong>
-          </div>
-          <div class="text-slate-400 text-[11px]">
-            Assigned to: <strong class="text-slate-200">${t.assignedTo}</strong> <span class="ml-2">at: ${t.timestamp}</span>
-          </div>
-          <div class="text-slate-200 bg-slate-950 p-2 rounded border border-slate-800 text-xs">
-            <strong>Request:</strong> ${t.requestContent}
-          </div>
-          <div class="text-slate-400 text-[11px]">
-            <strong>Feature:</strong> ${t.feature || 'Live preview'}
-          </div>
-          <div class="flex items-center space-x-1.5 pt-1">
-            <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1 rounded text-xs bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 font-medium">Edit</button>
-            <button onclick="switchPlatform('slack')" class="px-3 py-1 rounded text-xs bg-purple-600/30 text-purple-300 border border-purple-500/30 hover:bg-purple-600/40 font-medium">View Slack</button>
-            <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1 rounded text-xs bg-zinc-800 text-white font-bold border border-zinc-700 shadow">Transfer</button>
-          </div>
-        </div>
-      `).join('');
 
       slackContainer.innerHTML = state.tickets.map(t => `
-        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs shadow-sm">
           <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full bg-slate-700 font-bold text-white flex items-center justify-center">AT</div>
+            <div class="w-8 h-8 rounded-full bg-slate-900 font-bold text-white flex items-center justify-center">AT</div>
             <div>
-              <strong class="text-white text-sm">${t.assignedTo}</strong> <span class="text-slate-500 text-[11px]">${t.timestamp}</span>
+              <strong class="text-slate-900 text-sm">${t.assignedTo}</strong> <span class="text-slate-500 text-[11px]">${t.timestamp}</span>
             </div>
           </div>
-          <div class="text-slate-200">Store: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-400 font-mono">${t.storeUrl}</a></div>
-          <div class="text-slate-200">Request: ${t.requestContent}</div>
+          <div class="text-slate-800">Store: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-600 font-mono font-medium">${t.storeUrl}</a></div>
+          <div class="text-slate-800">Request: ${t.requestContent}</div>
         </div>
       `).join('');
     }
@@ -1432,29 +1414,38 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
     function renderReviews() {
       const container = document.getElementById('reviews-list-container');
       container.innerHTML = state.reviews.map(r => `
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs">
+        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 text-xs shadow-sm">
           <div class="flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center space-x-2">
-              <span class="text-amber-400 font-bold">${r.stars}</span>
-              <strong class="text-white">${r.title}</strong>
+              <span class="text-amber-500 font-bold">${r.stars}</span>
+              <strong class="text-slate-900">${r.title}</strong>
               <span class="${r.badgeColor} px-2 py-0.5 rounded font-bold text-[10px]">${r.badge}</span>
             </div>
+            <span class="text-slate-500 font-mono">${r.domain} • ${r.crispUser}</span>
+          </div>
+          <p class="text-slate-700 italic">${r.content}</p>
+          <div class="pt-1">
+            <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 px-3 py-1 rounded font-medium">Create ticket for review</button>
+          </div>
+        </div>
+      `).join('');
+    }
             <span class="text-slate-500">${r.time} • ${r.author}</span>
           </div>
 
-          <div class="flex items-center space-x-3 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] my-1 flex-wrap">
-            <div>Store Domain: <button onclick="navigateToShopInfo('${r.domain}')" class="text-blue-400 hover:underline font-mono font-bold">${r.domain}</button></div>
-            <div class="text-slate-700">|</div>
-            <div>Crisp Chat: <button onclick="switchPlatform('crisp')" class="text-emerald-400 hover:underline font-semibold">💬 Open Crisp Chat (${r.crispUser})</button></div>
+          <div class="flex items-center space-x-3 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-[11px] my-1 flex-wrap">
+            <div>Store Domain: <button onclick="navigateToShopInfo('${r.domain}')" class="text-blue-600 hover:underline font-mono font-bold">${r.domain}</button></div>
+            <div class="text-slate-300">|</div>
+            <div>Crisp Chat: <button onclick="switchPlatform('crisp')" class="text-emerald-700 hover:underline font-semibold">💬 Open Crisp Chat (${r.crispUser})</button></div>
           </div>
 
-          <p class="text-slate-300">${r.content}</p>
+          <p class="text-slate-700">${r.content}</p>
 
-          <div class="flex items-center space-x-2 pt-2 border-t border-slate-800/80 flex-wrap gap-y-1">
-            <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded font-bold">Create ticket</button>
-            <button onclick="alert('Replying on store...')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-medium">Reply on Store</button>
-            <button onclick="switchPlatform('crisp')" class="px-3 py-1 bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 rounded font-semibold">💬 Open Crisp Chat</button>
-            <button onclick="navigateToShopInfo('${r.domain}')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-blue-300 border border-blue-500/30 rounded font-semibold flex items-center gap-1">🏪 Store Info</button>
+          <div class="flex items-center space-x-2 pt-2 border-t border-slate-200 flex-wrap gap-y-1">
+            <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded font-bold">Create ticket</button>
+            <button onclick="alert('Replying on store...')" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded font-medium">Reply on Store</button>
+            <button onclick="switchPlatform('crisp')" class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 rounded font-semibold">💬 Open Crisp Chat</button>
+            <button onclick="navigateToShopInfo('${r.domain}')" class="px-3 py-1 bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200 rounded font-semibold flex items-center gap-1">🏪 Store Info</button>
           </div>
         </div>
       `).join('');

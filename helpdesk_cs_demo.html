@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Helpdesk OS — CS Suite & Workflow Guide Demo</title>
+  <title>Helpdesk OS — CS & Admin Suite Full Demo</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -30,6 +31,10 @@
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
     .toast-animate { animation: slideIn 0.3s ease-out forwards; }
     @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .prose h1, .prose h2, .prose h3 { color: #f8fafc; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; }
+    .prose p { margin-bottom: 0.75rem; color: #cbd5e1; }
+    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; color: #cbd5e1; }
+    .prose code { background: #0f172a; color: #f59e0b; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; }
   </style>
 </head>
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col custom-scrollbar">
@@ -43,7 +48,7 @@
       <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">H</div>
       <div>
         <h1 class="font-bold text-sm text-white flex items-center gap-2">
-          Helpdesk OS <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-medium">Interactive Suite</span>
+          Helpdesk OS <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-medium">CS & Admin Suite</span>
         </h1>
       </div>
     </div>
@@ -64,14 +69,13 @@
     <!-- USER PROFILE -->
     <div class="flex items-center space-x-2 text-xs">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="text-slate-300 font-medium">Aylin Tran (CS On Duty)</span>
+      <span class="text-slate-300 font-medium">Aylin Tran (CS On Duty / Admin)</span>
     </div>
   </header>
 
   <!-- PLATFORM 1: CRISP CHAT & PLUGIN SIMULATOR -->
   <div id="platform-crisp" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
-      <!-- Crisp Left Sidebar -->
       <div class="w-full md:w-64 bg-slate-950 border-r border-slate-800 p-3 space-y-3">
         <div class="text-xs font-semibold text-slate-400 px-2 flex justify-between">
           <span>Most Recent</span>
@@ -88,7 +92,6 @@
         </div>
       </div>
 
-      <!-- Crisp Middle Chat Screen -->
       <div class="flex-1 bg-slate-900 flex flex-col border-r border-slate-800">
         <div class="p-3 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
           <div class="flex items-center space-x-3">
@@ -127,15 +130,11 @@
           </button>
         </div>
 
-        <!-- PLUGIN TICKETS TAB -->
         <div id="plugin-content-tickets" class="space-y-3 text-xs">
           <div class="text-[11px] text-slate-400">Store URL: <strong class="text-slate-200 font-mono">61cde3-42.myshopify.com</strong></div>
-          <div id="plugin-tickets-container" class="space-y-2">
-            <!-- Dynamic plugin ticket items render here -->
-          </div>
+          <div id="plugin-tickets-container" class="space-y-2"></div>
         </div>
 
-        <!-- PLUGIN STORE INFO TAB -->
         <div id="plugin-content-store" class="hidden space-y-3 text-xs">
           <div class="space-y-1">
             <label class="text-[11px] font-bold text-blue-400">Store Domain & Add Sub-domain:</label>
@@ -179,9 +178,7 @@
         <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-1 rounded border border-purple-500/30">Posted via Slack OAuth User Token</span>
       </div>
 
-      <div id="slack-messages-container" class="space-y-4">
-        <!-- Dynamic Slack threads render here -->
-      </div>
+      <div id="slack-messages-container" class="space-y-4"></div>
     </div>
   </div>
 
@@ -192,7 +189,6 @@
     <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between p-4 custom-scrollbar">
       <div class="space-y-6">
 
-        <!-- USER PROFILE -->
         <div class="flex items-center space-x-3 p-2 bg-slate-900/60 rounded-xl border border-slate-800">
           <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">AY</div>
           <div class="min-w-0 flex-1">
@@ -201,17 +197,11 @@
           </div>
         </div>
 
-        <!-- CATEGORY 1: APPS -->
         <div class="space-y-1">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">TARGET APPS</div>
-          <div class="flex items-center space-x-1.5 px-2 py-1">
-            <span class="bg-blue-600/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-bold cursor-pointer" onclick="filterByApp('APO')">APO</span>
-            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded border border-emerald-500/30 font-bold cursor-pointer" onclick="filterByApp('APB')">APB</span>
-            <span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded border border-purple-500/30 font-bold cursor-pointer" onclick="filterByApp('ACS')">ACS</span>
-          </div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">APPS</div>
+          <div id="sidebar-apps-list" class="space-y-1"></div>
         </div>
 
-        <!-- CATEGORY 2: HELPDESK CS TOOLS -->
         <div class="space-y-1 border-t border-slate-800/80 pt-3">
           <div class="text-[10px] font-bold uppercase tracking-wider text-blue-400 px-2 mb-1">HELPDESK CS TOOLS</div>
           <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
@@ -234,11 +224,20 @@
           </button>
         </div>
 
-        <!-- CATEGORY 3: ADMIN & DEV TOOLS -->
         <div class="space-y-1 border-t border-slate-800/80 pt-3">
           <div class="text-[10px] font-bold uppercase tracking-wider text-purple-400 px-2 mb-1">ADMIN & DEV TOOLS</div>
-          <button onclick="switchInternalView('admin')" id="side-admin" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 flex items-center space-x-2">
-            <span>⚙️ Admin Settings</span>
+          <button onclick="switchInternalView('admin')" id="side-admin" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-300 bg-purple-600/20 border border-purple-500/30 hover:bg-purple-600/30 flex items-center space-x-2">
+            <span>⚙️ Admin Settings (PO/Lead)</span>
+          </button>
+        </div>
+
+        <div class="space-y-1 border-t border-slate-800/80 pt-3">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">TOOLS</div>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📑 Internal Docs</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📌 Jira Docs</span>
           </button>
         </div>
 
@@ -270,30 +269,10 @@
         </div>
 
         <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center space-x-2">
-            <span class="text-xs font-semibold text-slate-400 uppercase mr-1">App Filter:</span>
-            <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white">ALL</button>
-            <button onclick="filterByApp('APO')" id="appbtn-APO" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">APO</button>
-            <button onclick="filterByApp('APB')" id="appbtn-APB" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">APB</button>
-            <button onclick="filterByApp('ACS')" id="appbtn-ACS" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">ACS</button>
-          </div>
+          <div class="flex items-center space-x-2" id="dashboard-app-filter-buttons"></div>
 
           <div class="flex items-center space-x-2">
-            <select id="status-filter-select" onchange="filterTickets()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1 focus:outline-none">
-              <option value="ALL">All 12 Statuses ▾</option>
-              <option value="Chờ collab - CS">Chờ collab - CS</option>
-              <option value="Chờ check - Dev">Chờ check - Dev</option>
-              <option value="Đang check - Dev">Đang check - Dev</option>
-              <option value="Đã check - Dev">Đã check - Dev</option>
-              <option value="Rejected - Dev lead">Rejected - Dev lead</option>
-              <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
-              <option value="Chờ CS">Chờ CS</option>
-              <option value="Uninstall">Uninstall</option>
-              <option value="Done - CS">Done - CS</option>
-              <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
-              <option value="Fl up 2 (24h)">Fl up 2 (24h)</option>
-              <option value="Fl up 3 (36h)">Fl up 3 (36h)</option>
-            </select>
+            <select id="status-filter-select" onchange="filterTickets()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1 focus:outline-none"></select>
             <button onclick="filterByAssignee('ME')" id="filter-me-btn" class="px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300">Assigned to me</button>
           </div>
         </div>
@@ -302,9 +281,7 @@
           <input type="text" id="search-input" oninput="filterTickets()" placeholder="🔍 Live search by request summary, store domain, ticket ID..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
         </div>
 
-        <div id="tickets-container" class="space-y-4">
-          <!-- Dynamic ticket cards render here -->
-        </div>
+        <div id="tickets-container" class="space-y-4"></div>
       </div>
 
       <!-- VIEW 2: SHOP 360 -->
@@ -374,9 +351,7 @@
 
           <div class="pt-4 border-t border-slate-800 space-y-3">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">TẤT CẢ TICKET CỦA STORE NÀY (<span id="shop-ticket-count-badge">1</span>)</h3>
-            <div id="shop-tickets-container" class="space-y-4">
-              <!-- Dynamic full-layout tickets render here -->
-            </div>
+            <div id="shop-tickets-container" class="space-y-4"></div>
           </div>
         </div>
       </div>
@@ -394,9 +369,7 @@
             <div class="text-amber-400 font-bold text-sm">4.3 / 5 (1,284 reviews)</div>
           </div>
 
-          <div id="reviews-list-container" class="space-y-3">
-            <!-- Dynamic review items render here -->
-          </div>
+          <div id="reviews-list-container" class="space-y-3"></div>
         </div>
       </div>
 
@@ -446,243 +419,159 @@
         </div>
       </div>
 
-      <!-- VIEW 6: CS WORKFLOW GUIDE (MÀN HÌNH HƯỚNG DẪN LUỒNG VẬN HÀNH DÀNH CHO CS) -->
+      <!-- VIEW 6: CS WORKFLOW GUIDE (NỘI DUNG MARKDOWN ĐƯỢC RENDER DYNAMIC THEO TRÌNH BIÊN TẬP ADMIN) -->
       <div id="internal-view-guide" class="hidden space-y-6">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
-          <div class="border-b border-slate-800 pb-4">
-            <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
-              📖 CS Operational Workflow Guide — Helpdesk OS
-            </h2>
-            <p class="text-xs text-slate-400 mt-1">Hướng dẫn toàn diện luồng vận hành Crisp Chat ➔ Slack Thread ➔ Internal Tool ➔ Bàn giao ca cho CS Agent</p>
+          <div class="border-b border-slate-800 pb-4 flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+                📖 CS Operational Workflow Guide — Helpdesk OS
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Nội dung hướng dẫn chuẩn hóa cho CS Agent (PO/Lead xuất bản)</p>
+            </div>
+            <button onclick="switchInternalView('admin'); switchAdminTab('guide-edit');" class="bg-purple-600/30 text-purple-300 border border-purple-500/30 px-3 py-1 rounded text-xs font-bold">✏️ Edit Guide in Admin</button>
           </div>
 
-          <!-- SƠ ĐỒ LUỒNG 4 BƯỚC -->
-          <div class="space-y-3">
-            <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">1. Sơ Đồ Luồng Vận Hành 4 Bước (Step-by-Step Flow)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center">1</div>
-                <div class="font-bold text-white">Tiếp nhận Crisp Chat</div>
-                <p class="text-slate-400 text-[11px] leading-relaxed">Khách chat trên Crisp ➔ CS xem Crisp Plugin bên phải để check Store Domain, Sub-domains, và Visitor Data.</p>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center">2</div>
-                <div class="font-bold text-white">Tạo Ticket (+ Add ticket)</div>
-                <p class="text-slate-400 text-[11px] leading-relaxed">Bấm `+ Add ticket` từ Plugin ➔ Chọn Channel, Status, Urgency, Tag ➔ Tự động tạo Slack Thread dưới tên cá nhân CS (User Token).</p>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center">3</div>
-                <div class="font-bold text-white">Thảo luận duy nhất tại Slack</div>
-                <p class="text-slate-400 text-[11px] leading-relaxed">Mọi trao đổi file, nhắn Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe im lặng để update status.</p>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center">4</div>
-                <div class="font-bold text-white">Bàn giao ca (Transfer)</div>
-                <p class="text-slate-400 text-[11px] leading-relaxed">Hết ca ➔ Bấm `Transfer` ➔ Điền `Handoff note` (ngắn hạn ca trực) + Auto-load `Summary note` (lưu DB) ➔ Ca sau nhận liền mạch.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- QUY TẮC 12 TRẠNG THÁI CUSTOM -->
-          <div class="space-y-3 pt-3 border-t border-slate-800">
-            <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider">2. Quy Tắc 12 Trạng Thái Custom (12 Custom Statuses)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-slate-200 flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Nhóm Dev Xử Lý
-                </div>
-                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
-                  <li><code>Chờ check - Dev</code>: Ticket mới chuyển sang Dev</li>
-                  <li><code>Đang check - Dev</code>: Dev đang mở code kiểm tra</li>
-                  <li><code>Đã check - Dev</code>: Dev đã xử lý xong / có reply</li>
-                  <li><code>Rejected - Dev lead</code>: Dev Lead từ chối yêu cầu</li>
-                </ul>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-slate-200 flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span> Nhóm CS Xử Lý
-                </div>
-                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
-                  <li><code>Chờ collab - CS</code>: Chờ CS khác hỗ trợ</li>
-                  <li><code>CHỜ KHÁCH - CS</code>: CS đã reply, chờ khách phản hồi</li>
-                  <li><code>Chờ CS</code>: Cần CS vào xử lý gấp</li>
-                  <li><code>Uninstall</code>: Merchant đã gỡ app</li>
-                  <li><code>Done - CS</code>: Đã giải quyết hoàn tất</li>
-                </ul>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-slate-200 flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Nhóm Follow-up Tự Động
-                </div>
-                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
-                  <li><code>Fl up 1 (12h)</code>: Hẹn theo dõi lại sau 12 giờ</li>
-                  <li><code>Fl up 2 (24h)</code>: Hẹn theo dõi lại sau 24 giờ</li>
-                  <li><code>Fl up 3 (36h)</code>: Hẹn theo dõi lại sau 36 giờ</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- QUY TẮC DUAL YELLOW NOTE CARDS -->
-          <div class="space-y-3 pt-3 border-t border-slate-800">
-            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl space-y-2">
-                <div class="font-bold text-amber-300">📝 Card 1: Note transfer case (Ghi chú ca trực)</div>
-                <p class="text-amber-100/90 text-[11px] leading-relaxed">
-                  Là ghi chú **ngắn hạn** do CS ca trước gõ để bàn giao nhanh cho CS ca sau (ví dụ: <em>"Đã nhắn Dev Tuan check CSS lúc 15h, chờ reply"</em>). Được ghi đè theo từng lần giao ca.
-                </p>
-              </div>
-
-              <div class="bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl space-y-2">
-                <div class="font-bold text-amber-400/90">📄 Card 2: Summary note (Tóm tắt cốt lõi DB)</div>
-                <p class="text-slate-300 text-[11px] leading-relaxed">
-                  Là tóm tắt **bản chất kỹ thuật gốc** của ticket được lưu cố định trong cơ sở dữ liệu. Khi mở Modal Transfer, nội dung này **tự động load vào form**, CS ca sau không cần copy paste thủ công.
-                </p>
-              </div>
-            </div>
+          <div id="guide-markdown-rendered-view" class="prose text-xs max-w-none">
+            <!-- Dynamic rendered markdown goes here -->
           </div>
         </div>
       </div>
 
-      <!-- VIEW 7: ADMIN SETTINGS (MODULE 8 - 6 TABS) -->
+      <!-- VIEW 7: ADMIN SETTINGS -->
       <div id="internal-view-admin" class="hidden space-y-6">
-        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/20 border border-purple-500/30 rounded-2xl p-5 flex items-center justify-between">
-          <div>
-            <h2 class="text-xl font-bold text-purple-300 flex items-center gap-2">
-              ⚙️ Admin & System Settings Control Panel
-            </h2>
-            <p class="text-xs text-slate-400 mt-1">Dành riêng cho vai trò `admin` và `dev_lead` (PO / Lead)</p>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4 flex-wrap gap-2">
+            <div>
+              <h2 class="text-xl font-bold text-purple-400 flex items-center gap-2">
+                ⚙️ Admin & System Settings <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-0.5 rounded border border-purple-500/30">PO & Dev Lead Control</span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Cấu hình hệ thống: Quản lý Target Apps, Slack Channels Picker, Status Workflow, Urgency Levels, CS Guide Editor & Teams</p>
+            </div>
+            <button onclick="showToast('Đã lưu toàn bộ cấu hình hệ thống!')" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-lg">
+              💾 Save All Settings
+            </button>
           </div>
-          <button onclick="showToast('Đã lưu toàn bộ cấu hình Admin!')" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow">
-            💾 Save All Settings
-          </button>
-        </div>
 
-        <!-- 6 TABS SWITCHER -->
-        <div class="flex items-center space-x-1.5 bg-slate-900 p-1.5 rounded-xl border border-slate-800 flex-wrap gap-y-1 text-xs">
-          <button onclick="switchAdminTabDemo('apps', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white">1. Target Apps</button>
-          <button onclick="switchAdminTabDemo('channels', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">2. Slack Channels Picker</button>
-          <button onclick="switchAdminTabDemo('statuses', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">3. Status Workflow</button>
-          <button onclick="switchAdminTabDemo('urgency', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">4. Urgency Rules</button>
-          <button onclick="switchAdminTabDemo('editor', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">5. Full CS Guide Editor</button>
-          <button onclick="switchAdminTabDemo('teams', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">6. Slack Teams Sync</button>
-        </div>
+          <!-- ADMIN TABS SELECTOR -->
+          <div class="flex items-center space-x-2 border-b border-slate-800 pb-2 text-xs font-semibold overflow-x-auto">
+            <button onclick="switchAdminTab('apps')" id="adm-tab-apps" class="px-3 py-1.5 rounded-lg bg-purple-600 text-white">1. Target Apps</button>
+            <button onclick="switchAdminTab('channels')" id="adm-tab-channels" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">2. Slack Channels Picker</button>
+            <button onclick="switchAdminTab('statuses')" id="adm-tab-statuses" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">3. Status Workflow</button>
+            <button onclick="switchAdminTab('urgency')" id="adm-tab-urgency" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">4. Urgency Rules (4 Levels)</button>
+            <button onclick="switchAdminTab('guide-edit')" id="adm-tab-guide-edit" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">5. Full CS Guide Editor (MD)</button>
+            <button onclick="switchAdminTab('teams')" id="adm-tab-teams" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">6. Slack Teams (@cs & @dev)</button>
+          </div>
 
-        <!-- ADMIN TAB CONTENTS -->
-        <div id="adm-content-apps" class="adm-content-box space-y-4">
-          <div class="flex justify-between items-center text-xs">
-            <h3 class="font-bold text-white">Target Apps Configuration</h3>
-            <button onclick="showToast('Thêm Target App mới...')" class="bg-slate-800 text-slate-200 px-3 py-1 rounded-lg">+ Add Target App</button>
+          <!-- ADMIN TAB 1: TARGET APPS -->
+          <div id="admin-panel-apps" class="space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white text-sm">Target Applications List</h3>
+              <button onclick="addNewTargetAppPrompt()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg">+ Add Target App</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="admin-apps-grid"></div>
           </div>
-          <div class="grid grid-cols-3 gap-3 text-xs">
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-              <div><strong class="text-white block">Avis Product Options</strong><span class="text-slate-400 font-mono text-[10px]">APO</span></div>
-              <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded font-bold">APO</span>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-              <div><strong class="text-white block">Aris Product Badges</strong><span class="text-slate-400 font-mono text-[10px]">APB</span></div>
-              <span class="bg-emerald-500/20 text-emerald-400 text-[10px] px-2 py-0.5 rounded font-bold">APB</span>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-              <div><strong class="text-white block">Aris Color Swatch</strong><span class="text-slate-400 font-mono text-[10px]">ACS</span></div>
-              <span class="bg-purple-500/20 text-purple-400 text-[10px] px-2 py-0.5 rounded font-bold">ACS</span>
-            </div>
-          </div>
-        </div>
 
-        <div id="adm-content-channels" class="adm-content-box hidden space-y-4 text-xs">
-          <div class="flex justify-between items-center">
-            <h3 class="font-bold text-white">Slack Channels Picker (Slack Web API `conversations.list`)</h3>
-            <button onclick="showToast('Calling Slack Web API GET /conversations.list...')" class="bg-blue-600 text-white font-bold px-3 py-1 rounded-lg">+ Select from Slack API</button>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span class="font-bold text-blue-400 font-mono">#apo-paid-task</span>
-              <span class="text-emerald-400 font-bold">Active Sync</span>
+          <!-- ADMIN TAB 2: SLACK CHANNELS PICKER (CHỌN CHANNELS CÓ SẴN TRÊN SLACK - THEO YÊU CẦU CỦA BẠN) -->
+          <div id="admin-panel-channels" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-white text-sm">Slack Channels Configuration</h3>
+                <p class="text-slate-400 text-[11px]">Chọn từ danh sách Channels có sẵn trong workspace Slack của team</p>
+              </div>
+              <button onclick="openSlackChannelPickerModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                + Add Channel (Select from Slack)
+              </button>
             </div>
-            <div class="flex justify-between">
-              <span class="font-bold text-blue-400 font-mono">#apo-urgent-case</span>
-              <span class="text-emerald-400 font-bold">Active Sync</span>
-            </div>
+            <div id="admin-channels-list" class="space-y-2"></div>
           </div>
-        </div>
 
-        <div id="adm-content-statuses" class="adm-content-box hidden space-y-4 text-xs">
-          <h3 class="font-bold text-white">12 Custom Statuses Workflow</h3>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
-              <strong class="text-amber-400 block border-b border-slate-800 pb-1">Nhóm Dev:</strong>
-              <div class="text-slate-300">Chờ check - Dev</div>
-              <div class="text-slate-300">Đang check - Dev</div>
-              <div class="text-slate-300">Đã check - Dev</div>
-              <div class="text-slate-300">Rejected - Dev lead</div>
+          <!-- ADMIN TAB 3: STATUS WORKFLOW -->
+          <div id="admin-panel-statuses" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white text-sm">Standard Statuses Configuration (12 Statuses)</h3>
+              <button onclick="addNewStatusPrompt()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg">+ Add Custom Status</button>
             </div>
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
-              <strong class="text-blue-400 block border-b border-slate-800 pb-1">Nhóm CS:</strong>
-              <div class="text-slate-300">Chờ collab - CS</div>
-              <div class="text-slate-300">CHỜ KHÁCH - CS</div>
-              <div class="text-slate-300">Chờ CS</div>
-              <div class="text-slate-300">Uninstall</div>
-              <div class="text-slate-300">Done - CS</div>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
-              <strong class="text-emerald-400 block border-b border-slate-800 pb-1">Nhóm Follow-up:</strong>
-              <div class="text-slate-300">Fl up 1 (12h)</div>
-              <div class="text-slate-300">Fl up 2 (24h)</div>
-              <div class="text-slate-300">Fl up 3 (36h)</div>
-            </div>
+            <div id="admin-statuses-list" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
           </div>
-        </div>
 
-        <div id="adm-content-urgency" class="adm-content-box hidden space-y-4 text-xs">
-          <h3 class="font-bold text-white">Urgency SLA Rules</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl">
-              <strong class="text-red-400 font-bold block">🔴 Urgent (15 Mins)</strong>
-              <span class="text-slate-400">Order & Checkout broken critical cases</span>
-            </div>
-            <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl">
-              <strong class="text-amber-400 font-bold block">🟠 High (1 Hour)</strong>
-              <span class="text-slate-400">Premium plan merchant requests</span>
+          <!-- ADMIN TAB 4: URGENCY LEVELS (4 CẤP ĐỘ QUY CHUẨN: URGENT, HIGH, MEDIUM, LOW - THEO YÊU CẦU) -->
+          <div id="admin-panel-urgency" class="hidden space-y-4 text-xs">
+            <h3 class="font-bold text-white text-sm">Urgency Levels & Plan Rules Configuration</h3>
+            <div class="space-y-3">
+              <div class="bg-slate-950 p-4 rounded-xl border border-red-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-red-400 text-sm">Urgent:</strong> High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
+                </div>
+                <span class="bg-red-500/20 text-red-300 font-bold px-3 py-1 rounded border border-red-500/40">SLA: 15 mins</span>
+              </div>
+              <div class="bg-slate-950 p-4 rounded-xl border border-amber-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-amber-400 text-sm">High:</strong> Khách hàng gói Premium, Advance plan.
+                </div>
+                <span class="bg-amber-500/20 text-amber-300 font-bold px-3 py-1 rounded border border-amber-500/40">SLA: 1 hour</span>
+              </div>
+              <div class="bg-slate-950 p-4 rounded-xl border border-blue-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-blue-400 text-sm">Medium:</strong> Khách hàng gói Pro, Basic plan.
+                </div>
+                <span class="bg-blue-500/20 text-blue-300 font-bold px-3 py-1 rounded border border-blue-500/40">SLA: 4 hours</span>
+              </div>
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
+                <div>
+                  <strong class="text-slate-400 text-sm">Low:</strong> Khách hàng gói Free, Old, Dev plan.
+                </div>
+                <span class="bg-slate-800 text-slate-300 font-bold px-3 py-1 rounded border border-slate-700">SLA: 24 hours</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div id="adm-content-editor" class="adm-content-box hidden space-y-4 text-xs">
-          <div class="flex justify-between items-center">
-            <h3 class="font-bold text-white">Full CS Guide Markdown Editor + Live Preview</h3>
-            <button onclick="showToast('🚀 Published updated Guide content!')" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded-lg">🚀 Publish Updated Guide</button>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <textarea id="demo-md-editor" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-slate-200" oninput="document.getElementById('demo-md-preview').innerText = this.value"># CS Guide
-1. Crisp Chat
-2. Slack Thread
-3. Transfer</textarea>
-            <div id="demo-md-preview" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-300 whitespace-pre-wrap font-sans"># CS Guide
-1. Crisp Chat
-2. Slack Thread
-3. Transfer</div>
-          </div>
-        </div>
+          <!-- ADMIN TAB 5: CS WORKFLOW GUIDE FULL MARKDOWN EDITOR (SOẠN THẢO TOÀN BỘ BẰNG MD) -->
+          <div id="admin-panel-guide-edit" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white text-sm">Edit Entire CS Workflow Guide Content (Markdown Editor)</h3>
+              <div class="space-x-2">
+                <button onclick="resetDefaultGuideContent()" class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded font-medium">Reset Default</button>
+                <button onclick="publishGuideContent()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded-lg shadow">Publish Updated Guide</button>
+              </div>
+            </div>
 
-        <div id="adm-content-teams" class="adm-content-box hidden space-y-4 text-xs">
-          <h3 class="font-bold text-white">Slack Teams Sync (`usergroups.users.list`)</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-              <div><strong class="text-blue-400 block">🎧 @cs Team</strong><span class="text-slate-400">Aylin Tran, Sarah Miller</span></div>
-              <button onclick="showToast('Synced @cs from Slack!')" class="bg-slate-800 text-slate-200 px-2 py-1 rounded">🔄 Sync</button>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-              <div><strong class="text-purple-400 block">💻 @dev Team</strong><span class="text-slate-400">Alex Chen, Viktor</span></div>
-              <button onclick="showToast('Synced @dev from Slack!')" class="bg-slate-800 text-slate-200 px-2 py-1 rounded">🔄 Sync</button>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Left: Markdown Input Area -->
+              <div class="space-y-1">
+                <label class="text-slate-400 font-semibold block">Markdown Source Code Editor:</label>
+                <textarea id="admin-guide-editor-text" oninput="updateGuideLivePreview()" rows="16" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-200 font-mono text-xs focus:outline-none focus:border-purple-500 leading-relaxed"></textarea>
+              </div>
+
+              <!-- Right: Live Preview Panel -->
+              <div class="space-y-1">
+                <label class="text-purple-400 font-semibold block">Live Preview Result:</label>
+                <div id="admin-guide-editor-preview" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs prose min-h-[300px] overflow-y-auto max-h-[360px] custom-scrollbar"></div>
+              </div>
             </div>
           </div>
+
+          <!-- ADMIN TAB 6: SLACK TEAMS SYNC -->
+          <div id="admin-panel-teams" class="hidden space-y-5 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                  <h4 class="font-bold text-blue-400 flex items-center gap-1">🎧 CS Team (Synced from Slack <code>@cs</code>)</h4>
+                  <button onclick="syncSlackGroup('cs')" class="bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded font-bold">🔄 Sync @cs</button>
+                </div>
+                <div id="admin-cs-team-list" class="space-y-1.5"></div>
+              </div>
+
+              <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                  <h4 class="font-bold text-emerald-400 flex items-center gap-1">💻 Dev Team (Synced from Slack <code>@dev</code>)</h4>
+                  <button onclick="syncSlackGroup('dev')" class="bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded font-bold">🔄 Sync @dev</button>
+                </div>
+                <div id="admin-dev-team-list" class="space-y-1.5"></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -690,7 +579,28 @@
 
   </div>
 
-  <!-- MODALS -->
+  <!-- MODAL: SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG WORKSPACE SLACK) -->
+  <div id="modal-slack-channel-picker" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-4 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-white text-sm">Select Available Channel from Slack Workspace</h3>
+        <button onclick="closeSlackChannelPickerModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <p class="text-slate-400">Chọn 1 channel công khai/riêng tư từ workspace Slack của team để ánh xạ vào Helpdesk OS:</p>
+
+      <div id="slack-workspace-channels-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeSlackChannelPickerModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Cancel</button>
+        <button onclick="confirmSelectSlackChannel()" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 font-bold text-white rounded shadow">+ Map Channel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS TICKET CREATION, TRANSFER & EDIT -->
   <div id="modal-add-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -700,37 +610,26 @@
 
       <div>
         <label class="text-slate-400 block mb-1">App Target:</label>
-        <select id="add-app-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-          <option value="APO">Avis Product Options (APO)</option>
-          <option value="APB">App Bundles (APB)</option>
-          <option value="ACS">Aris Color Swatch (ACS)</option>
-        </select>
+        <select id="add-app-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
       </div>
 
       <div>
         <label class="text-slate-400 block mb-1">Slack Channel:</label>
-        <select id="add-channel-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-          <option value="#apo-paid-task">#apo-paid-task</option>
-          <option value="#apo-urgent-case">#apo-urgent-case</option>
-          <option value="#acs-color-swatch-task">#acs-color-swatch-task</option>
-        </select>
+        <select id="add-channel-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
       </div>
 
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-400 block mb-1">Status:</label>
-          <select id="add-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="Chờ check - Dev" selected>Chờ check - Dev</option>
-            <option value="Chờ collab - CS">Chờ collab - CS</option>
-            <option value="Đang check - Dev">Đang check - Dev</option>
-            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
-          </select>
+          <select id="add-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
         </div>
         <div>
           <label class="text-slate-400 block mb-1">Urgency:</label>
           <select id="add-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="1">1 (Khẩn cấp)</option>
-            <option value="2">2 (Bình thường)</option>
+            <option value="Urgent">Urgent (High risk tickets)</option>
+            <option value="High">High (Premium/Advance)</option>
+            <option value="Medium">Medium (Pro/Basic)</option>
+            <option value="Low">Low (Free/Old/Dev)</option>
           </select>
         </div>
       </div>
@@ -757,7 +656,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: TRANSFER TICKET -->
+  <!-- MODAL TRANSFER TICKET -->
   <div id="modal-transfer-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -770,11 +669,7 @@
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-400 block mb-1">Transfer to:</label>
-          <select id="transfer-to-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="Aylin Tran">Aylin Tran</option>
-            <option value="Ngan Pham">Ngan Pham</option>
-            <option value="Ha Tran">Ha Tran</option>
-          </select>
+          <select id="transfer-to-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
         </div>
         <div>
           <label class="text-slate-400 block mb-1">Remind:</label>
@@ -785,19 +680,15 @@
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-400 block mb-1">Status:</label>
-          <select id="transfer-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="Chờ check - Dev">Chờ check - Dev</option>
-            <option value="Đang check - Dev">Đang check - Dev</option>
-            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
-            <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
-            <option value="Done - CS">Done - CS</option>
-          </select>
+          <select id="transfer-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
         </div>
         <div>
           <label class="text-slate-400 block mb-1">Urgency:</label>
           <select id="transfer-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="1">1 (Khẩn cấp)</option>
-            <option value="2">2 (Bình thường)</option>
+            <option value="Urgent">Urgent (High risk tickets)</option>
+            <option value="High">High (Premium/Advance)</option>
+            <option value="Medium">Medium (Pro/Basic)</option>
+            <option value="Low">Low (Free/Old/Dev)</option>
           </select>
         </div>
       </div>
@@ -819,7 +710,7 @@
     </div>
   </div>
 
-  <!-- MODAL 3: EDIT TICKET -->
+  <!-- MODAL EDIT TICKET -->
   <div id="modal-edit-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -832,26 +723,15 @@
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-400 block mb-1">Status:</label>
-          <select id="edit-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="Chờ collab - CS">Chờ collab - CS</option>
-            <option value="Chờ check - Dev">Chờ check - Dev</option>
-            <option value="Đang check - Dev">Đang check - Dev</option>
-            <option value="Đã check - Dev">Đã check - Dev</option>
-            <option value="Rejected - Dev lead">Rejected - Dev lead</option>
-            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
-            <option value="Chờ CS">Chờ CS</option>
-            <option value="Uninstall">Uninstall</option>
-            <option value="Done - CS">Done - CS</option>
-            <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
-            <option value="Fl up 2 (24h)">Fl up 2 (24h)</option>
-            <option value="Fl up 3 (36h)">Fl up 3 (36h)</option>
-          </select>
+          <select id="edit-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
         </div>
         <div>
           <label class="text-slate-400 block mb-1">Urgency:</label>
           <select id="edit-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="1">1 (Khẩn cấp)</option>
-            <option value="2">2 (Bình thường)</option>
+            <option value="Urgent">Urgent (High risk tickets)</option>
+            <option value="High">High (Premium/Advance)</option>
+            <option value="Medium">Medium (Pro/Basic)</option>
+            <option value="Low">Low (Free/Old/Dev)</option>
           </select>
         </div>
       </div>
@@ -861,8 +741,7 @@
           <label class="text-slate-300 font-semibold">Tags (Gán nhiều Tag):</label>
           <button onclick="openTaggingModal()" class="text-blue-400 hover:underline text-[11px] font-bold">+ Select / Add Tags</button>
         </div>
-        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 bg-slate-950 border border-slate-800 rounded-lg min-h-[36px]">
-        </div>
+        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 bg-slate-950 border border-slate-800 rounded-lg min-h-[36px]"></div>
       </div>
 
       <div>
@@ -884,7 +763,7 @@
     </div>
   </div>
 
-  <!-- MODAL 4: SHOPIFY-STYLE TAGGING SELECTION MODAL -->
+  <!-- MODAL TAGGING SELECTION -->
   <div id="modal-tagging-select" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-5 space-y-4 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -904,8 +783,7 @@
           <button onclick="deselectAllTags()" class="text-blue-400 text-[11px] hover:underline">Deselect all</button>
         </div>
 
-        <div id="available-tags-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
-        </div>
+        <div id="available-tags-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
       </div>
 
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
@@ -915,15 +793,92 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT STATE & CONTROLLERS -->
+  <!-- JAVASCRIPT STATE & SYSTEM CONTROLLERS -->
   <script>
     const availableTagsMaster = ['Live preview', 'Option Set', 'Bundle Cart', 'Theme Conflict', 'CSS Issue', 'Checkout Fix', 'VIP Merchant', 'Bug Signal', 'Refund Ask'];
+
+    const defaultGuideMarkdownContent = `# 📖 CS Operational Workflow Guide — Helpdesk OS
+
+Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS Agent) của hệ sinh thái Shopify Apps.
+
+---
+
+### 1. Sơ Đồ Luồng Vận Hành 4 Bước (Step-by-Step Flow)
+
+- **Step 1: Tiếp nhận trên Crisp Chat**
+  Khách chat tới trên Crisp ➔ CS kiểm tra Crisp Plugin ở bên phải để xem **Store Domain**, **Sub-domains** và bảng **Visitor Data**.
+
+- **Step 2: Tạo Ticket (\`+ Add ticket\`)**
+  Bấm \`+ Add ticket\` từ Crisp Plugin ➔ Chọn Target App, Slack Channel, Status, Urgency, Tag ➔ Hệ thống tự động tạo bài đăng Slack Thread dưới tên cá nhân CS (Slack OAuth User Token).
+
+- **Step 3: Thảo luận duy nhất tại Slack**
+  Mọi trao đổi file, nhắn Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe webhook để update status mà không gửi notification push gây nhiễu.
+
+- **Step 4: Bàn giao ca trực (\`🔄 Transfer Ticket\`)**
+  Hết ca trực ➔ CS mở modal Transfer ➔ Điền \`Note transfer case\` (ghi chú ca trực ngắn hạn) + Auto-load \`Summary note\` (tóm tắt lưu DB) ➔ Chuyển ca trực tiếp không bị đứt đoạn.
+
+---
+
+### 2. Quy Tắc 4 Cấp Độ Urgency & Plan Rules
+
+- **Urgent (Red)**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
+- **High (Amber)**: Khách hàng gói **Premium, Advance plan**.
+- **Medium (Blue)**: Khách hàng gói **Pro, Basic plan**.
+- **Low (Slate)**: Khách hàng gói **Free, Old, Dev plan**.
+
+---
+
+### 3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)
+
+1. **Card 1 - Note transfer case**: Ghi chú ngắn hạn ca trực giữa các CS với nhau (được ghi đè theo từng lần giao ca).
+2. **Card 2 - Summary note**: Tóm tắt bản chất kỹ thuật gốc lưu trong DB (tự động load vào Form Transfer mà CS không cần copy-paste).
+`;
+
+    // AVAILABLE SLACK WORKSPACE CHANNELS TO PICK FROM (SLACK WORKSPACE CANONICAL LIST)
+    const slackWorkspaceChannelsList = [
+      { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of Aris Product Options' },
+      { code: '#apo-urgent-case', desc: 'Urgent escalations and checkout bugs' },
+      { code: '#acs-color-swatch-task', desc: 'Color Swatch issues and theme tasks' },
+      { code: '#apb-general-support', desc: 'App Bundles customer requests' },
+      { code: '#feedback-loop-csat', desc: 'CSAT and feedback loop tracking' },
+      { code: '#dev-escalations-critical', desc: 'Critical bug escalations for Dev Leads' }
+    ];
 
     const state = {
       activeAppFilter: 'ALL',
       activeAssigneeFilter: 'ALL',
       currentStoreDomain: 'kaifit.myapp.io',
+      selectedSlackChannelTemp: null,
       tempEditingTags: [],
+      config: {
+        apps: [
+          { code: 'APO', name: 'Avis Product Options', icon: '🎨' },
+          { code: 'APB', name: 'App Bundles', icon: '📦' },
+          { code: 'ACS', name: 'Aris Color Swatch', icon: '🎨' }
+        ],
+        slackChannels: [
+          { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of APO' },
+          { code: '#apo-urgent-case', desc: 'Urgent escalations and checkout bugs' },
+          { code: '#acs-color-swatch-task', desc: 'Color Swatch issues and theme tasks' }
+        ],
+        statuses: [
+          { code: 'Chờ collab - CS', group: 'CS' },
+          { code: 'Chờ check - Dev', group: 'Dev' },
+          { code: 'Đang check - Dev', group: 'Dev' },
+          { code: 'Đã check - Dev', group: 'Dev' },
+          { code: 'Rejected - Dev lead', group: 'Dev' },
+          { code: 'CHỜ KHÁCH - CS', group: 'CS' },
+          { code: 'Chờ CS', group: 'CS' },
+          { code: 'Uninstall', group: 'CS' },
+          { code: 'Done - CS', group: 'CS' },
+          { code: 'Fl up 1 (12h)', group: 'Followup' },
+          { code: 'Fl up 2 (24h)', group: 'Followup' },
+          { code: 'Fl up 3 (36h)', group: 'Followup' }
+        ],
+        csTeam: ['Aylin Tran', 'Ngan Pham', 'Ha Tran'],
+        devTeam: ['Tuan Nguyen', 'Minh Dao', 'Hung Le'],
+        guideMarkdown: defaultGuideMarkdownContent
+      },
       tickets: [
         {
           id: 'TK-4821',
@@ -931,7 +886,7 @@
           channel: '#apo-paid-task',
           storeUrl: 'woodesign.ie.myshopify.com',
           status: 'Đang check - Dev',
-          urgency: '1',
+          urgency: 'Urgent',
           assignedTo: 'Aylin Tran',
           timestamp: '4:53 pm 19/08/2026',
           requestContent: 'style button ở collection page không giống style khách đang set up trong app.',
@@ -946,7 +901,7 @@
           channel: '#apo-urgent-case',
           storeUrl: 'kaifit.myapp.io',
           status: 'Fl up 1 (12h)',
-          urgency: '2',
+          urgency: 'High',
           assignedTo: 'Aylin Tran',
           timestamp: '6:46 pm 18/08/2026',
           requestContent: 'Khách nhận order mất option KTGPS-2522, KTGPS-2511.',
@@ -961,7 +916,7 @@
           channel: '#apo-paid-task',
           storeUrl: 'bloomco.myshopify.com',
           status: 'Chờ check - Dev',
-          urgency: '1',
+          urgency: 'Medium',
           assignedTo: 'Ngan Pham',
           timestamp: '10:15 am 19/08/2026',
           requestContent: 'Bundle discount price calculations wrong on mobile checkout.',
@@ -1010,40 +965,221 @@
 
     function switchInternalView(viewId) {
       ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide', 'admin'].forEach(v => {
-        const viewEl = document.getElementById('internal-view-' + v);
-        if (viewEl) viewEl.classList.add('hidden');
+        document.getElementById('internal-view-' + v).classList.add('hidden');
         const el = document.getElementById('side-' + v);
-        if (el) {
-          if (v === 'guide') {
-            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-medium hover:bg-slate-900 flex items-center space-x-2";
-          } else if (v === 'admin') {
-            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 flex items-center space-x-2";
-          } else {
-            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2";
-          }
-        }
+        if (el) el.className = "w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2";
       });
-      const targetView = document.getElementById('internal-view-' + viewId);
-      if (targetView) targetView.classList.remove('hidden');
+      document.getElementById('internal-view-' + viewId).classList.remove('hidden');
       const activeEl = document.getElementById('side-' + viewId);
       if (activeEl) {
-        if (viewId === 'guide') {
+        if (viewId === 'admin') activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-purple-600 text-white shadow-sm flex items-center space-x-2";
+        else if (viewId === 'guide') {
           activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2";
-        } else if (viewId === 'admin') {
-          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-purple-600 text-white shadow-sm flex items-center space-x-2";
-        } else {
-          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
+          renderCSGuideMarkdownView();
         }
+        else activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
       }
     }
 
-    function switchAdminTabDemo(tabKey, btn) {
-      document.querySelectorAll('.adm-content-box').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.adm-tab-btn').forEach(b => b.className = "adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white");
+    function switchAdminTab(tab) {
+      ['apps', 'channels', 'statuses', 'urgency', 'guide-edit', 'teams'].forEach(t => {
+        document.getElementById('admin-panel-' + t).classList.add('hidden');
+        const btn = document.getElementById('adm-tab-' + t);
+        if (btn) btn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white";
+      });
+      document.getElementById('admin-panel-' + tab).classList.remove('hidden');
+      document.getElementById('adm-tab-' + tab).className = "px-3 py-1.5 rounded-lg bg-purple-600 text-white font-bold";
       
-      const target = document.getElementById('adm-content-' + tabKey);
-      if (target) target.classList.remove('hidden');
-      btn.className = "adm-tab-btn px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white";
+      if (tab === 'guide-edit') {
+        document.getElementById('admin-guide-editor-text').value = state.config.guideMarkdown;
+        updateGuideLivePreview();
+      }
+    }
+
+    // URGENCY BADGE STYLING HELPER (URGENT, HIGH, MEDIUM, LOW)
+    function getUrgencyBadgeHtml(urgency) {
+      if (urgency === 'Urgent') return `<span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-2 py-0.5 rounded font-bold">🔴 Urgent (High risk)</span>`;
+      if (urgency === 'High') return `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded font-bold">🟠 High (Premium)</span>`;
+      if (urgency === 'Medium') return `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs px-2 py-0.5 rounded font-medium">🔵 Medium (Pro)</span>`;
+      return `<span class="bg-slate-800 text-slate-400 text-xs px-2 py-0.5 rounded font-medium">⚪ Low (Free/Dev)</span>`;
+    }
+
+    // SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG SLACK WORKSPACE)
+    function openSlackChannelPickerModal() {
+      const container = document.getElementById('slack-workspace-channels-list');
+      container.innerHTML = slackWorkspaceChannelsList.map(ch => {
+        const isMapped = state.config.slackChannels.some(c => c.code === ch.code);
+        return `
+          <label class="bg-slate-950 border ${isMapped ? 'border-purple-500/40 bg-purple-500/10' : 'border-slate-800'} p-3 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/60">
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="slack-channel-radio" value="${ch.code}" ${isMapped ? 'disabled' : ''} onchange="state.selectedSlackChannelTemp = '${ch.code}'" class="rounded-full bg-slate-900 border-slate-700 text-purple-600">
+              <div>
+                <strong class="text-purple-300 font-mono">${ch.code}</strong>
+                <p class="text-slate-400 text-[11px]">${ch.desc}</p>
+              </div>
+            </div>
+            ${isMapped ? '<span class="text-emerald-400 text-[10px] font-bold">Already Mapped</span>' : '<span class="text-slate-500 text-[10px]">Available</span>'}
+          </label>
+        `;
+      }).join('');
+      document.getElementById('modal-slack-channel-picker').classList.remove('hidden');
+    }
+
+    function closeSlackChannelPickerModal() {
+      document.getElementById('modal-slack-channel-picker').classList.add('hidden');
+    }
+
+    function confirmSelectSlackChannel() {
+      if (state.selectedSlackChannelTemp) {
+        const found = slackWorkspaceChannelsList.find(ch => ch.code === state.selectedSlackChannelTemp);
+        if (found) {
+          state.config.slackChannels.push({ code: found.code, desc: found.desc });
+          renderAdminPanels();
+          closeSlackChannelPickerModal();
+          showToast(`Đã ánh xạ kênh Slack ${found.code} vào hệ thống!`);
+        }
+      } else {
+        alert('Vui lòng chọn 1 channel từ danh sách!');
+      }
+    }
+
+    // FULL MARKDOWN CS GUIDE EDITOR CONTROLLERS
+    function updateGuideLivePreview() {
+      const src = document.getElementById('admin-guide-editor-text').value;
+      document.getElementById('admin-guide-editor-preview').innerHTML = marked.parse(src || '');
+    }
+
+    function publishGuideContent() {
+      state.config.guideMarkdown = document.getElementById('admin-guide-editor-text').value;
+      renderCSGuideMarkdownView();
+      showToast('Đã xuất bản toàn bộ bài hướng dẫn CS Workflow Guide mới!');
+    }
+
+    function resetDefaultGuideContent() {
+      state.config.guideMarkdown = defaultGuideMarkdownContent;
+      document.getElementById('admin-guide-editor-text').value = defaultGuideMarkdownContent;
+      updateGuideLivePreview();
+      showToast('Đã khôi phục bài CS Guide về mặc định!');
+    }
+
+    function renderCSGuideMarkdownView() {
+      const view = document.getElementById('guide-markdown-rendered-view');
+      if (view) {
+        view.innerHTML = marked.parse(state.config.guideMarkdown || defaultGuideMarkdownContent);
+      }
+    }
+
+    // RENDER ADMIN PANELS
+    function renderAdminPanels() {
+      const appsGrid = document.getElementById('admin-apps-grid');
+      appsGrid.innerHTML = state.config.apps.map(a => `
+        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+          <div>
+            <strong class="text-white text-sm">${a.icon} ${a.name}</strong>
+            <div class="text-slate-400 font-mono text-[11px]">Code: ${a.code}</div>
+          </div>
+          <button onclick="removeTargetApp('${a.code}')" class="text-red-400 hover:underline">Remove</button>
+        </div>
+      `).join('');
+
+      const channelsList = document.getElementById('admin-channels-list');
+      channelsList.innerHTML = state.config.slackChannels.map(c => `
+        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+          <div>
+            <strong class="text-purple-300 font-mono text-xs">${c.code}</strong>
+            <p class="text-slate-400 text-[11px]">${c.desc}</p>
+          </div>
+          <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px] font-bold">Active Sync</span>
+        </div>
+      `).join('');
+
+      const statusesList = document.getElementById('admin-statuses-list');
+      statusesList.innerHTML = state.config.statuses.map(s => `
+        <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between">
+          <span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[11px] font-bold">${s.code}</span>
+          <span class="text-slate-500 text-[10px]">${s.group}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-cs-team-list').innerHTML = state.config.csTeam.map(m => `
+        <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center text-slate-200">
+          <span>🎧 ${m}</span> <span class="text-blue-400 text-[10px] font-mono">@cs member</span>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-dev-team-list').innerHTML = state.config.devTeam.map(m => `
+        <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center text-slate-200">
+          <span>💻 ${m}</span> <span class="text-emerald-400 text-[10px] font-mono">@dev member</span>
+        </div>
+      `).join('');
+
+      // Sidebar apps render
+      document.getElementById('sidebar-apps-list').innerHTML = state.config.apps.map(a => `
+        <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-300 hover:bg-slate-900 hover:text-white flex items-center justify-between">
+          <span>${a.icon} ${a.name}</span>
+          <span class="text-[10px] bg-slate-800 px-1.5 py-0.2 rounded font-mono">${a.code}</span>
+        </button>
+      `).join('');
+
+      populateSelectDropdowns();
+    }
+
+    function populateSelectDropdowns() {
+      const appBtns = document.getElementById('dashboard-app-filter-buttons');
+      appBtns.innerHTML = `
+        <span class="text-xs font-semibold text-slate-400 uppercase mr-1">App Filter:</span>
+        <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-semibold ${state.activeAppFilter === 'ALL' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300'}">ALL</button>
+      ` + state.config.apps.map(a => `
+        <button onclick="filterByApp('${a.code}')" id="appbtn-${a.code}" class="px-3 py-1 rounded-lg text-xs font-medium ${state.activeAppFilter === a.code ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${a.code}</button>
+      `).join('');
+
+      document.getElementById('add-app-select').innerHTML = state.config.apps.map(a => `<option value="${a.code}">${a.name} (${a.code})</option>`).join('');
+      document.getElementById('add-channel-select').innerHTML = state.config.slackChannels.map(c => `<option value="${c.code}">${c.code}</option>`).join('');
+      
+      const statusOptionsHtml = state.config.statuses.map(s => `<option value="${s.code}">${s.code}</option>`).join('');
+      document.getElementById('add-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('transfer-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('edit-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('status-filter-select').innerHTML = `<option value="ALL">All Statuses ▾</option>` + statusOptionsHtml;
+
+      document.getElementById('transfer-to-select').innerHTML = state.config.csTeam.map(m => `<option value="${m}">${m}</option>`).join('');
+    }
+
+    function addNewTargetAppPrompt() {
+      const code = prompt('Nhập App Code ngắn (VD: APX):');
+      const name = prompt('Nhập Tên đầy đủ ứng dụng:');
+      if (code && name) {
+        state.config.apps.push({ code: code.toUpperCase(), name: name, icon: '🚀' });
+        renderAdminPanels();
+        showToast(`Đã thêm Target App mới: ${code.toUpperCase()}!`);
+      }
+    }
+
+    function removeTargetApp(code) {
+      state.config.apps = state.config.apps.filter(a => a.code !== code);
+      renderAdminPanels();
+      showToast(`Đã gỡ Target App ${code}!`);
+    }
+
+    function addNewStatusPrompt() {
+      const statusName = prompt('Nhập tên Trạng thái mới:');
+      if (statusName) {
+        state.config.statuses.push({ code: statusName, group: 'Custom' });
+        renderAdminPanels();
+        showToast(`Đã thêm Trạng thái mới: ${statusName}!`);
+      }
+    }
+
+    function syncSlackGroup(group) {
+      if (group === 'cs') {
+        state.config.csTeam = ['Aylin Tran', 'Ngan Pham', 'Ha Tran', 'Thao Vo (Slack @cs)'];
+        renderAdminPanels();
+        showToast('Đã đồng bộ thành công danh sách CS Team từ Slack user group @cs!');
+      } else {
+        state.config.devTeam = ['Tuan Nguyen', 'Minh Dao', 'Hung Le', 'Bao Nguyen (Slack @dev)'];
+        renderAdminPanels();
+        showToast('Đã đồng bộ thành công danh sách Dev Team từ Slack user group @dev!');
+      }
     }
 
     function navigateToShopInfo(domain) {
@@ -1070,7 +1206,7 @@
       const filtered = state.tickets.filter(t => t.storeUrl.toLowerCase().includes(state.currentStoreDomain.toLowerCase()));
       
       document.getElementById('shop-ticket-count-badge').innerText = filtered.length;
-      document.getElementById('shop-urgent-count').innerText = `${filtered.filter(t => t.urgency === '1').length} URGENT`;
+      document.getElementById('shop-urgent-count').innerText = `${filtered.filter(t => t.urgency === 'Urgent').length} URGENT`;
 
       if (filtered.length === 0) {
         container.innerHTML = `<div class="text-xs text-slate-500 italic p-4 bg-slate-950 rounded-xl border border-slate-800">Chưa có ticket nào được tạo cho store domain này.</div>`;
@@ -1083,7 +1219,7 @@
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div class="flex items-center space-x-2">
                 <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
-                <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-medium">Urgency: ${t.urgency}</span>
+                ${getUrgencyBadgeHtml(t.urgency)}
                 <span class="text-xs text-slate-400 font-mono">${t.id}</span>
                 <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
               </div>
@@ -1151,7 +1287,7 @@
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div class="flex items-center space-x-2">
                 <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
-                <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-medium">Urgency: ${t.urgency}</span>
+                ${getUrgencyBadgeHtml(t.urgency)}
                 <span class="text-xs text-slate-400 font-mono">${t.id}</span>
                 <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
               </div>
@@ -1202,7 +1338,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
           <div class="flex items-center justify-between">
             <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full font-bold">🟡 ${t.status}</span>
-            <span class="text-[10px] text-slate-500">Urgency: ${t.urgency}</span>
+            <span class="text-[10px] text-slate-500 font-bold">${t.urgency}</span>
           </div>
           <div class="text-slate-300 font-medium">${t.requestContent}</div>
           <div class="flex items-center space-x-1.5 pt-1">
@@ -1421,9 +1557,9 @@
 
     function filterByApp(app) {
       state.activeAppFilter = app;
-      ['ALL', 'APO', 'APB', 'ACS'].forEach(a => {
-        const btn = document.getElementById('appbtn-' + a);
-        if (btn) btn.className = a === app ? "px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700";
+      state.config.apps.concat([{code:'ALL'}]).forEach(a => {
+        const btn = document.getElementById('appbtn-' + a.code);
+        if (btn) btn.className = a.code === app ? "px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700";
       });
       renderTickets();
     }
@@ -1464,16 +1600,18 @@
     function showToast(msg) {
       const container = document.getElementById('toast-container');
       const div = document.createElement('div');
-      div.className = "bg-blue-600 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl font-bold flex items-center gap-2 toast-animate pointer-events-auto border border-blue-400/30";
-      div.innerHTML = `<span>🚀</span> <span>${msg}</span>`;
+      div.className = "bg-purple-600 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl font-bold flex items-center gap-2 toast-animate pointer-events-auto border border-purple-400/30";
+      div.innerHTML = `<span>⚡</span> <span>${msg}</span>`;
       container.appendChild(div);
       setTimeout(() => div.remove(), 4000);
     }
 
     window.onload = function() {
+      renderAdminPanels();
       renderTickets();
       renderReviews();
       renderShopTickets();
+      renderCSGuideMarkdownView();
     };
   </script>
 </body>

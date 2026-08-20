@@ -203,20 +203,15 @@
 
         <!-- CATEGORY 1: APPS -->
         <div class="space-y-1">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">APPS</div>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-between">
-            <span>🎨 Avis Product Options</span>
-            <span class="text-[10px] bg-blue-500/30 px-1.5 py-0.2 rounded">v2</span>
-          </button>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>📦 App Bundles</span>
-          </button>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>🤝 Partner Discounts</span>
-          </button>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">TARGET APPS</div>
+          <div class="flex items-center space-x-1.5 px-2 py-1">
+            <span class="bg-blue-600/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-bold cursor-pointer" onclick="filterByApp('APO')">APO</span>
+            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded border border-emerald-500/30 font-bold cursor-pointer" onclick="filterByApp('APB')">APB</span>
+            <span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded border border-purple-500/30 font-bold cursor-pointer" onclick="filterByApp('ACS')">ACS</span>
+          </div>
         </div>
 
-        <!-- CATEGORY 2: HELPDESK CS TOOLS (BỔ SUNG MÀN HÌNH CS WORKFLOW GUIDE) -->
+        <!-- CATEGORY 2: HELPDESK CS TOOLS -->
         <div class="space-y-1 border-t border-slate-800/80 pt-3">
           <div class="text-[10px] font-bold uppercase tracking-wider text-blue-400 px-2 mb-1">HELPDESK CS TOOLS</div>
           <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
@@ -239,20 +234,11 @@
           </button>
         </div>
 
-        <!-- CATEGORY 3: TOOLS -->
+        <!-- CATEGORY 3: ADMIN & DEV TOOLS -->
         <div class="space-y-1 border-t border-slate-800/80 pt-3">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">TOOLS</div>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>📑 Internal Docs</span>
-          </button>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>📌 Jira Docs</span>
-          </button>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>⚙️ Common Tools</span>
-          </button>
-          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
-            <span>📊 Reports</span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-purple-400 px-2 mb-1">ADMIN & DEV TOOLS</div>
+          <button onclick="switchInternalView('admin')" id="side-admin" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 flex items-center space-x-2">
+            <span>⚙️ Admin Settings</span>
           </button>
         </div>
 
@@ -559,6 +545,142 @@
                   Là tóm tắt **bản chất kỹ thuật gốc** của ticket được lưu cố định trong cơ sở dữ liệu. Khi mở Modal Transfer, nội dung này **tự động load vào form**, CS ca sau không cần copy paste thủ công.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 7: ADMIN SETTINGS (MODULE 8 - 6 TABS) -->
+      <div id="internal-view-admin" class="hidden space-y-6">
+        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/20 border border-purple-500/30 rounded-2xl p-5 flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-purple-300 flex items-center gap-2">
+              ⚙️ Admin & System Settings Control Panel
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Dành riêng cho vai trò `admin` và `dev_lead` (PO / Lead)</p>
+          </div>
+          <button onclick="showToast('Đã lưu toàn bộ cấu hình Admin!')" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow">
+            💾 Save All Settings
+          </button>
+        </div>
+
+        <!-- 6 TABS SWITCHER -->
+        <div class="flex items-center space-x-1.5 bg-slate-900 p-1.5 rounded-xl border border-slate-800 flex-wrap gap-y-1 text-xs">
+          <button onclick="switchAdminTabDemo('apps', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white">1. Target Apps</button>
+          <button onclick="switchAdminTabDemo('channels', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">2. Slack Channels Picker</button>
+          <button onclick="switchAdminTabDemo('statuses', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">3. Status Workflow</button>
+          <button onclick="switchAdminTabDemo('urgency', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">4. Urgency Rules</button>
+          <button onclick="switchAdminTabDemo('editor', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">5. Full CS Guide Editor</button>
+          <button onclick="switchAdminTabDemo('teams', this)" class="adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">6. Slack Teams Sync</button>
+        </div>
+
+        <!-- ADMIN TAB CONTENTS -->
+        <div id="adm-content-apps" class="adm-content-box space-y-4">
+          <div class="flex justify-between items-center text-xs">
+            <h3 class="font-bold text-white">Target Apps Configuration</h3>
+            <button onclick="showToast('Thêm Target App mới...')" class="bg-slate-800 text-slate-200 px-3 py-1 rounded-lg">+ Add Target App</button>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+              <div><strong class="text-white block">Avis Product Options</strong><span class="text-slate-400 font-mono text-[10px]">APO</span></div>
+              <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded font-bold">APO</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+              <div><strong class="text-white block">Aris Product Badges</strong><span class="text-slate-400 font-mono text-[10px]">APB</span></div>
+              <span class="bg-emerald-500/20 text-emerald-400 text-[10px] px-2 py-0.5 rounded font-bold">APB</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+              <div><strong class="text-white block">Aris Color Swatch</strong><span class="text-slate-400 font-mono text-[10px]">ACS</span></div>
+              <span class="bg-purple-500/20 text-purple-400 text-[10px] px-2 py-0.5 rounded font-bold">ACS</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="adm-content-channels" class="adm-content-box hidden space-y-4 text-xs">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-white">Slack Channels Picker (Slack Web API `conversations.list`)</h3>
+            <button onclick="showToast('Calling Slack Web API GET /conversations.list...')" class="bg-blue-600 text-white font-bold px-3 py-1 rounded-lg">+ Select from Slack API</button>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span class="font-bold text-blue-400 font-mono">#apo-paid-task</span>
+              <span class="text-emerald-400 font-bold">Active Sync</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-bold text-blue-400 font-mono">#apo-urgent-case</span>
+              <span class="text-emerald-400 font-bold">Active Sync</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="adm-content-statuses" class="adm-content-box hidden space-y-4 text-xs">
+          <h3 class="font-bold text-white">12 Custom Statuses Workflow</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
+              <strong class="text-amber-400 block border-b border-slate-800 pb-1">Nhóm Dev:</strong>
+              <div class="text-slate-300">Chờ check - Dev</div>
+              <div class="text-slate-300">Đang check - Dev</div>
+              <div class="text-slate-300">Đã check - Dev</div>
+              <div class="text-slate-300">Rejected - Dev lead</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
+              <strong class="text-blue-400 block border-b border-slate-800 pb-1">Nhóm CS:</strong>
+              <div class="text-slate-300">Chờ collab - CS</div>
+              <div class="text-slate-300">CHỜ KHÁCH - CS</div>
+              <div class="text-slate-300">Chờ CS</div>
+              <div class="text-slate-300">Uninstall</div>
+              <div class="text-slate-300">Done - CS</div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl space-y-1">
+              <strong class="text-emerald-400 block border-b border-slate-800 pb-1">Nhóm Follow-up:</strong>
+              <div class="text-slate-300">Fl up 1 (12h)</div>
+              <div class="text-slate-300">Fl up 2 (24h)</div>
+              <div class="text-slate-300">Fl up 3 (36h)</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="adm-content-urgency" class="adm-content-box hidden space-y-4 text-xs">
+          <h3 class="font-bold text-white">Urgency SLA Rules</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-xl">
+              <strong class="text-red-400 font-bold block">🔴 Urgent (15 Mins)</strong>
+              <span class="text-slate-400">Order & Checkout broken critical cases</span>
+            </div>
+            <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl">
+              <strong class="text-amber-400 font-bold block">🟠 High (1 Hour)</strong>
+              <span class="text-slate-400">Premium plan merchant requests</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="adm-content-editor" class="adm-content-box hidden space-y-4 text-xs">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-white">Full CS Guide Markdown Editor + Live Preview</h3>
+            <button onclick="showToast('🚀 Published updated Guide content!')" class="bg-emerald-600 text-white font-bold px-3 py-1 rounded-lg">🚀 Publish Updated Guide</button>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <textarea id="demo-md-editor" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-slate-200" oninput="document.getElementById('demo-md-preview').innerText = this.value"># CS Guide
+1. Crisp Chat
+2. Slack Thread
+3. Transfer</textarea>
+            <div id="demo-md-preview" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-300 whitespace-pre-wrap font-sans"># CS Guide
+1. Crisp Chat
+2. Slack Thread
+3. Transfer</div>
+          </div>
+        </div>
+
+        <div id="adm-content-teams" class="adm-content-box hidden space-y-4 text-xs">
+          <h3 class="font-bold text-white">Slack Teams Sync (`usergroups.users.list`)</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+              <div><strong class="text-blue-400 block">🎧 @cs Team</strong><span class="text-slate-400">Aylin Tran, Sarah Miller</span></div>
+              <button onclick="showToast('Synced @cs from Slack!')" class="bg-slate-800 text-slate-200 px-2 py-1 rounded">🔄 Sync</button>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+              <div><strong class="text-purple-400 block">💻 @dev Team</strong><span class="text-slate-400">Alex Chen, Viktor</span></div>
+              <button onclick="showToast('Synced @dev from Slack!')" class="bg-slate-800 text-slate-200 px-2 py-1 rounded">🔄 Sync</button>
             </div>
           </div>
         </div>
@@ -887,14 +1009,41 @@
     }
 
     function switchInternalView(viewId) {
-      ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide'].forEach(v => {
-        document.getElementById('internal-view-' + v).classList.add('hidden');
+      ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide', 'admin'].forEach(v => {
+        const viewEl = document.getElementById('internal-view-' + v);
+        if (viewEl) viewEl.classList.add('hidden');
         const el = document.getElementById('side-' + v);
-        if (el) el.className = v === 'guide' ? "w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-medium hover:bg-slate-900 flex items-center space-x-2" : "w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2";
+        if (el) {
+          if (v === 'guide') {
+            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-medium hover:bg-slate-900 flex items-center space-x-2";
+          } else if (v === 'admin') {
+            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 flex items-center space-x-2";
+          } else {
+            el.className = "w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2";
+          }
+        }
       });
-      document.getElementById('internal-view-' + viewId).classList.remove('hidden');
+      const targetView = document.getElementById('internal-view-' + viewId);
+      if (targetView) targetView.classList.remove('hidden');
       const activeEl = document.getElementById('side-' + viewId);
-      if (activeEl) activeEl.className = viewId === 'guide' ? "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2" : "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
+      if (activeEl) {
+        if (viewId === 'guide') {
+          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2";
+        } else if (viewId === 'admin') {
+          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-purple-600 text-white shadow-sm flex items-center space-x-2";
+        } else {
+          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
+        }
+      }
+    }
+
+    function switchAdminTabDemo(tabKey, btn) {
+      document.querySelectorAll('.adm-content-box').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.adm-tab-btn').forEach(b => b.className = "adm-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white");
+      
+      const target = document.getElementById('adm-content-' + tabKey);
+      if (target) target.classList.remove('hidden');
+      btn.className = "adm-tab-btn px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white";
     }
 
     function navigateToShopInfo(domain) {

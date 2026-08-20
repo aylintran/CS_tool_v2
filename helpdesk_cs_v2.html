@@ -505,9 +505,9 @@
         
         <!-- Platform Switcher Tabs -->
         <div class="tabs-group" style="margin-left: 8px;">
-          <button class="tab-btn" onclick="toggleCrispPlugin()">💬 Crisp Chat</button>
-          <button class="tab-btn" onclick="showToast('Opening Slack Thread Sync Platform...')">💬 Slack Sync</button>
-          <button class="tab-btn active">🌐 Web App</button>
+          <button class="tab-btn" onclick="switchPlatform('crisp')">💬 Crisp Chat</button>
+          <button class="tab-btn" onclick="switchPlatform('slack')">💬 Slack Sync</button>
+          <button class="tab-btn active" onclick="switchPlatform('internal')">🌐 Web App</button>
         </div>
       </div>
 
@@ -1230,7 +1230,1268 @@
         </div>
       </section>
 
+    <div id="view-duty" class="hidden space-y-6">
+        <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-5 text-xs space-y-4">
+          <div class="flex justify-between items-center border-b style="border: 1px solid var(--sds-color-border);" pb-3">
+            <div>
+              <h2 class="text-lg font-bold style="color: var(--sds-color-text-primary);"">Duty Shift Roster (CS & Dev Roster)</h2>
+              <p class="style="color: var(--sds-color-text-secondary);"">Week 33 • Aug 10 - Aug 16 ICT (UTC+7)</p>
+            </div>
+            <button onclick="showToast('Roster published successfully to team!')" class="bg-emerald-600 hover:bg-emerald-500 style="color: var(--sds-color-text-primary);" font-bold px-3 py-1.5 rounded-lg">Publish Roster</button>
+          </div>
+
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b style="border: 1px solid var(--sds-color-border);" style="color: var(--sds-color-text-secondary);"">
+                <th class="py-2 px-2">Member</th>
+                <th class="py-2 px-2">MON 10</th>
+                <th class="py-2 px-2">TUE 11</th>
+                <th class="py-2 px-2">WED 12</th>
+                <th class="py-2 px-2">THU 13</th>
+                <th class="py-2 px-2">FRI 14</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr>
+                <td class="py-2 px-2 font-bold style="color: var(--sds-color-text-primary);"">Aylin Tran (CS Agent)</td>
+                <td class="py-2 px-2"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">Morning 08-16</span></td>
+                <td class="py-2 px-2"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">Morning 08-16</span></td>
+                <td class="py-2 px-2"><span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Afternoon 14-22</span></td>
+                <td class="py-2 px-2"><span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Afternoon 14-22</span></td>
+                <td class="py-2 px-2"><span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">On-call</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      
+<div id="view-analytics" class="hidden space-y-6">
+        <div class="grid grid-cols-4 gap-4 text-xs">
+          <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" p-4 rounded-xl"><div class="style="color: var(--sds-color-text-secondary);"">CREATED (14D)</div><div class="text-2xl font-bold style="color: var(--sds-color-text-primary);"">642</div></div>
+          <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" p-4 rounded-xl"><div class="style="color: var(--sds-color-text-secondary);"">RESOLVED</div><div class="text-2xl font-bold text-emerald-400">611</div></div>
+          <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" p-4 rounded-xl"><div class="style="color: var(--sds-color-text-secondary);"">MEDIAN RESOLUTION</div><div class="text-2xl font-bold text-blue-400">6h 12m</div></div>
+          <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" p-4 rounded-xl"><div class="style="color: var(--sds-color-text-secondary);"">ESCALATION RATE</div><div class="text-2xl font-bold text-amber-400">7.4%</div></div>
+        </div>
+      </div>
+
+      
+<div id="view-admin" class="hidden space-y-6">
+        <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" rounded-2xl p-6 space-y-6">
+          <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-4 flex-wrap gap-2">
+            <div>
+              <h2 class="text-xl font-bold text-purple-400 flex items-center gap-2">
+                ⚙️ Admin & System Settings <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-0.5 rounded border border-purple-500/30">PO & Dev Lead Control</span>
+              </h2>
+              <p class="text-xs style="color: var(--sds-color-text-secondary);" mt-1">Cấu hình hệ thống: Quản lý Target Apps, Slack Channels Picker, Status Workflow, Urgency Levels, CS Guide Editor & Teams</p>
+            </div>
+            <button onclick="showToast('Đã lưu toàn bộ cấu hình hệ thống!')" class="bg-purple-600 hover:bg-purple-500 style="color: var(--sds-color-text-primary);" font-bold text-xs px-4 py-2 rounded-xl shadow-lg">
+              💾 Save All Settings
+            </button>
+          </div>
+
+          <!-- ADMIN TABS SELECTOR -->
+          <div class="flex items-center space-x-2 border-b style="border: 1px solid var(--sds-color-border);" pb-2 text-xs font-semibold overflow-x-auto">
+            <button onclick="switchAdminTab('apps')" id="adm-tab-apps" class="px-3 py-1.5 rounded-lg bg-purple-600 style="color: var(--sds-color-text-primary);"">1. Target Apps</button>
+            <button onclick="switchAdminTab('channels')" id="adm-tab-channels" class="px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">2. Slack Channels Picker</button>
+            <button onclick="switchAdminTab('statuses')" id="adm-tab-statuses" class="px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">3. Status Workflow</button>
+            <button onclick="switchAdminTab('urgency')" id="adm-tab-urgency" class="px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">4. Urgency Rules (4 Levels)</button>
+            <button onclick="switchAdminTab('guide-edit')" id="adm-tab-guide-edit" class="px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">5. Full CS Guide Editor (MD)</button>
+            <button onclick="switchAdminTab('teams')" id="adm-tab-teams" class="px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">6. Slack Teams (@cs & @dev)</button>
+          </div>
+
+          <!-- ADMIN TAB 1: TARGET APPS -->
+          <div id="admin-panel-apps" class="space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Target Applications List</h3>
+              <button onclick="addNewTargetAppPrompt()" class="btn btn-primary hover:bg-blue-500 style="color: var(--sds-color-text-primary);" font-bold px-3 py-1.5 rounded-lg">+ Add Target App</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="admin-apps-grid"></div>
+          </div>
+
+          <!-- ADMIN TAB 2: SLACK CHANNELS PICKER (CHỌN CHANNELS CÓ SẴN TRÊN SLACK - THEO YÊU CẦU CỦA BẠN) -->
+          <div id="admin-panel-channels" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Slack Channels Configuration</h3>
+                <p class="style="color: var(--sds-color-text-secondary);" text-[11px]">Chọn từ danh sách Channels có sẵn trong workspace Slack của team</p>
+              </div>
+              <button onclick="openSlackChannelPickerModal()" class="btn btn-primary hover:bg-blue-500 style="color: var(--sds-color-text-primary);" font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                + Add Channel (Select from Slack)
+              </button>
+            </div>
+            <div id="admin-channels-list" class="space-y-2"></div>
+          </div>
+
+          <!-- ADMIN TAB 3: STATUS WORKFLOW -->
+          <div id="admin-panel-statuses" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Standard Statuses Configuration (12 Statuses)</h3>
+              <button onclick="addNewStatusPrompt()" class="btn btn-primary hover:bg-blue-500 style="color: var(--sds-color-text-primary);" font-bold px-3 py-1.5 rounded-lg">+ Add Custom Status</button>
+            </div>
+            <div id="admin-statuses-list" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+          </div>
+
+          <!-- ADMIN TAB 4: URGENCY LEVELS (4 CẤP ĐỘ QUY CHUẨN: URGENT, HIGH, MEDIUM, LOW - THEO YÊU CẦU) -->
+          <div id="admin-panel-urgency" class="hidden space-y-4 text-xs">
+            <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Urgency Levels & Plan Rules Configuration</h3>
+            <div class="space-y-3">
+              <div class="style="background: var(--sds-color-bg-app);" p-4 rounded-xl border border-red-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-red-400 text-sm">Urgent:</strong> High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
+                </div>
+                <span class="bg-red-500/20 text-red-300 font-bold px-3 py-1 rounded border border-red-500/40">SLA: 15 mins</span>
+              </div>
+              <div class="style="background: var(--sds-color-bg-app);" p-4 rounded-xl border border-amber-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-amber-400 text-sm">High:</strong> Khách hàng gói Premium, Advance plan.
+                </div>
+                <span class="bg-amber-500/20 text-amber-300 font-bold px-3 py-1 rounded border border-amber-500/40">SLA: 1 hour</span>
+              </div>
+              <div class="style="background: var(--sds-color-bg-app);" p-4 rounded-xl border border-blue-500/30 flex justify-between items-center">
+                <div>
+                  <strong class="text-blue-400 text-sm">Medium:</strong> Khách hàng gói Pro, Basic plan.
+                </div>
+                <span class="bg-blue-500/20 text-blue-300 font-bold px-3 py-1 rounded border border-blue-500/40">SLA: 4 hours</span>
+              </div>
+              <div class="style="background: var(--sds-color-bg-app);" p-4 rounded-xl border border-slate-700 flex justify-between items-center">
+                <div>
+                  <strong class="style="color: var(--sds-color-text-secondary);" text-sm">Low:</strong> Khách hàng gói Free, Old, Dev plan.
+                </div>
+                <span class="btn btn-secondary font-bold px-3 py-1 rounded border border-slate-700">SLA: 24 hours</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADMIN TAB 5: CS WORKFLOW GUIDE FULL MARKDOWN EDITOR (SOẠN THẢO TOÀN BỘ BẰNG MD) -->
+          <div id="admin-panel-guide-edit" class="hidden space-y-4 text-xs">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Edit Entire CS Workflow Guide Content (Markdown Editor)</h3>
+              <div class="space-x-2">
+                <button onclick="resetDefaultGuideContent()" class="btn btn-secondary px-3 py-1.5 rounded font-medium">Reset Default</button>
+                <button onclick="publishGuideContent()" class="bg-emerald-600 hover:bg-emerald-500 style="color: var(--sds-color-text-primary);" font-bold px-4 py-1.5 rounded-lg shadow">Publish Updated Guide</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Left: Markdown Input Area -->
+              <div class="space-y-1">
+                <label class="style="color: var(--sds-color-text-secondary);" font-semibold block">Markdown Source Code Editor:</label>
+                <textarea id="admin-guide-editor-text" oninput="updateGuideLivePreview()" rows="16" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-3 style="color: var(--sds-color-text-primary);" font-mono text-xs focus:outline-none focus:border-purple-500 leading-relaxed"></textarea>
+              </div>
+
+              <!-- Right: Live Preview Panel -->
+              <div class="space-y-1">
+                <label class="text-purple-400 font-semibold block">Live Preview Result:</label>
+                <div id="admin-guide-editor-preview" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 text-xs prose min-h-[300px] overflow-y-auto max-h-[360px] custom-scrollbar"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADMIN TAB 6: SLACK TEAMS SYNC -->
+          <div id="admin-panel-teams" class="hidden space-y-5 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 space-y-3">
+                <div class="flex justify-between items-center border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+                  <h4 class="font-bold text-blue-400 flex items-center gap-1">🎧 CS Team (Synced from Slack <code>@cs</code>)</h4>
+                  <button onclick="syncSlackGroup('cs')" class="bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded font-bold">🔄 Sync @cs</button>
+                </div>
+                <div id="admin-cs-team-list" class="space-y-1.5"></div>
+              </div>
+
+              <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 space-y-3">
+                <div class="flex justify-between items-center border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+                  <h4 class="font-bold text-emerald-400 flex items-center gap-1">💻 Dev Team (Synced from Slack <code>@dev</code>)</h4>
+                  <button onclick="syncSlackGroup('dev')" class="bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded font-bold">🔄 Sync @dev</button>
+                </div>
+                <div id="admin-dev-team-list" class="space-y-1.5"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </main>
+
+  </div>
+
+  <!-- MODAL: SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG WORKSPACE SLACK) -->
+  <div id="modal-slack-channel-picker" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 modal-box space-y-4 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Select Available Channel from Slack Workspace</h3>
+        <button onclick="closeSlackChannelPickerModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <p class="style="color: var(--sds-color-text-secondary);"">Chọn 1 channel công khai/riêng tư từ workspace Slack của team để ánh xạ vào Helpdesk OS:</p>
+
+      <div id="slack-workspace-channels-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeSlackChannelPickerModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Cancel</button>
+        <button onclick="confirmSelectSlackChannel()" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 font-bold style="color: var(--sds-color-text-primary);" rounded shadow">+ Map Channel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS TICKET CREATION, TRANSFER & EDIT -->
+  <div id="modal-add-ticket" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 modal-box space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Add New Ticket (Gửi Slack Thread)</h3>
+        <button onclick="closeAddTicketModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">App Target:</label>
+        <select id="add-app-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Slack Channel:</label>
+        <select id="add-channel-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Status:</label>
+          <select id="add-status-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+        </div>
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Urgency:</label>
+          <select id="add-urgency-select" class="input-field">
+    <option value="Urgent">Urgent (High risk tickets)</option>
+    <option value="High">High (Premium/Advance)</option>
+    <option value="Medium">Medium (Pro/Basic)</option>
+    <option value="Low">Low (Free/Old/Dev)</option>
+  </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Store Domain:</label>
+        <input type="text" id="add-domain-input" value="61cde3-42.myshopify.com" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);" font-mono">
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Feature Tag:</label>
+        <input type="text" id="add-feature-input" value="Live preview" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);"">
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Request Content:</label>
+        <textarea id="add-request-input" rows="3" placeholder="Mô tả chi tiết yêu cầu..." class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);" focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeAddTicketModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Hủy</button>
+        <button onclick="handleCreateTicketSubmit()" class="px-4 py-1.5 btn btn-primary hover:bg-blue-500 font-bold style="color: var(--sds-color-text-primary);" rounded shadow">Gửi Ticket lên Slack</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TRANSFER TICKET -->
+  <div id="modal-transfer-ticket" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 modal-box space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Transfer Ticket (Bàn Giao Ca)</h3>
+        <button onclick="closeTransferModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <input type="hidden" id="transfer-ticket-id">
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Transfer to:</label>
+          <select id="transfer-to-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+        </div>
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Remind:</label>
+          <input type="text" id="transfer-remind-input" value="May 8th, 8:00 AM" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);"">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Status:</label>
+          <select id="transfer-status-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+        </div>
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Urgency:</label>
+          <select id="add-urgency-select" class="input-field">
+    <option value="Urgent">Urgent (High risk tickets)</option>
+    <option value="High">High (Premium/Advance)</option>
+    <option value="Medium">Medium (Pro/Basic)</option>
+    <option value="Low">Low (Free/Old/Dev)</option>
+  </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-amber-300 font-semibold block mb-1">Handoff / Transfer note (Ghi chú ca trực này):</label>
+        <textarea id="handoff-note-input" rows="2" placeholder="Handoff note cho ca sau..." class="w-full style="background: var(--sds-color-bg-app);" border border-amber-500/30 rounded p-2 text-amber-100 focus:outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="text-amber-400/80 font-medium block mb-1">Summary note (Tóm tắt cốt lõi - Auto-fill từ DB):</label>
+        <textarea id="summary-note-input" rows="2" placeholder="Summary note..." class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeTransferModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Hủy</button>
+        <button onclick="handleTransferSubmit()" class="px-4 py-1.5 btn btn-primary hover:bg-blue-500 font-bold style="color: var(--sds-color-text-primary);" rounded shadow">Submit Note</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT TICKET -->
+  <div id="modal-edit-ticket" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 modal-box space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">✏️ Edit Ticket</h3>
+        <button onclick="closeEditTicketModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <input type="hidden" id="edit-ticket-id">
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Status:</label>
+          <select id="edit-status-select" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 style="color: var(--sds-color-text-primary);""></select>
+        </div>
+        <div>
+          <label class="style="color: var(--sds-color-text-secondary);" block mb-1">Urgency:</label>
+          <select id="add-urgency-select" class="input-field">
+    <option value="Urgent">Urgent (High risk tickets)</option>
+    <option value="High">High (Premium/Advance)</option>
+    <option value="Medium">Medium (Pro/Basic)</option>
+    <option value="Low">Low (Free/Old/Dev)</option>
+  </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-1">
+          <label class="text-slate-300 font-semibold">Tags (Gán nhiều Tag):</label>
+          <button onclick="openTaggingModal()" class="text-blue-400 hover:underline text-[11px] font-bold">+ Select / Add Tags</button>
+        </div>
+        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-lg min-h-[36px]"></div>
+      </div>
+
+      <div>
+        <label class="style="color: var(--sds-color-text-secondary);" block mb-1">
+          Request Content <span class="text-slate-500 text-[10px] italic">(Khóa: Đồng bộ trực tiếp với Slack Thread)</span>:
+        </label>
+        <textarea id="edit-request-input" rows="2" disabled class="w-full style="background: var(--sds-color-bg-app);"/60 border style="border: 1px solid var(--sds-color-border);"/80 rounded p-2 text-slate-500 cursor-not-allowed focus:outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="text-amber-400/80 font-medium block mb-1">Summary Note (Tóm tắt cốt lõi DB):</label>
+        <textarea id="edit-summary-input" rows="2" class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeEditTicketModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Hủy</button>
+        <button onclick="handleEditTicketSubmit()" class="px-4 py-1.5 btn btn-primary hover:bg-blue-500 font-bold style="color: var(--sds-color-text-primary);" rounded shadow">Lưu Thay Đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TAGGING SELECTION -->
+  <div id="modal-tagging-select" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 rounded-2xl max-w-sm w-full p-5 space-y-4 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Tagging</h3>
+        <button onclick="closeTaggingModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <div class="relative">
+          <input type="text" id="tag-search-input" placeholder="Type tag name..." class="w-full style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-lg px-3 py-2 style="color: var(--sds-color-text-primary);" focus:outline-none">
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <div class="flex justify-between items-center">
+          <span class="font-bold style="color: var(--sds-color-text-secondary);"">Select tags</span>
+          <button onclick="deselectAllTags()" class="text-blue-400 text-[11px] hover:underline">Deselect all</button>
+        </div>
+
+        <div id="available-tags-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeTaggingModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Cancel</button>
+        <button onclick="applyTagSelection()" class="px-4 py-1.5 bg-slate-200 text-slate-950 hover:bg-white font-bold rounded shadow">Add tags</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT STATE & SYSTEM CONTROLLERS -->
+  <script>
+    const availableTagsMaster = ['Live preview', 'Option Set', 'Bundle Cart', 'Theme Conflict', 'CSS Issue', 'Checkout Fix', 'VIP Merchant', 'Bug Signal', 'Refund Ask'];
+
+    const defaultGuideMarkdownContent = `# 📖 CS Operational Workflow Guide — Helpdesk OS
+
+Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS Agent) của hệ sinh thái Shopify Apps.
+
+---
+
+### 1. Sơ Đồ Luồng Vận Hành 4 Bước (Step-by-Step Flow)
+
+- **Step 1: Tiếp nhận trên Crisp Chat**
+  Khách chat tới trên Crisp ➔ CS kiểm tra Crisp Plugin ở bên phải để xem **Store Domain**, **Sub-domains** và bảng **Visitor Data**.
+
+- **Step 2: Tạo Ticket (\`+ Add ticket\`)**
+  Bấm \`+ Add ticket\` từ Crisp Plugin ➔ Chọn Target App, Slack Channel, Status, Urgency, Tag ➔ Hệ thống tự động tạo bài đăng Slack Thread dưới tên cá nhân CS (Slack OAuth User Token).
+
+- **Step 3: Thảo luận duy nhất tại Slack**
+  Mọi trao đổi file, nhắn Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe webhook để update status mà không gửi notification push gây nhiễu.
+
+- **Step 4: Bàn giao ca trực (\`🔄 Transfer Ticket\`)**
+  Hết ca trực ➔ CS mở modal Transfer ➔ Điền \`Note transfer case\` (ghi chú ca trực ngắn hạn) + Auto-load \`Summary note\` (tóm tắt lưu DB) ➔ Chuyển ca trực tiếp không bị đứt đoạn.
+
+---
+
+### 2. Quy Tắc 4 Cấp Độ Urgency & Plan Rules
+
+- **Urgent (Red)**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
+- **High (Amber)**: Khách hàng gói **Premium, Advance plan**.
+- **Medium (Blue)**: Khách hàng gói **Pro, Basic plan**.
+- **Low (Slate)**: Khách hàng gói **Free, Old, Dev plan**.
+
+---
+
+### 3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)
+
+1. **Card 1 - Note transfer case**: Ghi chú ngắn hạn ca trực giữa các CS với nhau (được ghi đè theo từng lần giao ca).
+2. **Card 2 - Summary note**: Tóm tắt bản chất kỹ thuật gốc lưu trong DB (tự động load vào Form Transfer mà CS không cần copy-paste).
+`;
+
+    // AVAILABLE SLACK WORKSPACE CHANNELS TO PICK FROM (SLACK WORKSPACE CANONICAL LIST)
+    const slackWorkspaceChannelsList = [
+      { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of Aris Product Options' },
+      { code: '#apo-urgent-case', desc: 'Urgent escalations and checkout bugs' },
+      { code: '#acs-color-swatch-task', desc: 'Color Swatch issues and theme tasks' },
+      { code: '#apb-general-support', desc: 'App Bundles customer requests' },
+      { code: '#feedback-loop-csat', desc: 'CSAT and feedback loop tracking' },
+      { code: '#dev-escalations-critical', desc: 'Critical bug escalations for Dev Leads' }
+    ];
+
+    const state = {
+      activeAppFilter: 'ALL',
+      activeAssigneeFilter: 'ALL',
+      currentStoreDomain: 'kaifit.myapp.io',
+      selectedSlackChannelTemp: null,
+      tempEditingTags: [],
+      config: {
+        apps: [
+          { code: 'APO', name: 'Avis Product Options', icon: '🎨' },
+          { code: 'APB', name: 'App Bundles', icon: '📦' },
+          { code: 'ACS', name: 'Aris Color Swatch', icon: '🎨' }
+        ],
+        slackChannels: [
+          { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of APO' },
+          { code: '#apo-urgent-case', desc: 'Urgent escalations and checkout bugs' },
+          { code: '#acs-color-swatch-task', desc: 'Color Swatch issues and theme tasks' }
+        ],
+        statuses: [
+          { code: 'Chờ collab - CS', group: 'CS' },
+          { code: 'Chờ check - Dev', group: 'Dev' },
+          { code: 'Đang check - Dev', group: 'Dev' },
+          { code: 'Đã check - Dev', group: 'Dev' },
+          { code: 'Rejected - Dev lead', group: 'Dev' },
+          { code: 'CHỜ KHÁCH - CS', group: 'CS' },
+          { code: 'Chờ CS', group: 'CS' },
+          { code: 'Uninstall', group: 'CS' },
+          { code: 'Done - CS', group: 'CS' },
+          { code: 'Fl up 1 (12h)', group: 'Followup' },
+          { code: 'Fl up 2 (24h)', group: 'Followup' },
+          { code: 'Fl up 3 (36h)', group: 'Followup' }
+        ],
+        csTeam: ['Aylin Tran', 'Ngan Pham', 'Ha Tran'],
+        devTeam: ['Tuan Nguyen', 'Minh Dao', 'Hung Le'],
+        guideMarkdown: defaultGuideMarkdownContent
+      },
+      tickets: [
+        {
+          id: 'TK-4821',
+          app: 'APO',
+          channel: '#apo-paid-task',
+          storeUrl: 'woodesign.ie.myshopify.com',
+          status: 'Đang check - Dev',
+          urgency: 'Urgent',
+          assignedTo: 'Aylin Tran',
+          timestamp: '4:53 pm 19/08/2026',
+          requestContent: 'style button ở collection page không giống style khách đang set up trong app.',
+          tags: ['Live preview', 'CSS Issue'],
+          handoffNote: '"Đã nhắn Dev Tuan check CSS lúc 15h, chờ Tuan reply để báo khách trên Crisp."',
+          summaryNote: 'Khách báo lỗi button style ở collection page không khớp với setting app. Đã test trên Dawn v11 theme.',
+          unread: true
+        },
+        {
+          id: 'TK-4817',
+          app: 'APO',
+          channel: '#apo-urgent-case',
+          storeUrl: 'kaifit.myapp.io',
+          status: 'Fl up 1 (12h)',
+          urgency: 'High',
+          assignedTo: 'Aylin Tran',
+          timestamp: '6:46 pm 18/08/2026',
+          requestContent: 'Khách nhận order mất option KTGPS-2522, KTGPS-2511.',
+          tags: ['Option Set', 'Checkout Fix'],
+          handoffNote: '"Đã fix xong trên staging, hẹn 12h sau follow-up khách xem ok chưa."',
+          summaryNote: 'Mất option ID khi checkout order. Do chưa sync variant ID mới.',
+          unread: false
+        },
+        {
+          id: 'TK-4819',
+          app: 'APB',
+          channel: '#apo-paid-task',
+          storeUrl: 'bloomco.myshopify.com',
+          status: 'Chờ check - Dev',
+          urgency: 'Medium',
+          assignedTo: 'Ngan Pham',
+          timestamp: '10:15 am 19/08/2026',
+          requestContent: 'Bundle discount price calculations wrong on mobile checkout.',
+          tags: ['Bundle Cart'],
+          handoffNote: '"Cần Dev check gấp trên Chrome Mobile view."',
+          summaryNote: 'Tính giá discount sai khi áp dụng voucher giảm giá song song.',
+          unread: true
+        }
+      ],
+      reviews: [
+        {
+          id: 'REV-01',
+          stars: '★★★★★',
+          title: 'Barcode scanner keeps freezing',
+          badge: 'Bug signal',
+          badgeColor: 'bg-red-500/20 text-red-400',
+          time: '2h ago',
+          author: 'kien_m • Android 3.4.0',
+          domain: 'kaifit.myapp.io',
+          crispUser: 'Mykola',
+          content: 'Since the last update the scanner locks up when I scan two items quickly. I have to restart the app several times per shift.'
+        },
+        {
+          id: 'REV-02',
+          stars: '★★★★★',
+          title: 'Support replied in ten minutes',
+          badge: 'Positive',
+          badgeColor: 'bg-emerald-500/20 text-emerald-400',
+          time: '6h ago',
+          author: 'thu.linh • iOS 3.4.1',
+          domain: 'woodesign.ie.myshopify.com',
+          crispUser: 'Thu Linh',
+          content: 'Asked about VAT invoices at 9pm and got a real answer, not a template. The refund flow is much clearer now.'
+        }
+      ]
+    };
+
+    function switchPlatform(plat) {
+      ['crisp', 'slack', 'internal'].forEach(p => {
+        document.getElementById('platform-' + p).classList.add('hidden');
+        document.getElementById('plat-' + p).className = "px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);" flex items-center gap-1.5";
+      });
+      document.getElementById('platform-' + plat).classList.remove('hidden');
+      document.getElementById('plat-' + plat).className = "px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 btn btn-primary style="color: var(--sds-color-text-primary);" shadow-md flex items-center gap-1.5";
+    }
+
+    function switchInternalView(viewId) {
+      ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide', 'admin'].forEach(v => {
+        document.getElementById('view-' + v).classList.add('hidden');
+        const el = document.getElementById('side-' + v);
+        if (el) el.className = "w-full text-left px-3 py-2 rounded-xl text-xs style="color: var(--sds-color-text-secondary);" hover:style="background: var(--sds-color-bg-surface);" hover:style="color: var(--sds-color-text-primary);" flex items-center space-x-2";
+      });
+      document.getElementById('view-' + viewId).classList.remove('hidden');
+      const activeEl = document.getElementById('side-' + viewId);
+      if (activeEl) {
+        if (viewId === 'admin') activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-purple-600 style="color: var(--sds-color-text-primary);" shadow-sm flex items-center space-x-2";
+        else if (viewId === 'guide') {
+          activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2";
+          renderCSGuideMarkdownView();
+        }
+        else activeEl.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold btn btn-primary style="color: var(--sds-color-text-primary);" shadow-sm flex items-center space-x-2";
+      }
+    }
+
+    function switchAdminTab(tab) {
+      ['apps', 'channels', 'statuses', 'urgency', 'guide-edit', 'teams'].forEach(t => {
+        document.getElementById('admin-panel-' + t).classList.add('hidden');
+        const btn = document.getElementById('adm-tab-' + t);
+        if (btn) btn.className = "px-3 py-1.5 rounded-lg style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"";
+      });
+      document.getElementById('admin-panel-' + tab).classList.remove('hidden');
+      document.getElementById('adm-tab-' + tab).className = "px-3 py-1.5 rounded-lg bg-purple-600 style="color: var(--sds-color-text-primary);" font-bold";
+      
+      if (tab === 'guide-edit') {
+        document.getElementById('admin-guide-editor-text').value = state.config.guideMarkdown;
+        updateGuideLivePreview();
+      }
+    }
+
+    // URGENCY BADGE STYLING HELPER (URGENT, HIGH, MEDIUM, LOW)
+    function getUrgencyBadgeHtml(urgency) {
+      if (urgency === 'Urgent') return `<span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-2 py-0.5 rounded font-bold">🔴 Urgent (High risk)</span>`;
+      if (urgency === 'High') return `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded font-bold">🟠 High (Premium)</span>`;
+      if (urgency === 'Medium') return `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs px-2 py-0.5 rounded font-medium">🔵 Medium (Pro)</span>`;
+      return `<span class="btn btn-secondary style="color: var(--sds-color-text-secondary);" text-xs px-2 py-0.5 rounded font-medium">⚪ Low (Free/Dev)</span>`;
+    }
+
+    // SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG SLACK WORKSPACE)
+    function openSlackChannelPickerModal() {
+      const container = document.getElementById('slack-workspace-channels-list');
+      container.innerHTML = slackWorkspaceChannelsList.map(ch => {
+        const isMapped = state.config.slackChannels.some(c => c.code === ch.code);
+        return `
+          <label class="style="background: var(--sds-color-bg-app);" border ${isMapped ? 'border-purple-500/40 bg-purple-500/10' : 'style="border: 1px solid var(--sds-color-border);"'} p-3 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/60">
+            <div class="flex items-center space-x-2">
+              <input type="radio" name="slack-channel-radio" value="${ch.code}" ${isMapped ? 'disabled' : ''} onchange="state.selectedSlackChannelTemp = '${ch.code}'" class="rounded-full style="background: var(--sds-color-bg-surface);" border-slate-700 text-purple-600">
+              <div>
+                <strong class="text-purple-300 font-mono">${ch.code}</strong>
+                <p class="style="color: var(--sds-color-text-secondary);" text-[11px]">${ch.desc}</p>
+              </div>
+            </div>
+            ${isMapped ? '<span class="text-emerald-400 text-[10px] font-bold">Already Mapped</span>' : '<span class="text-slate-500 text-[10px]">Available</span>'}
+          </label>
+        `;
+      }).join('');
+      document.getElementById('modal-slack-channel-picker').classList.remove('hidden');
+    }
+
+    function closeSlackChannelPickerModal() {
+      document.getElementById('modal-slack-channel-picker').classList.add('hidden');
+    }
+
+    function confirmSelectSlackChannel() {
+      if (state.selectedSlackChannelTemp) {
+        const found = slackWorkspaceChannelsList.find(ch => ch.code === state.selectedSlackChannelTemp);
+        if (found) {
+          state.config.slackChannels.push({ code: found.code, desc: found.desc });
+          renderAdminPanels();
+          closeSlackChannelPickerModal();
+          showToast(`Đã ánh xạ kênh Slack ${found.code} vào hệ thống!`);
+        }
+      } else {
+        alert('Vui lòng chọn 1 channel từ danh sách!');
+      }
+    }
+
+    // FULL MARKDOWN CS GUIDE EDITOR CONTROLLERS
+    function updateGuideLivePreview() {
+      const src = document.getElementById('admin-guide-editor-text').value;
+      document.getElementById('admin-guide-editor-preview').innerHTML = marked.parse(src || '');
+    }
+
+    function publishGuideContent() {
+      state.config.guideMarkdown = document.getElementById('admin-guide-editor-text').value;
+      renderCSGuideMarkdownView();
+      showToast('Đã xuất bản toàn bộ bài hướng dẫn CS Workflow Guide mới!');
+    }
+
+    function resetDefaultGuideContent() {
+      state.config.guideMarkdown = defaultGuideMarkdownContent;
+      document.getElementById('admin-guide-editor-text').value = defaultGuideMarkdownContent;
+      updateGuideLivePreview();
+      showToast('Đã khôi phục bài CS Guide về mặc định!');
+    }
+
+    function renderCSGuideMarkdownView() {
+      const view = document.getElementById('guide-markdown-rendered-view');
+      if (view) {
+        view.innerHTML = marked.parse(state.config.guideMarkdown || defaultGuideMarkdownContent);
+      }
+    }
+
+    // RENDER ADMIN PANELS
+    function renderAdminPanels() {
+      const appsGrid = document.getElementById('admin-apps-grid');
+      appsGrid.innerHTML = state.config.apps.map(a => `
+        <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" p-3 rounded-xl flex items-center justify-between">
+          <div>
+            <strong class="style="color: var(--sds-color-text-primary);" text-sm">${a.icon} ${a.name}</strong>
+            <div class="style="color: var(--sds-color-text-secondary);" font-mono text-[11px]">Code: ${a.code}</div>
+          </div>
+          <button onclick="removeTargetApp('${a.code}')" class="text-red-400 hover:underline">Remove</button>
+        </div>
+      `).join('');
+
+      const channelsList = document.getElementById('admin-channels-list');
+      channelsList.innerHTML = state.config.slackChannels.map(c => `
+        <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" p-3 rounded-xl flex justify-between items-center">
+          <div>
+            <strong class="text-purple-300 font-mono text-xs">${c.code}</strong>
+            <p class="style="color: var(--sds-color-text-secondary);" text-[11px]">${c.desc}</p>
+          </div>
+          <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px] font-bold">Active Sync</span>
+        </div>
+      `).join('');
+
+      const statusesList = document.getElementById('admin-statuses-list');
+      statusesList.innerHTML = state.config.statuses.map(s => `
+        <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" p-2.5 rounded-xl flex items-center justify-between">
+          <span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[11px] font-bold">${s.code}</span>
+          <span class="text-slate-500 text-[10px]">${s.group}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-cs-team-list').innerHTML = state.config.csTeam.map(m => `
+        <div class="style="background: var(--sds-color-bg-surface);" p-2 rounded border style="border: 1px solid var(--sds-color-border);" flex justify-between items-center style="color: var(--sds-color-text-primary);"">
+          <span>🎧 ${m}</span> <span class="text-blue-400 text-[10px] font-mono">@cs member</span>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-dev-team-list').innerHTML = state.config.devTeam.map(m => `
+        <div class="style="background: var(--sds-color-bg-surface);" p-2 rounded border style="border: 1px solid var(--sds-color-border);" flex justify-between items-center style="color: var(--sds-color-text-primary);"">
+          <span>💻 ${m}</span> <span class="text-emerald-400 text-[10px] font-mono">@dev member</span>
+        </div>
+      `).join('');
+
+      // Sidebar apps render
+      document.getElementById('sidebar-apps-list').innerHTML = state.config.apps.map(a => `
+        <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-300 hover:style="background: var(--sds-color-bg-surface);" hover:style="color: var(--sds-color-text-primary);" flex items-center justify-between">
+          <span>${a.icon} ${a.name}</span>
+          <span class="text-[10px] btn btn-secondary px-1.5 py-0.2 rounded font-mono">${a.code}</span>
+        </button>
+      `).join('');
+
+      populateSelectDropdowns();
+    }
+
+    function populateSelectDropdowns() {
+      const appBtns = document.getElementById('dashboard-app-filter-buttons');
+      appBtns.innerHTML = `
+        <span class="text-xs font-semibold style="color: var(--sds-color-text-secondary);" uppercase mr-1">App Filter:</span>
+        <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-semibold ${state.activeAppFilter === 'ALL' ? 'btn btn-primary style="color: var(--sds-color-text-primary);"' : 'btn btn-secondary'}">ALL</button>
+      ` + state.config.apps.map(a => `
+        <button onclick="filterByApp('${a.code}')" id="appbtn-${a.code}" class="px-3 py-1 rounded-lg text-xs font-medium ${state.activeAppFilter === a.code ? 'btn btn-primary style="color: var(--sds-color-text-primary);"' : 'btn btn-secondary hover:bg-slate-700'}">${a.code}</button>
+      `).join('');
+
+      document.getElementById('add-app-select').innerHTML = state.config.apps.map(a => `<option value="${a.code}">${a.name} (${a.code})</option>`).join('');
+      document.getElementById('add-channel-select').innerHTML = state.config.slackChannels.map(c => `<option value="${c.code}">${c.code}</option>`).join('');
+      
+      const statusOptionsHtml = state.config.statuses.map(s => `<option value="${s.code}">${s.code}</option>`).join('');
+      document.getElementById('add-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('transfer-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('edit-status-select').innerHTML = statusOptionsHtml;
+      document.getElementById('status-filter-select').innerHTML = `<option value="ALL">All Statuses ▾</option>` + statusOptionsHtml;
+
+      document.getElementById('transfer-to-select').innerHTML = state.config.csTeam.map(m => `<option value="${m}">${m}</option>`).join('');
+    }
+
+    function addNewTargetAppPrompt() {
+      const code = prompt('Nhập App Code ngắn (VD: APX):');
+      const name = prompt('Nhập Tên đầy đủ ứng dụng:');
+      if (code && name) {
+        state.config.apps.push({ code: code.toUpperCase(), name: name, icon: '🚀' });
+        renderAdminPanels();
+        showToast(`Đã thêm Target App mới: ${code.toUpperCase()}!`);
+      }
+    }
+
+    function removeTargetApp(code) {
+      state.config.apps = state.config.apps.filter(a => a.code !== code);
+      renderAdminPanels();
+      showToast(`Đã gỡ Target App ${code}!`);
+    }
+
+    function addNewStatusPrompt() {
+      const statusName = prompt('Nhập tên Trạng thái mới:');
+      if (statusName) {
+        state.config.statuses.push({ code: statusName, group: 'Custom' });
+        renderAdminPanels();
+        showToast(`Đã thêm Trạng thái mới: ${statusName}!`);
+      }
+    }
+
+    function syncSlackGroup(group) {
+      if (group === 'cs') {
+        state.config.csTeam = ['Aylin Tran', 'Ngan Pham', 'Ha Tran', 'Thao Vo (Slack @cs)'];
+        renderAdminPanels();
+        showToast('Đã đồng bộ thành công danh sách CS Team từ Slack user group @cs!');
+      } else {
+        state.config.devTeam = ['Tuan Nguyen', 'Minh Dao', 'Hung Le', 'Bao Nguyen (Slack @dev)'];
+        renderAdminPanels();
+        showToast('Đã đồng bộ thành công danh sách Dev Team từ Slack user group @dev!');
+      }
+    }
+
+    function navigateToShopInfo(domain) {
+      document.getElementById('store-search-domain-input').value = domain;
+      handleStoreSearchByDomain();
+      switchPlatform('internal');
+      switchInternalView('shops');
+    }
+
+    function handleStoreSearchByDomain() {
+      const input = document.getElementById('store-search-domain-input').value.trim();
+      if (!input) return;
+      state.currentStoreDomain = input;
+      
+      document.getElementById('shop-name-title').innerText = input.split('.')[0].toUpperCase() + ' STORE';
+      document.getElementById('shop-subdomain-desc').innerText = `${input} • Growth plan • GMT+7`;
+      
+      renderShopTickets();
+      showToast(`Đã tải dữ liệu Store 360° cho domain: ${input}`);
+    }
+
+    function renderShopTickets() {
+      const container = document.getElementById('shop-tickets-container');
+      const filtered = state.tickets.filter(t => t.storeUrl.toLowerCase().includes(state.currentStoreDomain.toLowerCase()));
+      
+      document.getElementById('shop-ticket-count-badge').innerText = filtered.length;
+      document.getElementById('shop-urgent-count').innerText = `${filtered.filter(t => t.urgency === 'Urgent').length} URGENT`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-xs text-slate-500 italic p-4 style="background: var(--sds-color-bg-app);" rounded-xl border style="border: 1px solid var(--sds-color-border);"">Chưa có ticket nào được tạo cho store domain này.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => `
+        <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 shadow-sm flex flex-col md:flex-row gap-4">
+          <div class="flex-1 space-y-3 text-xs">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                ${getUrgencyBadgeHtml(t.urgency)}
+                <span class="text-xs style="color: var(--sds-color-text-secondary);" font-mono">${t.id}</span>
+                <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+              </div>
+              <span class="style="color: var(--sds-color-text-secondary);"">Channel: <strong class="style="color: var(--sds-color-text-primary);"">${t.channel}</strong></span>
+            </div>
+
+            <div class="space-y-1">
+              <div>Store URL: <a href="#" class="text-blue-400 hover:underline font-mono">${t.storeUrl}</a></div>
+              <div>Assigned to: <strong class="style="color: var(--sds-color-text-primary);"">${t.assignedTo}</strong> <span class="text-slate-500 ml-2">at ${t.timestamp}</span></div>
+              <div class="mt-2 style="color: var(--sds-color-text-primary);" style="background: var(--sds-color-bg-app);" p-2.5 rounded-lg border style="border: 1px solid var(--sds-color-border);"">
+                <strong>Request:</strong> ${t.requestContent}
+              </div>
+              <div class="style="color: var(--sds-color-text-secondary);" pt-1 flex items-center gap-1">
+                Tags: ${(t.tags || []).map(tg => `<span class="btn btn-secondary px-2 py-0.5 rounded text-[11px]">${tg}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-2 flex-wrap gap-y-1">
+              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-purple-600/30 text-purple-300 border border-purple-500/40 font-medium">💬 View Slack</a>
+              <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs btn btn-secondary hover:bg-slate-700 style="color: var(--sds-color-text-primary);" border border-slate-700 font-medium">✏️ Edit</button>
+              <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs btn btn-primary style="color: var(--sds-color-text-primary);" hover:bg-blue-500 font-semibold shadow">🔄 Transfer</button>
+            </div>
+          </div>
+
+          <div class="w-full md:w-80 space-y-2 flex flex-col">
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-300 mb-1">📝 Note transfer case</div>
+              <p class="text-amber-100/90 italic leading-relaxed">${t.handoffNote || '"Chưa có note giao ca."'}</p>
+            </div>
+            <div class="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-400/90 mb-1">📄 Summary note</div>
+              <p class="text-slate-300 leading-relaxed">${t.summaryNote || 'Chưa có tóm tắt.'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTickets() {
+      const container = document.getElementById('tickets-container');
+      const pluginContainer = document.getElementById('plugin-tickets-container');
+      const slackContainer = document.getElementById('slack-messages-container');
+      
+      const searchVal = document.getElementById('search-input').value.toLowerCase();
+      const statusFilter = document.getElementById('status-filter-select').value;
+
+      const filtered = state.tickets.filter(t => {
+        const matchApp = state.activeAppFilter === 'ALL' || t.app === state.activeAppFilter;
+        const matchAssignee = state.activeAssigneeFilter === 'ALL' || t.assignedTo === 'Aylin Tran';
+        const matchStatus = statusFilter === 'ALL' || t.status === statusFilter;
+        const matchSearch = t.requestContent.toLowerCase().includes(searchVal) ||
+                            t.storeUrl.toLowerCase().includes(searchVal) ||
+                            t.id.toLowerCase().includes(searchVal);
+        return matchApp && matchAssignee && matchStatus && matchSearch;
+      });
+
+      document.getElementById('stat-total-open').innerText = state.tickets.length;
+      document.getElementById('stat-assigned-me').innerText = state.tickets.filter(t => t.assignedTo === 'Aylin Tran').length;
+      document.getElementById('stat-unread').innerText = state.tickets.filter(t => t.unread).length;
+      document.getElementById('plugin-ticket-count').innerText = state.tickets.length;
+
+      container.innerHTML = filtered.map(t => `
+        <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 shadow-sm hover:border-slate-700 transition flex flex-col md:flex-row gap-4">
+          <div class="flex-1 space-y-3 text-xs">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                ${getUrgencyBadgeHtml(t.urgency)}
+                <span class="text-xs style="color: var(--sds-color-text-secondary);" font-mono">${t.id}</span>
+                <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+              </div>
+              <span class="style="color: var(--sds-color-text-secondary);"">Channel: <strong class="style="color: var(--sds-color-text-primary);"">${t.channel}</strong></span>
+            </div>
+
+            <div class="space-y-1">
+              <div>Store URL: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-400 hover:underline font-mono">${t.storeUrl}</a></div>
+              <div>Assigned to: <strong class="style="color: var(--sds-color-text-primary);"">${t.assignedTo}</strong> <span class="text-slate-500 ml-2">at ${t.timestamp}</span></div>
+              <div class="mt-2 style="color: var(--sds-color-text-primary);" style="background: var(--sds-color-bg-app);" p-2.5 rounded-lg border style="border: 1px solid var(--sds-color-border);"">
+                <strong>Request:</strong> ${t.requestContent}
+              </div>
+              <div class="style="color: var(--sds-color-text-secondary);" pt-1 flex items-center gap-1">
+                Tags: ${(t.tags || []).map(tg => `<span class="btn btn-secondary px-2 py-0.5 rounded text-[11px]">${tg}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-2 flex-wrap gap-y-1">
+              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-purple-600/30 text-purple-300 border border-purple-500/40 hover:bg-purple-600/40 font-medium flex items-center gap-1">
+                💬 View Slack
+              </a>
+              <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs btn btn-secondary hover:bg-slate-700 style="color: var(--sds-color-text-primary);" border border-slate-700 font-medium">
+                ✏️ Edit
+              </button>
+              <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs btn btn-primary style="color: var(--sds-color-text-primary);" hover:bg-blue-500 font-semibold shadow">
+                🔄 Transfer
+              </button>
+              <button onclick="navigateToShopInfo('${t.storeUrl}')" class="px-3 py-1.5 rounded-lg text-xs bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/30 font-medium">
+                🏪 Store Info
+              </button>
+            </div>
+          </div>
+
+          <div class="w-full md:w-80 space-y-2 flex flex-col">
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-300 mb-1">📝 Note transfer case</div>
+              <p class="text-amber-100/90 italic leading-relaxed">${t.handoffNote || '"Chưa có note giao ca."'}</p>
+            </div>
+            <div class="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-400/90 mb-1">📄 Summary note</div>
+              <p class="text-slate-300 leading-relaxed">${t.summaryNote || 'Chưa có tóm tắt.'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      pluginContainer.innerHTML = state.tickets.map(t => `
+        <div class="style="background: var(--sds-color-bg-surface);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-3 space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full font-bold">🟡 ${t.status}</span>
+            <span class="text-[10px] text-slate-500 font-bold">${t.urgency}</span>
+          </div>
+          <div class="text-slate-300 font-medium">${t.requestContent}</div>
+          <div class="flex items-center space-x-1.5 pt-1">
+            <button onclick="switchPlatform('slack')" class="px-2 py-1 rounded text-[10px] bg-purple-600/30 text-purple-300">View Slack</button>
+            <button onclick="openTransferModalById('${t.id}')" class="px-2 py-1 rounded text-[10px] btn btn-secondary style="color: var(--sds-color-text-primary);"">Transfer</button>
+          </div>
+        </div>
+      `).join('');
+
+      slackContainer.innerHTML = state.tickets.map(t => `
+        <div class="style="background: var(--sds-color-bg-app);" p-4 rounded-xl border style="border: 1px solid var(--sds-color-border);" space-y-3 text-xs">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-slate-700 font-bold style="color: var(--sds-color-text-primary);" flex items-center justify-center">AT</div>
+            <div>
+              <strong class="style="color: var(--sds-color-text-primary);" text-sm">${t.assignedTo}</strong> <span class="text-slate-500 text-[11px]">${t.timestamp}</span>
+            </div>
+          </div>
+          <div class="style="color: var(--sds-color-text-primary);"">Store: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-400 font-mono">${t.storeUrl}</a></div>
+          <div class="style="color: var(--sds-color-text-primary);"">Request: ${t.requestContent}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderReviews() {
+      const container = document.getElementById('reviews-list-container');
+      container.innerHTML = state.reviews.map(r => `
+        <div class="style="background: var(--sds-color-bg-app);" border style="border: 1px solid var(--sds-color-border);" rounded-xl p-4 space-y-2 text-xs">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-amber-400 font-bold">${r.stars}</span>
+              <strong class="style="color: var(--sds-color-text-primary);"">${r.title}</strong>
+              <span class="${r.badgeColor} px-2 py-0.5 rounded font-bold text-[10px]">${r.badge}</span>
+            </div>
+            <span class="text-slate-500">${r.time} • ${r.author}</span>
+          </div>
+
+          <div class="flex items-center space-x-3 style="background: var(--sds-color-bg-surface);" px-3 py-1.5 rounded-lg border style="border: 1px solid var(--sds-color-border);" text-[11px] my-1 flex-wrap">
+            <div>Store Domain: <button onclick="navigateToShopInfo('${r.domain}')" class="text-blue-400 hover:underline font-mono font-bold">${r.domain}</button></div>
+            <div class="text-slate-700">|</div>
+            <div>Crisp Chat: <button onclick="switchPlatform('crisp')" class="text-emerald-400 hover:underline font-semibold">💬 Open Crisp Chat (${r.crispUser})</button></div>
+          </div>
+
+          <p class="text-slate-300">${r.content}</p>
+
+          <div class="flex items-center space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"/80 flex-wrap gap-y-1">
+            <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="px-3 py-1 btn btn-primary hover:bg-blue-500 style="color: var(--sds-color-text-primary);" rounded font-bold">Create ticket</button>
+            <button onclick="alert('Replying on store...')" class="px-3 py-1 btn btn-secondary hover:bg-slate-700 style="color: var(--sds-color-text-primary);" rounded font-medium">Reply on Store</button>
+            <button onclick="switchPlatform('crisp')" class="px-3 py-1 bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 rounded font-semibold">💬 Open Crisp Chat</button>
+            <button onclick="navigateToShopInfo('${r.domain}')" class="px-3 py-1 btn btn-secondary hover:bg-slate-700 text-blue-300 border border-blue-500/30 rounded font-semibold flex items-center gap-1">🏪 Store Info</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAddTicketModal(domain) {
+      if (domain) document.getElementById('add-domain-input').value = domain;
+      document.getElementById('modal-add-ticket').classList.remove('hidden');
+    }
+    function closeAddTicketModal() { document.getElementById('modal-add-ticket').classList.add('hidden'); }
+
+    function handleCreateTicketSubmit() {
+      const app = document.getElementById('add-app-select').value;
+      const channel = document.getElementById('add-channel-select').value;
+      const status = document.getElementById('add-status-select').value;
+      const urgency = document.getElementById('add-urgency-select').value;
+      const domain = document.getElementById('add-domain-input').value;
+      const feature = document.getElementById('add-feature-input').value;
+      const request = document.getElementById('add-request-input').value || 'Yêu cầu hỗ trợ từ Crisp.';
+
+      const newId = 'TK-' + (4822 + state.tickets.length);
+      state.tickets.unshift({
+        id: newId,
+        app: app,
+        channel: channel,
+        storeUrl: domain,
+        status: status,
+        urgency: urgency,
+        assignedTo: 'Aylin Tran',
+        timestamp: 'Just now',
+        requestContent: request,
+        tags: [feature || 'Support'],
+        handoffNote: '"Vừa được khởi tạo từ Crisp Plugin."',
+        summaryNote: request,
+        unread: true
+      });
+
+      closeAddTicketModal();
+      renderTickets();
+      renderShopTickets();
+      showToast(`Đã tạo thành công ticket ${newId} cho store ${domain}!`);
+    }
+
+    function openTransferModalById(id) {
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        document.getElementById('transfer-ticket-id').value = ticket.id;
+        document.getElementById('transfer-to-select').value = ticket.assignedTo;
+        document.getElementById('transfer-status-select').value = ticket.status;
+        document.getElementById('transfer-urgency-select').value = ticket.urgency;
+        document.getElementById('summary-note-input').value = ticket.summaryNote || '';
+        document.getElementById('handoff-note-input').value = ticket.handoffNote.replace(/^"|"$/g, '') || '';
+        document.getElementById('modal-transfer-ticket').classList.remove('hidden');
+      }
+    }
+    function closeTransferModal() { document.getElementById('modal-transfer-ticket').classList.add('hidden'); }
+
+    function handleTransferSubmit() {
+      const id = document.getElementById('transfer-ticket-id').value;
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        ticket.assignedTo = document.getElementById('transfer-to-select').value;
+        ticket.status = document.getElementById('transfer-status-select').value;
+        ticket.urgency = document.getElementById('transfer-urgency-select').value;
+        ticket.handoffNote = `"${document.getElementById('handoff-note-input').value}"`;
+        ticket.summaryNote = document.getElementById('summary-note-input').value;
+        
+        closeTransferModal();
+        renderTickets();
+        renderShopTickets();
+        showToast(`Đã transfer ticket ${id} cho ${ticket.assignedTo}!`);
+      }
+    }
+
+    function openEditTicketModalById(id) {
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        document.getElementById('edit-ticket-id').value = ticket.id;
+        document.getElementById('edit-status-select').value = ticket.status;
+        document.getElementById('edit-urgency-select').value = ticket.urgency;
+        document.getElementById('edit-request-input').value = ticket.requestContent;
+        document.getElementById('edit-summary-input').value = ticket.summaryNote || '';
+        
+        state.tempEditingTags = [...(ticket.tags || [])];
+        renderEditTagsPills();
+        document.getElementById('modal-edit-ticket').classList.remove('hidden');
+      }
+    }
+    function closeEditTicketModal() { document.getElementById('modal-edit-ticket').classList.add('hidden'); }
+
+    function renderEditTagsPills() {
+      const container = document.getElementById('edit-tags-pill-list');
+      container.innerHTML = state.tempEditingTags.map(tg => `
+        <span class="bg-blue-500/20 text-blue-300 text-[11px] px-2 py-0.5 rounded-md border border-blue-500/30 flex items-center gap-1 font-medium">
+          ${tg} <button onclick="removeTempTag('${tg}')" class="text-blue-400 hover:style="color: var(--sds-color-text-primary);" font-bold ml-1">✕</button>
+        </span>
+      `).join('');
+    }
+
+    function removeTempTag(tg) {
+      state.tempEditingTags = state.tempEditingTags.filter(t => t !== tg);
+      renderEditTagsPills();
+    }
+
+    function openTaggingModal() {
+      renderTaggingSelectionList();
+      document.getElementById('modal-tagging-select').classList.remove('hidden');
+    }
+    function closeTaggingModal() { document.getElementById('modal-tagging-select').classList.add('hidden'); }
+
+    function renderTaggingSelectionList() {
+      const container = document.getElementById('available-tags-list');
+      container.innerHTML = availableTagsMaster.map(tg => {
+        const checked = state.tempEditingTags.includes(tg) ? 'checked' : '';
+        return `
+          <label class="flex items-center space-x-2 p-1.5 hover:btn btn-secondary rounded cursor-pointer style="color: var(--sds-color-text-primary);"">
+            <input type="checkbox" value="${tg}" ${checked} onchange="toggleTagCheck(this)" class="rounded style="background: var(--sds-color-bg-app);" border-slate-700 text-blue-600 focus:ring-0">
+            <span>${tg}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleTagCheck(cb) {
+      if (cb.checked) {
+        if (!state.tempEditingTags.includes(cb.value)) state.tempEditingTags.push(cb.value);
+      } else {
+        state.tempEditingTags = state.tempEditingTags.filter(t => t !== cb.value);
+      }
+    }
+
+    function deselectAllTags() {
+      state.tempEditingTags = [];
+      renderTaggingSelectionList();
+    }
+
+    function applyTagSelection() {
+      const searchVal = document.getElementById('tag-search-input').value.trim();
+      if (searchVal && !state.tempEditingTags.includes(searchVal)) {
+        state.tempEditingTags.push(searchVal);
+      }
+      renderEditTagsPills();
+      closeTaggingModal();
+    }
+
+    function handleEditTicketSubmit() {
+      const id = document.getElementById('edit-ticket-id').value;
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        ticket.status = document.getElementById('edit-status-select').value;
+        ticket.urgency = document.getElementById('edit-urgency-select').value;
+        ticket.tags = [...state.tempEditingTags];
+        ticket.summaryNote = document.getElementById('edit-summary-input').value;
+        
+        closeEditTicketModal();
+        renderTickets();
+        renderShopTickets();
+        showToast(`Đã lưu thay đổi cho ticket ${id}!`);
+      }
+    }
+
+    function createTicketFromReview(domain, title) {
+      document.getElementById('add-domain-input').value = domain;
+      document.getElementById('add-request-input').value = `Review kiếu nại: ${title}`;
+      openAddTicketModal();
+    }
+
+    function filterByApp(app) {
+      state.activeAppFilter = app;
+      state.config.apps.concat([{code:'ALL'}]).forEach(a => {
+        const btn = document.getElementById('appbtn-' + a.code);
+        if (btn) btn.className = a.code === app ? "px-3 py-1 rounded-lg text-xs font-semibold btn btn-primary style="color: var(--sds-color-text-primary);"" : "px-3 py-1 rounded-lg text-xs font-medium btn btn-secondary hover:bg-slate-700";
+      });
+      renderTickets();
+    }
+
+    function filterByAssignee(mode) {
+      state.activeAssigneeFilter = state.activeAssigneeFilter === mode ? 'ALL' : mode;
+      const btn = document.getElementById('filter-me-btn');
+      btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1 rounded-lg text-xs btn btn-primary style="color: var(--sds-color-text-primary);" font-bold" : "px-3 py-1 rounded-lg text-xs btn btn-secondary";
+      renderTickets();
+    }
+
+    function filterTickets() { renderTickets(); }
+
+    function addSubdomain() {
+      const input = document.getElementById('new-subdomain-input');
+      if (input.value.trim()) {
+        const val = input.value.trim();
+        const span = document.createElement('span');
+        span.className = "bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-mono";
+        span.innerText = val;
+        document.getElementById('subdomain-list').appendChild(span);
+        input.value = '';
+        showToast(`Đã gắn sub-domain ${val} vào tracking store!`);
+      }
+    }
+
+    function addShopNote() {
+      const text = prompt('Nhập ghi chú nội bộ cho Shop này:');
+      if (text) {
+        const div = document.createElement('div');
+        div.className = "style="background: var(--sds-color-bg-surface);" p-2.5 rounded border style="border: 1px solid var(--sds-color-border);" text-slate-300 italic";
+        div.innerText = `"${text}"`;
+        document.getElementById('shop-notes-list').appendChild(div);
+        showToast('Đã thêm CS Note mới!');
+      }
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const div = document.createElement('div');
+      div.className = "bg-purple-600 style="color: var(--sds-color-text-primary);" text-xs px-4 py-2.5 rounded-xl shadow-2xl font-bold flex items-center gap-2 toast-animate pointer-events-auto border border-purple-400/30";
+      div.innerHTML = `<span>⚡</span> <span>${msg}</span>`;
+      container.appendChild(div);
+      setTimeout(() => div.remove(), 4000);
+    }
+
+    window.onload = function() {
+      renderAdminPanels();
+      renderTickets();
+      renderReviews();
+      renderShopTickets();
+      renderCSGuideMarkdownView();
+    };
+  </script>
+<!-- MODAL: SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG WORKSPACE SLACK) -->
+  <div id="modal-slack-channel-picker" class="fixed inset-0 style="background: var(--sds-color-bg-app);"/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="style="background: var(--sds-color-bg-surface);" border border-slate-700 modal-box space-y-4 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b style="border: 1px solid var(--sds-color-border);" pb-2">
+        <h3 class="font-bold style="color: var(--sds-color-text-primary);" text-sm">Select Available Channel from Slack Workspace</h3>
+        <button onclick="closeSlackChannelPickerModal()" class="style="color: var(--sds-color-text-secondary);" hover:style="color: var(--sds-color-text-primary);"">✕</button>
+      </div>
+
+      <p class="style="color: var(--sds-color-text-secondary);"">Chọn 1 channel công khai/riêng tư từ workspace Slack của team để ánh xạ vào Helpdesk OS:</p>
+
+      <div id="slack-workspace-channels-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t style="border: 1px solid var(--sds-color-border);"">
+        <button onclick="closeSlackChannelPickerModal()" class="px-3 py-1.5 btn btn-secondary rounded font-medium">Cancel</button>
+        <button onclick="confirmSelectSlackChannel()" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 font-bold style="color: var(--sds-color-text-primary);" rounded shadow">+ Map Channel</button>
+      </div>
+    </div>
+<div id="toast-container" style="position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px;"></div>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkBg: '#0f172a',
+            cardBg: '#1e293b',
+            borderBg: '#334155',
+            accentBlue: '#3b82f6',
+            accentYellow: '#f59e0b',
+            accentGreen: '#10b981',
+            accentRed: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+</main>
   </div>
 
   <!-- Crisp Plugin Drawer -->
@@ -1497,13 +2758,28 @@
                 </div>
               </label>
 
-              <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border:       } else if (type === 'add-ticket') {
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--sds-color-border); border-radius: 8px; cursor: pointer; background: var(--sds-color-bg-card);">
+                <input type="radio" name="slack-channel-opt">
+                <div>
+                  <div style="font-weight: 700; font-family: var(--sds-font-mono); color: #60a5fa;">#apb-paid-task</div>
+                  <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Paid customization task channel for APB</div>
+                </div>
+              </label>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px;">
+              <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+              <button class="btn btn-primary" onclick="closeModal(); showToast('Đã ánh xạ kênh Slack mới thành công!');">+ Map Channel</button>
+            </div>
+          </div>
+        `;
+      } else if (type === 'add-ticket') {
         box.innerHTML = `
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <!-- Modal Header -->
             <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--sds-color-border);">
               <span style="font-size: 1.15rem; font-weight: 700; color: var(--sds-color-text-primary);">Add new ticket</span>
-              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">v</span>
+              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">⌵</span>
             </div>
 
             <!-- Row 1: App Target -->
@@ -1537,7 +2813,7 @@
               </select>
             </div>
 
-            <!-- Row 4: Feature Related -->
+            <!-- Row 4: Feature -->
             <div>
               <input type="text" class="input-field" value="Feature: Live preview" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;" placeholder="Feature: ...">
             </div>
@@ -1592,12 +2868,7 @@
               </select>
             </div>
 
-            <!-- Row 3: Feature Related -->
-            <div>
-              <input type="text" class="input-field" value="Feature: Live preview" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;" placeholder="Feature: ...">
-            </div>
-
-            <!-- Row 4: Handoff note Label & Textarea -->
+            <!-- Row 3: Handoff note Label & Textarea -->
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.9rem; font-weight: 600; color: var(--sds-color-text-primary);">Handoff note</label>
               <textarea class="input-field" rows="4" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 400; resize: vertical;" placeholder="Ticket or handoff note..."></textarea>
@@ -1611,59 +2882,18 @@
         `;
       } else if (type === 'edit-ticket') {
         box.innerHTML = `
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <!-- Header Badges -->
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="background: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 700; padding: 3px 12px; border-radius: 999px;">🟡 Đang check</span>
-                <span style="background: #fee2e2; color: #991b1b; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;">🔴 5</span>
-              </div>
-              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">v</span>
-            </div>
-
-            <!-- Channel Row -->
-            <div style="font-size: 0.9rem; color: var(--sds-color-text-secondary);">
-              Channel: <span style="font-family: var(--sds-font-mono); font-weight: 500; color: var(--sds-color-text-primary); margin-left: 12px;">apo-urgent-case</span>
-            </div>
-
-            <!-- Row 1: Status Dropdown -->
-            <div>
-              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
-                <option value="Đang check" selected>Status: Đang check</option>
-                <option value="Chờ check">Status: Chờ check</option>
-                <option value="Chờ collab">Status: Chờ collab</option>
-                <option value="Done - CS">Status: Done - CS</option>
-              </select>
-            </div>
-
-            <!-- Row 2: Feature Related Input -->
-            <div>
-              <input type="text" class="input-field" value="Feature: Live preview" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;" placeholder="Feature: ...">
-            </div>
-
-            <!-- Row 3: Urgency Dropdown -->
-            <div>
-              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
-                <option value="1" selected>Urgency: 1</option>
-                <option value="2">Urgency: 2</option>
-              </select>
-            </div>
-
-            <!-- Row 4: Sumary Label & Textarea -->
-            <div style="display: flex; flex-direction: column; gap: 6px;">
-              <label style="font-size: 0.9rem; font-weight: 600; color: var(--sds-color-text-primary);">Sumary</label>
-              <textarea class="input-field" rows="4" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 400; resize: vertical;" placeholder="Summarize">Khách báo lỗi button style ở collection page không khớp với setting app. Đã test trên Dawn v11 theme.</textarea>
-            </div>
-
-            <!-- Row 5: Action Buttons (Add tag on left, Cancel & Save changes on right) -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-              <button class="btn btn-secondary" style="border-radius: 12px; padding: 10px 18px; font-size: 0.9rem; font-weight: 600;" onclick="openModal('tagging')">Add tag</button>
-              
-              <div style="display: flex; gap: 10px;">
-                <button class="btn btn-secondary" style="border-radius: 12px; padding: 10px 18px; font-size: 0.9rem; font-weight: 600;" onclick="closeModal()">Cancel</button>
-                <button class="btn" style="background: #27272a; color: #ffffff; border: 1px solid #3f3f46; border-radius: 12px; padding: 10px 20px; font-size: 0.9rem; font-weight: 700;" onclick="closeModal(); showToast('Đã lưu thay đổi ticket!');">Save changes</button>
-              </div>
-            </div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">✏️ Edit Ticket</h3>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-muted);">Request Content (KHÓA Read-only):</label>
+            <textarea class="input-field" rows="2" disabled style="opacity: 0.7;">Option set cannot be rendered on Product Detail Page (PDP) after theme update</textarea>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Summary note:</label>
+            <textarea class="input-field" rows="2">Lỗi xung đột DOM selector với ứng dụng Sticky Add to Cart.</textarea>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="closeModal(); showToast('Đã cập nhật thông tin ticket!');">Lưu Thay Đổi</button>
           </div>
         `;
       } else if (type === 'tagging') {

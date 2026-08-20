@@ -694,6 +694,11 @@
       </div>
 
       <div>
+        <label class="text-slate-400 block mb-1">Feature Related:</label>
+        <input type="text" id="transfer-feature-input" value="Feature: Live preview" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+      </div>
+
+      <div>
         <label class="text-amber-300 font-semibold block mb-1">Handoff / Transfer note (Ghi chú ca trực này):</label>
         <textarea id="handoff-note-input" rows="2" placeholder="Handoff note cho ca sau..." class="w-full bg-slate-950 border border-amber-500/30 rounded p-2 text-amber-100 focus:outline-none"></textarea>
       </div>
@@ -710,55 +715,54 @@
     </div>
   </div>
 
-  <!-- MODAL EDIT TICKET -->
+  <!-- MODAL EDIT TICKET (TICKET RELATED MODAL MATCHING USER MOCKUP) -->
   <div id="modal-edit-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="font-bold text-white text-sm">✏️ Edit Ticket</h3>
+        <div class="flex items-center space-x-2">
+          <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟡 Đang check</span>
+          <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full font-bold">🔴 5</span>
+        </div>
         <button onclick="closeEditTicketModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="text-slate-400 text-xs">
+        Channel: <strong class="text-slate-200 font-mono">apo-urgent-case</strong>
       </div>
 
       <input type="hidden" id="edit-ticket-id">
 
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <label class="text-slate-400 block mb-1">Status:</label>
-          <select id="edit-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
-        </div>
-        <div>
-          <label class="text-slate-400 block mb-1">Urgency:</label>
-          <select id="edit-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
-            <option value="Urgent">Urgent (High risk tickets)</option>
-            <option value="High">High (Premium/Advance)</option>
-            <option value="Medium">Medium (Pro/Basic)</option>
-            <option value="Low">Low (Free/Old/Dev)</option>
-          </select>
-        </div>
+      <div>
+        <label class="text-slate-400 block mb-1">Status:</label>
+        <select id="edit-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200"></select>
       </div>
 
       <div>
-        <div class="flex justify-between items-center mb-1">
-          <label class="text-slate-300 font-semibold">Tags (Gán nhiều Tag):</label>
-          <button onclick="openTaggingModal()" class="text-blue-400 hover:underline text-[11px] font-bold">+ Select / Add Tags</button>
+        <label class="text-slate-400 block mb-1">Feature Related:</label>
+        <input type="text" id="edit-feature-input" value="Feature: Live preview" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">Urgency:</label>
+        <select id="edit-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+          <option value="Urgent">Urgent (High risk tickets)</option>
+          <option value="High">High (Premium/Advance)</option>
+          <option value="Medium">Medium (Pro/Basic)</option>
+          <option value="Low">Low (Free/Old/Dev)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-amber-400/80 font-medium block mb-1">Sumary:</label>
+        <textarea id="edit-summary-input" rows="3" placeholder="Summarize" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+        <button onclick="openTaggingModal()" class="px-3 py-1.5 bg-slate-800 text-slate-200 rounded font-medium border border-slate-700">Add tag</button>
+        <div class="space-x-2">
+          <button onclick="closeEditTicketModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Cancel</button>
+          <button onclick="handleEditTicketSubmit()" class="px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded border border-zinc-700 shadow">Save changes</button>
         </div>
-        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 bg-slate-950 border border-slate-800 rounded-lg min-h-[36px]"></div>
-      </div>
-
-      <div>
-        <label class="text-slate-400 block mb-1">
-          Request Content <span class="text-slate-500 text-[10px] italic">(Khóa: Đồng bộ trực tiếp với Slack Thread)</span>:
-        </label>
-        <textarea id="edit-request-input" rows="2" disabled class="w-full bg-slate-950/60 border border-slate-800/80 rounded p-2 text-slate-500 cursor-not-allowed focus:outline-none"></textarea>
-      </div>
-
-      <div>
-        <label class="text-amber-400/80 font-medium block mb-1">Summary Note (Tóm tắt cốt lõi DB):</label>
-        <textarea id="edit-summary-input" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-300 focus:outline-none"></textarea>
-      </div>
-
-      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
-        <button onclick="closeEditTicketModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Hủy</button>
-        <button onclick="handleEditTicketSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Lưu Thay Đổi</button>
       </div>
     </div>
   </div>

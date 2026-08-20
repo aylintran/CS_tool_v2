@@ -60,7 +60,7 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho màn hình **
 
 ### 4.1 Entities
 - `DashboardStats`: `total_open_tickets`, `assigned_to_me_tickets`, `unread_tickets`.
-- `Ticket`: `id`, `app`, `channel`, `store_url`, `status`, `urgency`, `assigned_to`, `timestamp`, `request_content`, `tags`, `handoff_note`, `summary_note`, `unread`.
+- `Ticket`: `id`, `app`, `channel`, `store_url`, `status`, `urgency`, `feature_related`, `assigned_to`, `timestamp`, `request_content`, `tags`, `handoff_note`, `summary_note`, `unread`.
 - `Tag`: `name`, `color`.
 
 ---
@@ -71,6 +71,7 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho màn hình **
 | :--- | :--- | :--- | :--- | :--- |
 | `ticket_id` | string | Yes | None | Mã duy nhất (e.g. `TK-4821`). |
 | `status` | enum | Yes | `Chờ check - Dev` | Phải thuộc 1 trong 12 `TicketStatus` enums. |
+| `feature_related` | string | No | `"Feature: Live preview"` | Tính năng liên quan của sản phẩm (Hiển thị trong Edit/Transfer Modal & Ticket Cards). |
 | `urgency` | integer | Yes | `1` | `1` (Khẩn cấp) hoặc `2` (Bình thường). |
 | `request_content` | string | Yes | Read-only | Đọc từ DB/Slack, không được sửa trong Edit Modal. |
 | `tags` | array<string> | No | `[]` | Danh sách tên tag gán vào ticket. |

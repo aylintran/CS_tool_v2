@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk OS — CS Suite & Workflow Guide Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            darkBg: '#0f172a',
+            cardBg: '#1e293b',
+            borderBg: '#334155',
+            accentBlue: '#3b82f6',
+            accentYellow: '#f59e0b',
+            accentGreen: '#10b981',
+            accentRed: '#ef4444'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .toast-animate { animation: slideIn 0.3s ease-out forwards; }
+    @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col custom-scrollbar">
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-16 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- TOP WORKFLOW PLATFORMS BAR -->
+  <header class="bg-slate-950 border-b border-slate-800 px-6 py-2.5 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">H</div>
+      <div>
+        <h1 class="font-bold text-sm text-white flex items-center gap-2">
+          Helpdesk OS <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-medium">Interactive Suite</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- WORKFLOW PLATFORMS SELECTOR -->
+    <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 space-x-1">
+      <button onclick="switchPlatform('crisp')" id="plat-crisp" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-400 hover:text-white flex items-center gap-1.5">
+        💬 1. Crisp Chat + Plugin
+      </button>
+      <button onclick="switchPlatform('slack')" id="plat-slack" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-400 hover:text-white flex items-center gap-1.5">
+        💬 2. Slack Thread Sync
+      </button>
+      <button onclick="switchPlatform('internal')" id="plat-internal" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5">
+        🌐 3. Internal Web App
+      </button>
+    </div>
+
+    <!-- USER PROFILE -->
+    <div class="flex items-center space-x-2 text-xs">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-slate-300 font-medium">Aylin Tran (CS On Duty)</span>
+    </div>
+  </header>
+
+  <!-- PLATFORM 1: CRISP CHAT & PLUGIN SIMULATOR -->
+  <div id="platform-crisp" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
+      <!-- Crisp Left Sidebar -->
+      <div class="w-full md:w-64 bg-slate-950 border-r border-slate-800 p-3 space-y-3">
+        <div class="text-xs font-semibold text-slate-400 px-2 flex justify-between">
+          <span>Most Recent</span>
+          <span class="text-emerald-400">● Live</span>
+        </div>
+        <div class="space-y-1">
+          <div class="bg-blue-600/20 border border-blue-500/30 p-2.5 rounded-xl flex items-center space-x-3 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-white truncate">Mykola</div>
+              <div class="text-[11px] text-slate-400 truncate">61cde3-42.myshopify.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Crisp Middle Chat Screen -->
+      <div class="flex-1 bg-slate-900 flex flex-col border-r border-slate-800">
+        <div class="p-3 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
+            <div>
+              <div class="text-xs font-bold text-white">Mykola</div>
+              <div class="text-[11px] text-slate-400">mykola@customer.com</div>
+            </div>
+          </div>
+          <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unresolved</span>
+        </div>
+
+        <div class="flex-1 p-4 space-y-3 overflow-y-auto text-xs">
+          <div class="bg-slate-800 text-slate-300 p-3 rounded-2xl max-w-md">
+            Hi, I'm trying to setup option sets for custom t-shirts on my store <code>61cde3-42.myshopify.com</code>.
+          </div>
+          <div class="bg-blue-600 text-white p-3 rounded-2xl max-w-md ml-auto">
+            Chào bạn, mình đang kiểm tra vấn đề của bạn và sẽ phản hồi sớm nhất nhé!
+          </div>
+        </div>
+
+        <div class="p-3 border-t border-slate-800 bg-slate-950/40">
+          <input type="text" placeholder="Send your message..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Crisp Right Sidebar: HELPDESK OS PLUGIN -->
+      <div class="w-full md:w-80 bg-slate-950 p-4 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div class="flex space-x-2">
+            <button onclick="switchPluginTab('tickets')" id="plugtab-tickets" class="text-xs font-bold text-blue-400 border-b-2 border-blue-500 pb-1">Tickets (<span id="plugin-ticket-count">3</span>)</button>
+            <button onclick="switchPluginTab('store')" id="plugtab-store" class="text-xs font-semibold text-slate-400 hover:text-slate-200 pb-1">Store info</button>
+          </div>
+          <button onclick="openAddTicketModal('61cde3-42.myshopify.com')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-lg font-bold shadow">
+            + Add ticket
+          </button>
+        </div>
+
+        <!-- PLUGIN TICKETS TAB -->
+        <div id="plugin-content-tickets" class="space-y-3 text-xs">
+          <div class="text-[11px] text-slate-400">Store URL: <strong class="text-slate-200 font-mono">61cde3-42.myshopify.com</strong></div>
+          <div id="plugin-tickets-container" class="space-y-2">
+            <!-- Dynamic plugin ticket items render here -->
+          </div>
+        </div>
+
+        <!-- PLUGIN STORE INFO TAB -->
+        <div id="plugin-content-store" class="hidden space-y-3 text-xs">
+          <div class="space-y-1">
+            <label class="text-[11px] font-bold text-blue-400">Store Domain & Add Sub-domain:</label>
+            <div class="flex items-center space-x-1">
+              <input id="new-subdomain-input" type="text" placeholder="Enter sub-domain..." class="flex-1 bg-slate-900 border border-slate-800 rounded p-1.5 text-slate-300 text-[11px]">
+              <button onclick="addSubdomain()" class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded text-[11px] font-bold">+</button>
+            </div>
+            <div id="subdomain-list" class="flex flex-wrap gap-1 pt-1">
+              <span class="bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-mono">61cde3-42.myshopify.com</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2 text-[11px]">
+            <div class="font-bold text-white border-b border-slate-800 pb-1">Visitor Data (Live Meta)</div>
+            <div class="grid grid-cols-2 gap-y-1 divide-y divide-slate-800/50">
+              <div class="text-slate-400 py-0.5">store_url:</div> <div class="text-blue-400 font-mono py-0.5 truncate">61cde3-42.myshopify.com</div>
+              <div class="text-slate-400 py-0.5">store_id:</div> <div class="text-slate-200 font-mono py-0.5">98846605679</div>
+              <div class="text-slate-400 py-0.5">store_country:</div> <div class="text-slate-200 py-0.5">Vietnam</div>
+              <div class="text-slate-400 py-0.5">store_plan:</div> <div class="text-emerald-400 font-bold py-0.5">Shopify Premium</div>
+              <div class="text-slate-400 py-0.5">store_email:</div> <div class="text-blue-400 truncate py-0.5">brandnoxen10@gmail.com</div>
+              <div class="text-slate-400 py-0.5">user_agent:</div> <div class="text-slate-400 text-[10px] truncate py-0.5">Chrome/151.0.0.0 (Macintosh)</div>
+              <div class="text-slate-400 py-0.5">add_charge:</div> <div class="text-slate-200 py-0.5">V3</div>
+              <div class="text-slate-400 py-0.5">app_version:</div> <div class="text-slate-200 py-0.5">v2</div>
+              <div class="text-slate-400 py-0.5">app_plan:</div> <div class="text-emerald-400 font-bold py-0.5">FREE</div>
+              <div class="text-slate-400 py-0.5">pricing_ver:</div> <div class="text-slate-200 py-0.5">v5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORM 2: SLACK THREAD SYNC SIMULATOR -->
+  <div id="platform-slack" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 max-w-4xl mx-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg font-bold text-white">#apo-paid-task</span>
+          <span class="text-xs text-slate-400">Tech support cases for PAYING users of Aris Product Options</span>
+        </div>
+        <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-1 rounded border border-purple-500/30">Posted via Slack OAuth User Token</span>
+      </div>
+
+      <div id="slack-messages-container" class="space-y-4">
+        <!-- Dynamic Slack threads render here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORM 3: INTERNAL WEB APP -->
+  <div id="platform-internal" class="flex-1 flex w-full">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between p-4 custom-scrollbar">
+      <div class="space-y-6">
+
+        <!-- USER PROFILE -->
+        <div class="flex items-center space-x-3 p-2 bg-slate-900/60 rounded-xl border border-slate-800">
+          <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">AY</div>
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-bold text-white truncate">Aylin</div>
+            <div class="text-[10px] text-slate-400 truncate">aylin@avisplus.io</div>
+          </div>
+        </div>
+
+        <!-- CATEGORY 1: APPS -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">APPS</div>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-between">
+            <span>🎨 Avis Product Options</span>
+            <span class="text-[10px] bg-blue-500/30 px-1.5 py-0.2 rounded">v2</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📦 App Bundles</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>🤝 Partner Discounts</span>
+          </button>
+        </div>
+
+        <!-- CATEGORY 2: HELPDESK CS TOOLS (BỔ SUNG MÀN HÌNH CS WORKFLOW GUIDE) -->
+        <div class="space-y-1 border-t border-slate-800/80 pt-3">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-blue-400 px-2 mb-1">HELPDESK CS TOOLS</div>
+          <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
+            <span>📊 CS Dashboard</span>
+          </button>
+          <button onclick="switchInternalView('shops')" id="side-shops" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+            <span>🏪 Shop 360° View</span>
+          </button>
+          <button onclick="switchInternalView('reviews')" id="side-reviews" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+            <span>⭐ App Store Reviews</span>
+          </button>
+          <button onclick="switchInternalView('duty')" id="side-duty" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+            <span>📅 Duty Shift Roster</span>
+          </button>
+          <button onclick="switchInternalView('analytics')" id="side-analytics" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+            <span>📈 CS Analytics</span>
+          </button>
+          <button onclick="switchInternalView('guide')" id="side-guide" class="w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-bold bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 flex items-center space-x-2">
+            <span>📖 CS Workflow Guide</span>
+          </button>
+        </div>
+
+        <!-- CATEGORY 3: TOOLS -->
+        <div class="space-y-1 border-t border-slate-800/80 pt-3">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">TOOLS</div>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📑 Internal Docs</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📌 Jira Docs</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>⚙️ Common Tools</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white">
+            <span>📊 Reports</span>
+          </button>
+        </div>
+
+      </div>
+
+      <button class="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl py-2 text-xs font-bold flex items-center justify-center space-x-1 mt-6">
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <!-- MAIN INTERNAL TOOL CONTENT AREA -->
+    <main class="flex-1 p-6 max-w-6xl mx-auto w-full custom-scrollbar">
+
+      <!-- VIEW 1: CS DASHBOARD -->
+      <div id="internal-view-dashboard" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-slate-400 mb-1">📋 Ticket mở trong ca</div>
+            <div class="text-2xl font-bold text-white" id="stat-total-open">3</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-slate-400 mb-1">👤 Ticket gán cho tôi (Aylin)</div>
+            <div class="text-2xl font-bold text-blue-400" id="stat-assigned-me">2</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-slate-400 mb-1">📬 Ticket unread</div>
+            <div class="text-2xl font-bold text-amber-400" id="stat-unread">1</div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-semibold text-slate-400 uppercase mr-1">App Filter:</span>
+            <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white">ALL</button>
+            <button onclick="filterByApp('APO')" id="appbtn-APO" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">APO</button>
+            <button onclick="filterByApp('APB')" id="appbtn-APB" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">APB</button>
+            <button onclick="filterByApp('ACS')" id="appbtn-ACS" class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">ACS</button>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <select id="status-filter-select" onchange="filterTickets()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1 focus:outline-none">
+              <option value="ALL">All 12 Statuses ▾</option>
+              <option value="Chờ collab - CS">Chờ collab - CS</option>
+              <option value="Chờ check - Dev">Chờ check - Dev</option>
+              <option value="Đang check - Dev">Đang check - Dev</option>
+              <option value="Đã check - Dev">Đã check - Dev</option>
+              <option value="Rejected - Dev lead">Rejected - Dev lead</option>
+              <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
+              <option value="Chờ CS">Chờ CS</option>
+              <option value="Uninstall">Uninstall</option>
+              <option value="Done - CS">Done - CS</option>
+              <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
+              <option value="Fl up 2 (24h)">Fl up 2 (24h)</option>
+              <option value="Fl up 3 (36h)">Fl up 3 (36h)</option>
+            </select>
+            <button onclick="filterByAssignee('ME')" id="filter-me-btn" class="px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300">Assigned to me</button>
+          </div>
+        </div>
+
+        <div class="relative">
+          <input type="text" id="search-input" oninput="filterTickets()" placeholder="🔍 Live search by request summary, store domain, ticket ID..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div id="tickets-container" class="space-y-4">
+          <!-- Dynamic ticket cards render here -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: SHOP 360 -->
+      <div id="internal-view-shops" class="hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-5">
+          <div class="flex items-center justify-between flex-wrap gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <div class="flex items-center space-x-3">
+                <h2 class="text-xl font-bold text-white" id="shop-name-title">Kai Fitness</h2>
+                <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold border border-emerald-500/30" id="shop-status-badge">ACTIVE</span>
+              </div>
+              <p class="text-xs text-slate-400 font-mono mt-1" id="shop-subdomain-desc">kaifit.myapp.io • Growth plan • GMT+7 - Da Nang</p>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <input type="text" id="store-search-domain-input" placeholder="🔍 Enter store domain (e.g. kaifit.myapp.io)..." class="w-72 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 font-mono">
+              <button onclick="handleStoreSearchByDomain()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow">Search</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-4">
+              <div class="space-y-2">
+                <h3 class="text-xs font-bold text-slate-400 uppercase">1 - NEEDS ACTION</h3>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl">
+                    <div class="text-xl font-bold text-red-400" id="shop-urgent-count">1 URGENT</div>
+                    <div class="text-xs text-slate-400">tickets to handle now</div>
+                  </div>
+                  <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+                    <div class="text-xl font-bold text-slate-300">0 REVIEWS</div>
+                    <div class="text-xs text-slate-500">reviews < 3★</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
+                <div class="flex justify-between font-bold text-blue-400"><span>NO FEEDBACK LOOP</span> <span>2 tickets closed</span></div>
+                <p class="text-slate-300">Both tickets closed last week with no CSAT response. Healthy account, quiet customer.</p>
+                <button onclick="alert('Sent check-in email to customer!')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-1 rounded">Send check-in</button>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
+                <h3 class="font-bold text-white border-b border-slate-800 pb-2">Account Info & Visitor Meta</h3>
+                <div class="flex justify-between"><span>Shop ID:</span> <span class="font-mono text-slate-300" id="shop-id-val">55302118874</span></div>
+                <div class="flex justify-between"><span>Email:</span> <span class="text-blue-400" id="shop-email-val">anh@kaifit.vn</span></div>
+                <div class="flex justify-between"><span>Owner:</span> <span class="text-slate-300" id="shop-owner-val">Kai Fitness Co.</span></div>
+                <div class="flex justify-between"><span>Plan:</span> <span class="text-slate-300" id="shop-plan-val">Growth</span></div>
+                <div class="flex justify-between"><span>Country:</span> <span class="text-slate-300">Vietnam</span></div>
+                <div class="flex justify-between"><span>App Version:</span> <span class="text-slate-300">v2</span></div>
+                <div class="flex justify-between"><span>Rating:</span> <span class="text-amber-400 font-bold">4.8 ★ (96)</span></div>
+              </div>
+
+              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                  <h3 class="font-bold text-white">CS Pinned Notes</h3>
+                  <button onclick="addShopNote()" class="text-blue-400 hover:underline text-[11px]">+ Add note</button>
+                </div>
+                <div id="shop-notes-list" class="space-y-1.5">
+                  <div class="bg-slate-900 p-2.5 rounded border border-slate-800 text-slate-300 italic">"Owner prefers Zalo over email. Never call before 9:00 AM."</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 space-y-3">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">TẤT CẢ TICKET CỦA STORE NÀY (<span id="shop-ticket-count-badge">1</span>)</h3>
+            <div id="shop-tickets-container" class="space-y-4">
+              <!-- Dynamic full-layout tickets render here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: REVIEWS -->
+      <div id="internal-view-reviews" class="hidden space-y-6">
+        <div class="bg-blue-600/10 border border-blue-500/30 rounded-xl p-4 flex items-center space-x-3 text-xs text-blue-300">
+          <span class="text-lg">🔗</span>
+          <div><strong>Tracking 3 chiều tự động:</strong> Hệ thống nối tự động từ Store Review ➔ Store Domain ➔ Crisp Chat ID giúp CS liên hệ trực tiếp hỗ trợ merchant.</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-5 text-xs">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <h2 class="text-lg font-bold text-white">App Store Customer Reviews</h2>
+            <div class="text-amber-400 font-bold text-sm">4.3 / 5 (1,284 reviews)</div>
+          </div>
+
+          <div id="reviews-list-container" class="space-y-3">
+            <!-- Dynamic review items render here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: DUTY SHIFT -->
+      <div id="internal-view-duty" class="hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-xs space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <div>
+              <h2 class="text-lg font-bold text-white">Duty Shift Roster (CS & Dev Roster)</h2>
+              <p class="text-slate-400">Week 33 • Aug 10 - Aug 16 ICT (UTC+7)</p>
+            </div>
+            <button onclick="showToast('Roster published successfully to team!')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">Publish Roster</button>
+          </div>
+
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400">
+                <th class="py-2 px-2">Member</th>
+                <th class="py-2 px-2">MON 10</th>
+                <th class="py-2 px-2">TUE 11</th>
+                <th class="py-2 px-2">WED 12</th>
+                <th class="py-2 px-2">THU 13</th>
+                <th class="py-2 px-2">FRI 14</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr>
+                <td class="py-2 px-2 font-bold text-white">Aylin Tran (CS Agent)</td>
+                <td class="py-2 px-2"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">Morning 08-16</span></td>
+                <td class="py-2 px-2"><span class="bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded">Morning 08-16</span></td>
+                <td class="py-2 px-2"><span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Afternoon 14-22</span></td>
+                <td class="py-2 px-2"><span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Afternoon 14-22</span></td>
+                <td class="py-2 px-2"><span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">On-call</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VIEW 5: ANALYTICS -->
+      <div id="internal-view-analytics" class="hidden space-y-6">
+        <div class="grid grid-cols-4 gap-4 text-xs">
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl"><div class="text-slate-400">CREATED (14D)</div><div class="text-2xl font-bold text-white">642</div></div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl"><div class="text-slate-400">RESOLVED</div><div class="text-2xl font-bold text-emerald-400">611</div></div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl"><div class="text-slate-400">MEDIAN RESOLUTION</div><div class="text-2xl font-bold text-blue-400">6h 12m</div></div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl"><div class="text-slate-400">ESCALATION RATE</div><div class="text-2xl font-bold text-amber-400">7.4%</div></div>
+        </div>
+      </div>
+
+      <!-- VIEW 6: CS WORKFLOW GUIDE (MÀN HÌNH HƯỚNG DẪN LUỒNG VẬN HÀNH DÀNH CHO CS) -->
+      <div id="internal-view-guide" class="hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
+          <div class="border-b border-slate-800 pb-4">
+            <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+              📖 CS Operational Workflow Guide — Helpdesk OS
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Hướng dẫn toàn diện luồng vận hành Crisp Chat ➔ Slack Thread ➔ Internal Tool ➔ Bàn giao ca cho CS Agent</p>
+          </div>
+
+          <!-- SƠ ĐỒ LUỒNG 4 BƯỚC -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">1. Sơ Đồ Luồng Vận Hành 4 Bước (Step-by-Step Flow)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center">1</div>
+                <div class="font-bold text-white">Tiếp nhận Crisp Chat</div>
+                <p class="text-slate-400 text-[11px] leading-relaxed">Khách chat trên Crisp ➔ CS xem Crisp Plugin bên phải để check Store Domain, Sub-domains, và Visitor Data.</p>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center">2</div>
+                <div class="font-bold text-white">Tạo Ticket (+ Add ticket)</div>
+                <p class="text-slate-400 text-[11px] leading-relaxed">Bấm `+ Add ticket` từ Plugin ➔ Chọn Channel, Status, Urgency, Tag ➔ Tự động tạo Slack Thread dưới tên cá nhân CS (User Token).</p>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center">3</div>
+                <div class="font-bold text-white">Thảo luận duy nhất tại Slack</div>
+                <p class="text-slate-400 text-[11px] leading-relaxed">Mọi trao đổi file, nhắn Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe im lặng để update status.</p>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center">4</div>
+                <div class="font-bold text-white">Bàn giao ca (Transfer)</div>
+                <p class="text-slate-400 text-[11px] leading-relaxed">Hết ca ➔ Bấm `Transfer` ➔ Điền `Handoff note` (ngắn hạn ca trực) + Auto-load `Summary note` (lưu DB) ➔ Ca sau nhận liền mạch.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUY TẮC 12 TRẠNG THÁI CUSTOM -->
+          <div class="space-y-3 pt-3 border-t border-slate-800">
+            <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider">2. Quy Tắc 12 Trạng Thái Custom (12 Custom Statuses)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="font-bold text-slate-200 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Nhóm Dev Xử Lý
+                </div>
+                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
+                  <li><code>Chờ check - Dev</code>: Ticket mới chuyển sang Dev</li>
+                  <li><code>Đang check - Dev</code>: Dev đang mở code kiểm tra</li>
+                  <li><code>Đã check - Dev</code>: Dev đã xử lý xong / có reply</li>
+                  <li><code>Rejected - Dev lead</code>: Dev Lead từ chối yêu cầu</li>
+                </ul>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="font-bold text-slate-200 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span> Nhóm CS Xử Lý
+                </div>
+                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
+                  <li><code>Chờ collab - CS</code>: Chờ CS khác hỗ trợ</li>
+                  <li><code>CHỜ KHÁCH - CS</code>: CS đã reply, chờ khách phản hồi</li>
+                  <li><code>Chờ CS</code>: Cần CS vào xử lý gấp</li>
+                  <li><code>Uninstall</code>: Merchant đã gỡ app</li>
+                  <li><code>Done - CS</code>: Đã giải quyết hoàn tất</li>
+                </ul>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div class="font-bold text-slate-200 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Nhóm Follow-up Tự Động
+                </div>
+                <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
+                  <li><code>Fl up 1 (12h)</code>: Hẹn theo dõi lại sau 12 giờ</li>
+                  <li><code>Fl up 2 (24h)</code>: Hẹn theo dõi lại sau 24 giờ</li>
+                  <li><code>Fl up 3 (36h)</code>: Hẹn theo dõi lại sau 36 giờ</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUY TẮC DUAL YELLOW NOTE CARDS -->
+          <div class="space-y-3 pt-3 border-t border-slate-800">
+            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl space-y-2">
+                <div class="font-bold text-amber-300">📝 Card 1: Note transfer case (Ghi chú ca trực)</div>
+                <p class="text-amber-100/90 text-[11px] leading-relaxed">
+                  Là ghi chú **ngắn hạn** do CS ca trước gõ để bàn giao nhanh cho CS ca sau (ví dụ: <em>"Đã nhắn Dev Tuan check CSS lúc 15h, chờ reply"</em>). Được ghi đè theo từng lần giao ca.
+                </p>
+              </div>
+
+              <div class="bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl space-y-2">
+                <div class="font-bold text-amber-400/90">📄 Card 2: Summary note (Tóm tắt cốt lõi DB)</div>
+                <p class="text-slate-300 text-[11px] leading-relaxed">
+                  Là tóm tắt **bản chất kỹ thuật gốc** của ticket được lưu cố định trong cơ sở dữ liệu. Khi mở Modal Transfer, nội dung này **tự động load vào form**, CS ca sau không cần copy paste thủ công.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- MODALS -->
+  <div id="modal-add-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-white text-sm">Add New Ticket (Gửi Slack Thread)</h3>
+        <button onclick="closeAddTicketModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">App Target:</label>
+        <select id="add-app-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+          <option value="APO">Avis Product Options (APO)</option>
+          <option value="APB">App Bundles (APB)</option>
+          <option value="ACS">Aris Color Swatch (ACS)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">Slack Channel:</label>
+        <select id="add-channel-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+          <option value="#apo-paid-task">#apo-paid-task</option>
+          <option value="#apo-urgent-case">#apo-urgent-case</option>
+          <option value="#acs-color-swatch-task">#acs-color-swatch-task</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-slate-400 block mb-1">Status:</label>
+          <select id="add-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="Chờ check - Dev" selected>Chờ check - Dev</option>
+            <option value="Chờ collab - CS">Chờ collab - CS</option>
+            <option value="Đang check - Dev">Đang check - Dev</option>
+            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Urgency:</label>
+          <select id="add-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="1">1 (Khẩn cấp)</option>
+            <option value="2">2 (Bình thường)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">Store Domain:</label>
+        <input type="text" id="add-domain-input" value="61cde3-42.myshopify.com" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 font-mono">
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">Feature Tag:</label>
+        <input type="text" id="add-feature-input" value="Live preview" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">Request Content:</label>
+        <textarea id="add-request-input" rows="3" placeholder="Mô tả chi tiết yêu cầu..." class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeAddTicketModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Hủy</button>
+        <button onclick="handleCreateTicketSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Gửi Ticket lên Slack</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: TRANSFER TICKET -->
+  <div id="modal-transfer-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-white text-sm">Transfer Ticket (Bàn Giao Ca)</h3>
+        <button onclick="closeTransferModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <input type="hidden" id="transfer-ticket-id">
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-slate-400 block mb-1">Transfer to:</label>
+          <select id="transfer-to-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="Aylin Tran">Aylin Tran</option>
+            <option value="Ngan Pham">Ngan Pham</option>
+            <option value="Ha Tran">Ha Tran</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Remind:</label>
+          <input type="text" id="transfer-remind-input" value="May 8th, 8:00 AM" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-slate-400 block mb-1">Status:</label>
+          <select id="transfer-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="Chờ check - Dev">Chờ check - Dev</option>
+            <option value="Đang check - Dev">Đang check - Dev</option>
+            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
+            <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
+            <option value="Done - CS">Done - CS</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Urgency:</label>
+          <select id="transfer-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="1">1 (Khẩn cấp)</option>
+            <option value="2">2 (Bình thường)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-amber-300 font-semibold block mb-1">Handoff / Transfer note (Ghi chú ca trực này):</label>
+        <textarea id="handoff-note-input" rows="2" placeholder="Handoff note cho ca sau..." class="w-full bg-slate-950 border border-amber-500/30 rounded p-2 text-amber-100 focus:outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="text-amber-400/80 font-medium block mb-1">Summary note (Tóm tắt cốt lõi - Auto-fill từ DB):</label>
+        <textarea id="summary-note-input" rows="2" placeholder="Summary note..." class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeTransferModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Hủy</button>
+        <button onclick="handleTransferSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Submit Note</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: EDIT TICKET -->
+  <div id="modal-edit-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-white text-sm">✏️ Edit Ticket</h3>
+        <button onclick="closeEditTicketModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <input type="hidden" id="edit-ticket-id">
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="text-slate-400 block mb-1">Status:</label>
+          <select id="edit-status-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="Chờ collab - CS">Chờ collab - CS</option>
+            <option value="Chờ check - Dev">Chờ check - Dev</option>
+            <option value="Đang check - Dev">Đang check - Dev</option>
+            <option value="Đã check - Dev">Đã check - Dev</option>
+            <option value="Rejected - Dev lead">Rejected - Dev lead</option>
+            <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
+            <option value="Chờ CS">Chờ CS</option>
+            <option value="Uninstall">Uninstall</option>
+            <option value="Done - CS">Done - CS</option>
+            <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
+            <option value="Fl up 2 (24h)">Fl up 2 (24h)</option>
+            <option value="Fl up 3 (36h)">Fl up 3 (36h)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Urgency:</label>
+          <select id="edit-urgency-select" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-200">
+            <option value="1">1 (Khẩn cấp)</option>
+            <option value="2">2 (Bình thường)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-1">
+          <label class="text-slate-300 font-semibold">Tags (Gán nhiều Tag):</label>
+          <button onclick="openTaggingModal()" class="text-blue-400 hover:underline text-[11px] font-bold">+ Select / Add Tags</button>
+        </div>
+        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 bg-slate-950 border border-slate-800 rounded-lg min-h-[36px]">
+        </div>
+      </div>
+
+      <div>
+        <label class="text-slate-400 block mb-1">
+          Request Content <span class="text-slate-500 text-[10px] italic">(Khóa: Đồng bộ trực tiếp với Slack Thread)</span>:
+        </label>
+        <textarea id="edit-request-input" rows="2" disabled class="w-full bg-slate-950/60 border border-slate-800/80 rounded p-2 text-slate-500 cursor-not-allowed focus:outline-none"></textarea>
+      </div>
+
+      <div>
+        <label class="text-amber-400/80 font-medium block mb-1">Summary Note (Tóm tắt cốt lõi DB):</label>
+        <textarea id="edit-summary-input" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeEditTicketModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Hủy</button>
+        <button onclick="handleEditTicketSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Lưu Thay Đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: SHOPIFY-STYLE TAGGING SELECTION MODAL -->
+  <div id="modal-tagging-select" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-5 space-y-4 text-xs shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="font-bold text-white text-sm">Tagging</h3>
+        <button onclick="closeTaggingModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <div class="relative">
+          <input type="text" id="tag-search-input" placeholder="Type tag name..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-slate-200 focus:outline-none">
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-slate-400">Select tags</span>
+          <button onclick="deselectAllTags()" class="text-blue-400 text-[11px] hover:underline">Deselect all</button>
+        </div>
+
+        <div id="available-tags-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-800">
+        <button onclick="closeTaggingModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded font-medium">Cancel</button>
+        <button onclick="applyTagSelection()" class="px-4 py-1.5 bg-slate-200 text-slate-950 hover:bg-white font-bold rounded shadow">Add tags</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT STATE & CONTROLLERS -->
+  <script>
+    const availableTagsMaster = ['Live preview', 'Option Set', 'Bundle Cart', 'Theme Conflict', 'CSS Issue', 'Checkout Fix', 'VIP Merchant', 'Bug Signal', 'Refund Ask'];
+
+    const state = {
+      activeAppFilter: 'ALL',
+      activeAssigneeFilter: 'ALL',
+      currentStoreDomain: 'kaifit.myapp.io',
+      tempEditingTags: [],
+      tickets: [
+        {
+          id: 'TK-4821',
+          app: 'APO',
+          channel: '#apo-paid-task',
+          storeUrl: 'woodesign.ie.myshopify.com',
+          status: 'Đang check - Dev',
+          urgency: '1',
+          assignedTo: 'Aylin Tran',
+          timestamp: '4:53 pm 19/08/2026',
+          requestContent: 'style button ở collection page không giống style khách đang set up trong app.',
+          tags: ['Live preview', 'CSS Issue'],
+          handoffNote: '"Đã nhắn Dev Tuan check CSS lúc 15h, chờ Tuan reply để báo khách trên Crisp."',
+          summaryNote: 'Khách báo lỗi button style ở collection page không khớp với setting app. Đã test trên Dawn v11 theme.',
+          unread: true
+        },
+        {
+          id: 'TK-4817',
+          app: 'APO',
+          channel: '#apo-urgent-case',
+          storeUrl: 'kaifit.myapp.io',
+          status: 'Fl up 1 (12h)',
+          urgency: '2',
+          assignedTo: 'Aylin Tran',
+          timestamp: '6:46 pm 18/08/2026',
+          requestContent: 'Khách nhận order mất option KTGPS-2522, KTGPS-2511.',
+          tags: ['Option Set', 'Checkout Fix'],
+          handoffNote: '"Đã fix xong trên staging, hẹn 12h sau follow-up khách xem ok chưa."',
+          summaryNote: 'Mất option ID khi checkout order. Do chưa sync variant ID mới.',
+          unread: false
+        },
+        {
+          id: 'TK-4819',
+          app: 'APB',
+          channel: '#apo-paid-task',
+          storeUrl: 'bloomco.myshopify.com',
+          status: 'Chờ check - Dev',
+          urgency: '1',
+          assignedTo: 'Ngan Pham',
+          timestamp: '10:15 am 19/08/2026',
+          requestContent: 'Bundle discount price calculations wrong on mobile checkout.',
+          tags: ['Bundle Cart'],
+          handoffNote: '"Cần Dev check gấp trên Chrome Mobile view."',
+          summaryNote: 'Tính giá discount sai khi áp dụng voucher giảm giá song song.',
+          unread: true
+        }
+      ],
+      reviews: [
+        {
+          id: 'REV-01',
+          stars: '★★★★★',
+          title: 'Barcode scanner keeps freezing',
+          badge: 'Bug signal',
+          badgeColor: 'bg-red-500/20 text-red-400',
+          time: '2h ago',
+          author: 'kien_m • Android 3.4.0',
+          domain: 'kaifit.myapp.io',
+          crispUser: 'Mykola',
+          content: 'Since the last update the scanner locks up when I scan two items quickly. I have to restart the app several times per shift.'
+        },
+        {
+          id: 'REV-02',
+          stars: '★★★★★',
+          title: 'Support replied in ten minutes',
+          badge: 'Positive',
+          badgeColor: 'bg-emerald-500/20 text-emerald-400',
+          time: '6h ago',
+          author: 'thu.linh • iOS 3.4.1',
+          domain: 'woodesign.ie.myshopify.com',
+          crispUser: 'Thu Linh',
+          content: 'Asked about VAT invoices at 9pm and got a real answer, not a template. The refund flow is much clearer now.'
+        }
+      ]
+    };
+
+    function switchPlatform(plat) {
+      ['crisp', 'slack', 'internal'].forEach(p => {
+        document.getElementById('platform-' + p).classList.add('hidden');
+        document.getElementById('plat-' + p).className = "px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-400 hover:text-white flex items-center gap-1.5";
+      });
+      document.getElementById('platform-' + plat).classList.remove('hidden');
+      document.getElementById('plat-' + plat).className = "px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5";
+    }
+
+    function switchInternalView(viewId) {
+      ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide'].forEach(v => {
+        document.getElementById('internal-view-' + v).classList.add('hidden');
+        const el = document.getElementById('side-' + v);
+        if (el) el.className = v === 'guide' ? "w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-medium hover:bg-slate-900 flex items-center space-x-2" : "w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2";
+      });
+      document.getElementById('internal-view-' + viewId).classList.remove('hidden');
+      const activeEl = document.getElementById('side-' + viewId);
+      if (activeEl) activeEl.className = viewId === 'guide' ? "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2" : "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
+    }
+
+    function navigateToShopInfo(domain) {
+      document.getElementById('store-search-domain-input').value = domain;
+      handleStoreSearchByDomain();
+      switchPlatform('internal');
+      switchInternalView('shops');
+    }
+
+    function handleStoreSearchByDomain() {
+      const input = document.getElementById('store-search-domain-input').value.trim();
+      if (!input) return;
+      state.currentStoreDomain = input;
+      
+      document.getElementById('shop-name-title').innerText = input.split('.')[0].toUpperCase() + ' STORE';
+      document.getElementById('shop-subdomain-desc').innerText = `${input} • Growth plan • GMT+7`;
+      
+      renderShopTickets();
+      showToast(`Đã tải dữ liệu Store 360° cho domain: ${input}`);
+    }
+
+    function renderShopTickets() {
+      const container = document.getElementById('shop-tickets-container');
+      const filtered = state.tickets.filter(t => t.storeUrl.toLowerCase().includes(state.currentStoreDomain.toLowerCase()));
+      
+      document.getElementById('shop-ticket-count-badge').innerText = filtered.length;
+      document.getElementById('shop-urgent-count').innerText = `${filtered.filter(t => t.urgency === '1').length} URGENT`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-xs text-slate-500 italic p-4 bg-slate-950 rounded-xl border border-slate-800">Chưa có ticket nào được tạo cho store domain này.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => `
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm flex flex-col md:flex-row gap-4">
+          <div class="flex-1 space-y-3 text-xs">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-medium">Urgency: ${t.urgency}</span>
+                <span class="text-xs text-slate-400 font-mono">${t.id}</span>
+                <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+              </div>
+              <span class="text-slate-400">Channel: <strong class="text-slate-200">${t.channel}</strong></span>
+            </div>
+
+            <div class="space-y-1">
+              <div>Store URL: <a href="#" class="text-blue-400 hover:underline font-mono">${t.storeUrl}</a></div>
+              <div>Assigned to: <strong class="text-slate-200">${t.assignedTo}</strong> <span class="text-slate-500 ml-2">at ${t.timestamp}</span></div>
+              <div class="mt-2 text-slate-200 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <strong>Request:</strong> ${t.requestContent}
+              </div>
+              <div class="text-slate-400 pt-1 flex items-center gap-1">
+                Tags: ${(t.tags || []).map(tg => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-[11px]">${tg}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-2 flex-wrap gap-y-1">
+              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-purple-600/30 text-purple-300 border border-purple-500/40 font-medium">💬 View Slack</a>
+              <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium">✏️ Edit</button>
+              <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-blue-600 text-white hover:bg-blue-500 font-semibold shadow">🔄 Transfer</button>
+            </div>
+          </div>
+
+          <div class="w-full md:w-80 space-y-2 flex flex-col">
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-300 mb-1">📝 Note transfer case</div>
+              <p class="text-amber-100/90 italic leading-relaxed">${t.handoffNote || '"Chưa có note giao ca."'}</p>
+            </div>
+            <div class="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-400/90 mb-1">📄 Summary note</div>
+              <p class="text-slate-300 leading-relaxed">${t.summaryNote || 'Chưa có tóm tắt.'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTickets() {
+      const container = document.getElementById('tickets-container');
+      const pluginContainer = document.getElementById('plugin-tickets-container');
+      const slackContainer = document.getElementById('slack-messages-container');
+      
+      const searchVal = document.getElementById('search-input').value.toLowerCase();
+      const statusFilter = document.getElementById('status-filter-select').value;
+
+      const filtered = state.tickets.filter(t => {
+        const matchApp = state.activeAppFilter === 'ALL' || t.app === state.activeAppFilter;
+        const matchAssignee = state.activeAssigneeFilter === 'ALL' || t.assignedTo === 'Aylin Tran';
+        const matchStatus = statusFilter === 'ALL' || t.status === statusFilter;
+        const matchSearch = t.requestContent.toLowerCase().includes(searchVal) ||
+                            t.storeUrl.toLowerCase().includes(searchVal) ||
+                            t.id.toLowerCase().includes(searchVal);
+        return matchApp && matchAssignee && matchStatus && matchSearch;
+      });
+
+      document.getElementById('stat-total-open').innerText = state.tickets.length;
+      document.getElementById('stat-assigned-me').innerText = state.tickets.filter(t => t.assignedTo === 'Aylin Tran').length;
+      document.getElementById('stat-unread').innerText = state.tickets.filter(t => t.unread).length;
+      document.getElementById('plugin-ticket-count').innerText = state.tickets.length;
+
+      container.innerHTML = filtered.map(t => `
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm hover:border-slate-700 transition flex flex-col md:flex-row gap-4">
+          <div class="flex-1 space-y-3 text-xs">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-medium">Urgency: ${t.urgency}</span>
+                <span class="text-xs text-slate-400 font-mono">${t.id}</span>
+                <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+              </div>
+              <span class="text-slate-400">Channel: <strong class="text-slate-200">${t.channel}</strong></span>
+            </div>
+
+            <div class="space-y-1">
+              <div>Store URL: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-400 hover:underline font-mono">${t.storeUrl}</a></div>
+              <div>Assigned to: <strong class="text-slate-200">${t.assignedTo}</strong> <span class="text-slate-500 ml-2">at ${t.timestamp}</span></div>
+              <div class="mt-2 text-slate-200 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <strong>Request:</strong> ${t.requestContent}
+              </div>
+              <div class="text-slate-400 pt-1 flex items-center gap-1">
+                Tags: ${(t.tags || []).map(tg => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-[11px]">${tg}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-2 flex-wrap gap-y-1">
+              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-purple-600/30 text-purple-300 border border-purple-500/40 hover:bg-purple-600/40 font-medium flex items-center gap-1">
+                💬 View Slack
+              </a>
+              <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium">
+                ✏️ Edit
+              </button>
+              <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-blue-600 text-white hover:bg-blue-500 font-semibold shadow">
+                🔄 Transfer
+              </button>
+              <button onclick="navigateToShopInfo('${t.storeUrl}')" class="px-3 py-1.5 rounded-lg text-xs bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/30 font-medium">
+                🏪 Store Info
+              </button>
+            </div>
+          </div>
+
+          <div class="w-full md:w-80 space-y-2 flex flex-col">
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-300 mb-1">📝 Note transfer case</div>
+              <p class="text-amber-100/90 italic leading-relaxed">${t.handoffNote || '"Chưa có note giao ca."'}</p>
+            </div>
+            <div class="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-xs flex-1">
+              <div class="font-semibold text-amber-400/90 mb-1">📄 Summary note</div>
+              <p class="text-slate-300 leading-relaxed">${t.summaryNote || 'Chưa có tóm tắt.'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      pluginContainer.innerHTML = state.tickets.map(t => `
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full font-bold">🟡 ${t.status}</span>
+            <span class="text-[10px] text-slate-500">Urgency: ${t.urgency}</span>
+          </div>
+          <div class="text-slate-300 font-medium">${t.requestContent}</div>
+          <div class="flex items-center space-x-1.5 pt-1">
+            <button onclick="switchPlatform('slack')" class="px-2 py-1 rounded text-[10px] bg-purple-600/30 text-purple-300">View Slack</button>
+            <button onclick="openTransferModalById('${t.id}')" class="px-2 py-1 rounded text-[10px] bg-slate-800 text-slate-200">Transfer</button>
+          </div>
+        </div>
+      `).join('');
+
+      slackContainer.innerHTML = state.tickets.map(t => `
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-slate-700 font-bold text-white flex items-center justify-center">AT</div>
+            <div>
+              <strong class="text-white text-sm">${t.assignedTo}</strong> <span class="text-slate-500 text-[11px]">${t.timestamp}</span>
+            </div>
+          </div>
+          <div class="text-slate-200">Store: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-400 font-mono">${t.storeUrl}</a></div>
+          <div class="text-slate-200">Request: ${t.requestContent}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderReviews() {
+      const container = document.getElementById('reviews-list-container');
+      container.innerHTML = state.reviews.map(r => `
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-amber-400 font-bold">${r.stars}</span>
+              <strong class="text-white">${r.title}</strong>
+              <span class="${r.badgeColor} px-2 py-0.5 rounded font-bold text-[10px]">${r.badge}</span>
+            </div>
+            <span class="text-slate-500">${r.time} • ${r.author}</span>
+          </div>
+
+          <div class="flex items-center space-x-3 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] my-1 flex-wrap">
+            <div>Store Domain: <button onclick="navigateToShopInfo('${r.domain}')" class="text-blue-400 hover:underline font-mono font-bold">${r.domain}</button></div>
+            <div class="text-slate-700">|</div>
+            <div>Crisp Chat: <button onclick="switchPlatform('crisp')" class="text-emerald-400 hover:underline font-semibold">💬 Open Crisp Chat (${r.crispUser})</button></div>
+          </div>
+
+          <p class="text-slate-300">${r.content}</p>
+
+          <div class="flex items-center space-x-2 pt-2 border-t border-slate-800/80 flex-wrap gap-y-1">
+            <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded font-bold">Create ticket</button>
+            <button onclick="alert('Replying on store...')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-medium">Reply on Store</button>
+            <button onclick="switchPlatform('crisp')" class="px-3 py-1 bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 rounded font-semibold">💬 Open Crisp Chat</button>
+            <button onclick="navigateToShopInfo('${r.domain}')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-blue-300 border border-blue-500/30 rounded font-semibold flex items-center gap-1">🏪 Store Info</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAddTicketModal(domain) {
+      if (domain) document.getElementById('add-domain-input').value = domain;
+      document.getElementById('modal-add-ticket').classList.remove('hidden');
+    }
+    function closeAddTicketModal() { document.getElementById('modal-add-ticket').classList.add('hidden'); }
+
+    function handleCreateTicketSubmit() {
+      const app = document.getElementById('add-app-select').value;
+      const channel = document.getElementById('add-channel-select').value;
+      const status = document.getElementById('add-status-select').value;
+      const urgency = document.getElementById('add-urgency-select').value;
+      const domain = document.getElementById('add-domain-input').value;
+      const feature = document.getElementById('add-feature-input').value;
+      const request = document.getElementById('add-request-input').value || 'Yêu cầu hỗ trợ từ Crisp.';
+
+      const newId = 'TK-' + (4822 + state.tickets.length);
+      state.tickets.unshift({
+        id: newId,
+        app: app,
+        channel: channel,
+        storeUrl: domain,
+        status: status,
+        urgency: urgency,
+        assignedTo: 'Aylin Tran',
+        timestamp: 'Just now',
+        requestContent: request,
+        tags: [feature || 'Support'],
+        handoffNote: '"Vừa được khởi tạo từ Crisp Plugin."',
+        summaryNote: request,
+        unread: true
+      });
+
+      closeAddTicketModal();
+      renderTickets();
+      renderShopTickets();
+      showToast(`Đã tạo thành công ticket ${newId} cho store ${domain}!`);
+    }
+
+    function openTransferModalById(id) {
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        document.getElementById('transfer-ticket-id').value = ticket.id;
+        document.getElementById('transfer-to-select').value = ticket.assignedTo;
+        document.getElementById('transfer-status-select').value = ticket.status;
+        document.getElementById('transfer-urgency-select').value = ticket.urgency;
+        document.getElementById('summary-note-input').value = ticket.summaryNote || '';
+        document.getElementById('handoff-note-input').value = ticket.handoffNote.replace(/^"|"$/g, '') || '';
+        document.getElementById('modal-transfer-ticket').classList.remove('hidden');
+      }
+    }
+    function closeTransferModal() { document.getElementById('modal-transfer-ticket').classList.add('hidden'); }
+
+    function handleTransferSubmit() {
+      const id = document.getElementById('transfer-ticket-id').value;
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        ticket.assignedTo = document.getElementById('transfer-to-select').value;
+        ticket.status = document.getElementById('transfer-status-select').value;
+        ticket.urgency = document.getElementById('transfer-urgency-select').value;
+        ticket.handoffNote = `"${document.getElementById('handoff-note-input').value}"`;
+        ticket.summaryNote = document.getElementById('summary-note-input').value;
+        
+        closeTransferModal();
+        renderTickets();
+        renderShopTickets();
+        showToast(`Đã transfer ticket ${id} cho ${ticket.assignedTo}!`);
+      }
+    }
+
+    function openEditTicketModalById(id) {
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        document.getElementById('edit-ticket-id').value = ticket.id;
+        document.getElementById('edit-status-select').value = ticket.status;
+        document.getElementById('edit-urgency-select').value = ticket.urgency;
+        document.getElementById('edit-request-input').value = ticket.requestContent;
+        document.getElementById('edit-summary-input').value = ticket.summaryNote || '';
+        
+        state.tempEditingTags = [...(ticket.tags || [])];
+        renderEditTagsPills();
+        document.getElementById('modal-edit-ticket').classList.remove('hidden');
+      }
+    }
+    function closeEditTicketModal() { document.getElementById('modal-edit-ticket').classList.add('hidden'); }
+
+    function renderEditTagsPills() {
+      const container = document.getElementById('edit-tags-pill-list');
+      container.innerHTML = state.tempEditingTags.map(tg => `
+        <span class="bg-blue-500/20 text-blue-300 text-[11px] px-2 py-0.5 rounded-md border border-blue-500/30 flex items-center gap-1 font-medium">
+          ${tg} <button onclick="removeTempTag('${tg}')" class="text-blue-400 hover:text-white font-bold ml-1">✕</button>
+        </span>
+      `).join('');
+    }
+
+    function removeTempTag(tg) {
+      state.tempEditingTags = state.tempEditingTags.filter(t => t !== tg);
+      renderEditTagsPills();
+    }
+
+    function openTaggingModal() {
+      renderTaggingSelectionList();
+      document.getElementById('modal-tagging-select').classList.remove('hidden');
+    }
+    function closeTaggingModal() { document.getElementById('modal-tagging-select').classList.add('hidden'); }
+
+    function renderTaggingSelectionList() {
+      const container = document.getElementById('available-tags-list');
+      container.innerHTML = availableTagsMaster.map(tg => {
+        const checked = state.tempEditingTags.includes(tg) ? 'checked' : '';
+        return `
+          <label class="flex items-center space-x-2 p-1.5 hover:bg-slate-800 rounded cursor-pointer text-slate-200">
+            <input type="checkbox" value="${tg}" ${checked} onchange="toggleTagCheck(this)" class="rounded bg-slate-950 border-slate-700 text-blue-600 focus:ring-0">
+            <span>${tg}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleTagCheck(cb) {
+      if (cb.checked) {
+        if (!state.tempEditingTags.includes(cb.value)) state.tempEditingTags.push(cb.value);
+      } else {
+        state.tempEditingTags = state.tempEditingTags.filter(t => t !== cb.value);
+      }
+    }
+
+    function deselectAllTags() {
+      state.tempEditingTags = [];
+      renderTaggingSelectionList();
+    }
+
+    function applyTagSelection() {
+      const searchVal = document.getElementById('tag-search-input').value.trim();
+      if (searchVal && !state.tempEditingTags.includes(searchVal)) {
+        state.tempEditingTags.push(searchVal);
+      }
+      renderEditTagsPills();
+      closeTaggingModal();
+    }
+
+    function handleEditTicketSubmit() {
+      const id = document.getElementById('edit-ticket-id').value;
+      const ticket = state.tickets.find(t => t.id === id);
+      if (ticket) {
+        ticket.status = document.getElementById('edit-status-select').value;
+        ticket.urgency = document.getElementById('edit-urgency-select').value;
+        ticket.tags = [...state.tempEditingTags];
+        ticket.summaryNote = document.getElementById('edit-summary-input').value;
+        
+        closeEditTicketModal();
+        renderTickets();
+        renderShopTickets();
+        showToast(`Đã lưu thay đổi cho ticket ${id}!`);
+      }
+    }
+
+    function createTicketFromReview(domain, title) {
+      document.getElementById('add-domain-input').value = domain;
+      document.getElementById('add-request-input').value = `Review kiếu nại: ${title}`;
+      openAddTicketModal();
+    }
+
+    function filterByApp(app) {
+      state.activeAppFilter = app;
+      ['ALL', 'APO', 'APB', 'ACS'].forEach(a => {
+        const btn = document.getElementById('appbtn-' + a);
+        if (btn) btn.className = a === app ? "px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700";
+      });
+      renderTickets();
+    }
+
+    function filterByAssignee(mode) {
+      state.activeAssigneeFilter = state.activeAssigneeFilter === mode ? 'ALL' : mode;
+      const btn = document.getElementById('filter-me-btn');
+      btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1 rounded-lg text-xs bg-blue-600 text-white font-bold" : "px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300";
+      renderTickets();
+    }
+
+    function filterTickets() { renderTickets(); }
+
+    function addSubdomain() {
+      const input = document.getElementById('new-subdomain-input');
+      if (input.value.trim()) {
+        const val = input.value.trim();
+        const span = document.createElement('span');
+        span.className = "bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-mono";
+        span.innerText = val;
+        document.getElementById('subdomain-list').appendChild(span);
+        input.value = '';
+        showToast(`Đã gắn sub-domain ${val} vào tracking store!`);
+      }
+    }
+
+    function addShopNote() {
+      const text = prompt('Nhập ghi chú nội bộ cho Shop này:');
+      if (text) {
+        const div = document.createElement('div');
+        div.className = "bg-slate-900 p-2.5 rounded border border-slate-800 text-slate-300 italic";
+        div.innerText = `"${text}"`;
+        document.getElementById('shop-notes-list').appendChild(div);
+        showToast('Đã thêm CS Note mới!');
+      }
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const div = document.createElement('div');
+      div.className = "bg-blue-600 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl font-bold flex items-center gap-2 toast-animate pointer-events-auto border border-blue-400/30";
+      div.innerHTML = `<span>🚀</span> <span>${msg}</span>`;
+      container.appendChild(div);
+      setTimeout(() => div.remove(), 4000);
+    }
+
+    window.onload = function() {
+      renderTickets();
+      renderReviews();
+      renderShopTickets();
+    };
+  </script>
+</body>
+</html>

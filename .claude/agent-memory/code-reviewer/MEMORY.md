@@ -1,0 +1,1 @@
+- [Storefront metafield pipeline](storefront-metafield-pipeline.md) — how storefront features deliver data (no app proxy)

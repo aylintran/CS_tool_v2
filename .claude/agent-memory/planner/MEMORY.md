@@ -1,0 +1,2 @@
+- [Product-group storefront delivery](product-group-storefront-delivery.md) — uses shop metafield + Liquid live availability, NOT the app proxy from the Tech Design
+- [Liquid all_products 20-handle cap](liquid-all-products-20-handle-cap.md) — collection-page per-card data must use collection.products, NOT all_products[handle]

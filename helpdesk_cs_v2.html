@@ -715,19 +715,20 @@
     </div>
   </div>
 
-  <!-- MODAL EDIT TICKET (TICKET RELATED MODAL MATCHING USER MOCKUP) -->
+  <!-- MODAL EDIT TICKET (TICKET RELATED MODAL MATCHING USER MOCKUP WITH REOPEN BADGE) -->
   <div id="modal-edit-ticket" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2" id="edit-modal-header-badges">
           <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟡 Đang check</span>
           <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full font-bold">🔴 5</span>
+          <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟡 Reopened</span>
         </div>
         <button onclick="closeEditTicketModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
 
       <div class="text-slate-400 text-xs">
-        Channel: <strong class="text-slate-200 font-mono">apo-urgent-case</strong>
+        Channel: <strong id="edit-channel-display" class="text-slate-200 font-mono">apo-urgent-case</strong>
       </div>
 
       <input type="hidden" id="edit-ticket-id">
@@ -755,6 +756,11 @@
       <div>
         <label class="text-amber-400/80 font-medium block mb-1">Sumary:</label>
         <textarea id="edit-summary-input" rows="3" placeholder="Summarize" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-slate-300 focus:outline-none"></textarea>
+      </div>
+
+      <!-- Ticket Reopened Count Text Label (Above Add Tag button per mockup media_1787228458925.png) -->
+      <div id="edit-reopen-count-label" class="text-slate-400 font-medium text-xs pt-1">
+        Ticket reopened 1 time
       </div>
 
       <div class="flex items-center justify-between pt-2 border-t border-slate-800">
@@ -891,6 +897,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           storeUrl: 'woodesign.ie.myshopify.com',
           status: 'Đang check - Dev',
           urgency: 'Urgent',
+          reopenCount: 1,
           assignedTo: 'Aylin Tran',
           timestamp: '4:53 pm 19/08/2026',
           requestContent: 'style button ở collection page không giống style khách đang set up trong app.',
@@ -1477,9 +1484,27 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       if (ticket) {
         document.getElementById('edit-ticket-id').value = ticket.id;
         document.getElementById('edit-status-select').value = ticket.status;
+        document.getElementById('edit-feature-input').value = ticket.feature || 'Live preview';
         document.getElementById('edit-urgency-select').value = ticket.urgency;
-        document.getElementById('edit-request-input').value = ticket.requestContent;
         document.getElementById('edit-summary-input').value = ticket.summaryNote || '';
+        document.getElementById('edit-channel-display').innerText = ticket.channel || '#apo-urgent-case';
+        
+        // Reopen Header Badges
+        const headerBadges = document.getElementById('edit-modal-header-badges');
+        headerBadges.innerHTML = `
+          <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟡 ${ticket.status}</span>
+          <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full font-bold">🔴 5</span>
+          ${(ticket.reopenCount && ticket.reopenCount > 0) ? `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟡 Reopened</span>` : ''}
+        `;
+        
+        // Reopen Counter Label (above Add Tag button)
+        const countLabel = document.getElementById('edit-reopen-count-label');
+        if (ticket.reopenCount && ticket.reopenCount > 0) {
+          countLabel.classList.remove('hidden');
+          countLabel.innerText = `Ticket reopened ${ticket.reopenCount} time${ticket.reopenCount > 1 ? 's' : ''}`;
+        } else {
+          countLabel.classList.add('hidden');
+        }
         
         state.tempEditingTags = [...(ticket.tags || [])];
         renderEditTagsPills();
@@ -1547,7 +1572,18 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       const id = document.getElementById('edit-ticket-id').value;
       const ticket = state.tickets.find(t => t.id === id);
       if (ticket) {
-        ticket.status = document.getElementById('edit-status-select').value;
+        const oldStatus = ticket.status;
+        const newStatus = document.getElementById('edit-status-select').value;
+        
+        // Auto Reopen Logic: Transition from Done -> Open status
+        const isDoneState = (st) => st === 'Done - CS' || st === 'Done' || st === 'Resolved';
+        if (isDoneState(oldStatus) && !isDoneState(newStatus)) {
+          ticket.reopenCount = (ticket.reopenCount || 0) + 1;
+          showToast(`⚡ Ticket ${id} từ ${oldStatus} ➔ ${newStatus} (Reopened lần thứ ${ticket.reopenCount})! Badge 🟡 Reopened đã tự động được gán.`);
+        }
+        
+        ticket.status = newStatus;
+        ticket.feature = document.getElementById('edit-feature-input').value;
         ticket.urgency = document.getElementById('edit-urgency-select').value;
         ticket.tags = [...state.tempEditingTags];
         ticket.summaryNote = document.getElementById('edit-summary-input').value;

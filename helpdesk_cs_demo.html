@@ -41,26 +41,26 @@
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed top-16 right-6 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- TOP WORKFLOW PLATFORMS BAR -->
-  <header class="bg-slate-950 border-b border-slate-800 px-6 py-2.5 flex items-center justify-between sticky top-0 z-40">
+  <!-- TOP WORKFLOW PLATFORMS BAR (MONOCHROME BLACK & WHITE) -->
+  <header class="bg-black border-b border-zinc-800 px-6 py-2.5 flex items-center justify-between sticky top-0 z-40">
     <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">H</div>
+      <div class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center font-bold text-white shadow">H</div>
       <div>
         <h1 class="font-bold text-sm text-white flex items-center gap-2">
-          Helpdesk OS <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-medium">CS & Admin Suite</span>
+          Helpdesk OS <span class="bg-zinc-800 text-zinc-300 text-[10px] px-2 py-0.5 rounded border border-zinc-700 font-medium">CS & Admin Suite</span>
         </h1>
       </div>
     </div>
 
     <!-- WORKFLOW PLATFORMS SELECTOR -->
-    <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 space-x-1">
-      <button onclick="switchPlatform('crisp')" id="plat-crisp" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-400 hover:text-white flex items-center gap-1.5">
+    <div class="flex items-center bg-zinc-950 p-1 rounded-xl border border-zinc-800 space-x-1">
+      <button onclick="switchPlatform('crisp')" id="plat-crisp" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-zinc-400 hover:text-white flex items-center gap-1.5">
         💬 1. Crisp Chat + Plugin
       </button>
-      <button onclick="switchPlatform('slack')" id="plat-slack" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-400 hover:text-white flex items-center gap-1.5">
+      <button onclick="switchPlatform('slack')" id="plat-slack" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-zinc-400 hover:text-white flex items-center gap-1.5">
         💬 2. Slack Thread Sync
       </button>
-      <button onclick="switchPlatform('internal')" id="plat-internal" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5">
+      <button onclick="switchPlatform('internal')" id="plat-internal" class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 bg-white text-zinc-950 shadow-md flex items-center gap-1.5">
         🌐 3. Internal Web App
       </button>
     </div>
@@ -68,97 +68,97 @@
     <!-- USER PROFILE -->
     <div class="flex items-center space-x-2 text-xs">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="text-slate-300 font-medium">Aylin Tran (CS On Duty / Admin)</span>
+      <span class="text-zinc-300 font-medium">Aylin Tran (CS On Duty / Admin)</span>
     </div>
   </header>
 
   <!-- PLATFORM 1: CRISP CHAT & PLUGIN SIMULATOR -->
   <div id="platform-crisp" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
-      <div class="w-full md:w-64 bg-slate-950 border-r border-slate-800 p-3 space-y-3">
-        <div class="text-xs font-semibold text-slate-400 px-2 flex justify-between">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
+      <div class="w-full md:w-64 bg-zinc-950 border-r border-zinc-800 p-3 space-y-3">
+        <div class="text-xs font-semibold text-zinc-400 px-2 flex justify-between">
           <span>Most Recent</span>
           <span class="text-emerald-400">● Live</span>
         </div>
         <div class="space-y-1">
-          <div class="bg-blue-600/20 border border-blue-500/30 p-2.5 rounded-xl flex items-center space-x-3 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
+          <div class="bg-zinc-800 border border-zinc-700 p-2.5 rounded-xl flex items-center space-x-3 cursor-pointer">
+            <div class="w-8 h-8 rounded-full bg-zinc-700 text-white font-bold flex items-center justify-center text-xs">MM</div>
             <div class="flex-1 min-w-0">
               <div class="text-xs font-bold text-white truncate">Mykola</div>
-              <div class="text-[11px] text-slate-400 truncate">61cde3-42.myshopify.com</div>
+              <div class="text-[11px] text-zinc-400 truncate">61cde3-42.myshopify.com</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex-1 bg-slate-900 flex flex-col border-r border-slate-800">
-        <div class="p-3 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+      <div class="flex-1 bg-zinc-900 flex flex-col border-r border-zinc-800">
+        <div class="p-3 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/80">
           <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
+            <div class="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 text-white font-bold flex items-center justify-center text-xs">MM</div>
             <div>
               <div class="text-xs font-bold text-white">Mykola</div>
-              <div class="text-[11px] text-slate-400">mykola@customer.com</div>
+              <div class="text-[11px] text-zinc-400">mykola@customer.com</div>
             </div>
           </div>
-          <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unresolved</span>
+          <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">Unresolved</span>
         </div>
 
         <div class="flex-1 p-4 space-y-3 overflow-y-auto text-xs">
-          <div class="bg-slate-800 text-slate-300 p-3 rounded-2xl max-w-md">
+          <div class="bg-zinc-800 text-zinc-200 p-3 rounded-2xl max-w-md border border-zinc-700">
             Hi, I'm trying to setup option sets for custom t-shirts on my store <code>61cde3-42.myshopify.com</code>.
           </div>
-          <div class="bg-blue-600 text-white p-3 rounded-2xl max-w-md ml-auto">
+          <div class="bg-white text-zinc-950 p-3 rounded-2xl max-w-md ml-auto font-medium shadow">
             Chào bạn, mình đang kiểm tra vấn đề của bạn và sẽ phản hồi sớm nhất nhé!
           </div>
         </div>
 
-        <div class="p-3 border-t border-slate-800 bg-slate-950/40">
-          <input type="text" placeholder="Send your message..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none">
+        <div class="p-3 border-t border-zinc-800 bg-zinc-950/80">
+          <input type="text" placeholder="Send your message..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none">
         </div>
       </div>
 
       <!-- Crisp Right Sidebar: HELPDESK OS PLUGIN -->
-      <div class="w-full md:w-80 bg-slate-950 p-4 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+      <div class="w-full md:w-80 bg-zinc-950 p-4 space-y-4">
+        <div class="flex items-center justify-between border-b border-zinc-800 pb-2">
           <div class="flex space-x-2">
-            <button onclick="switchPluginTab('tickets')" id="plugtab-tickets" class="text-xs font-bold text-blue-400 border-b-2 border-blue-500 pb-1">Tickets (<span id="plugin-ticket-count">3</span>)</button>
-            <button onclick="switchPluginTab('store')" id="plugtab-store" class="text-xs font-semibold text-slate-400 hover:text-slate-200 pb-1">Store info</button>
+            <button onclick="switchPluginTab('tickets')" id="plugtab-tickets" class="text-xs font-bold text-white border-b-2 border-white pb-1">Tickets (<span id="plugin-ticket-count">3</span>)</button>
+            <button onclick="switchPluginTab('store')" id="plugtab-store" class="text-xs font-semibold text-zinc-400 hover:text-zinc-200 pb-1">Store info</button>
           </div>
-          <button onclick="openAddTicketModal('61cde3-42.myshopify.com')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-lg font-bold shadow">
+          <button onclick="openAddTicketModal('61cde3-42.myshopify.com')" class="bg-white hover:bg-zinc-200 text-zinc-950 text-xs px-2.5 py-1 rounded-lg font-bold shadow">
             + Add ticket
           </button>
         </div>
 
         <div id="plugin-content-tickets" class="space-y-3 text-xs">
-          <div class="text-[11px] text-slate-400">Store URL: <strong class="text-slate-200 font-mono">61cde3-42.myshopify.com</strong></div>
+          <div class="text-[11px] text-zinc-400">Store URL: <strong class="text-zinc-200 font-mono">61cde3-42.myshopify.com</strong></div>
           <div id="plugin-tickets-container" class="space-y-2"></div>
         </div>
 
         <div id="plugin-content-store" class="hidden space-y-3 text-xs">
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-blue-400">Store Domain & Add Sub-domain:</label>
+            <label class="text-[11px] font-bold text-zinc-300">Store Domain & Add Sub-domain:</label>
             <div class="flex items-center space-x-1">
-              <input id="new-subdomain-input" type="text" placeholder="Enter sub-domain..." class="flex-1 bg-slate-900 border border-slate-800 rounded p-1.5 text-slate-300 text-[11px]">
-              <button onclick="addSubdomain()" class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded text-[11px] font-bold">+</button>
+              <input id="new-subdomain-input" type="text" placeholder="Enter sub-domain..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded p-1.5 text-zinc-300 text-[11px]">
+              <button onclick="addSubdomain()" class="bg-white text-zinc-950 px-2.5 py-1 rounded text-[11px] font-bold">+</button>
             </div>
             <div id="subdomain-list" class="flex flex-wrap gap-1 pt-1">
-              <span class="bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-mono">61cde3-42.myshopify.com</span>
+              <span class="bg-zinc-800 text-zinc-300 text-[10px] px-2 py-0.5 rounded border border-zinc-700 font-mono">61cde3-42.myshopify.com</span>
             </div>
           </div>
 
-          <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2 text-[11px]">
-            <div class="font-bold text-white border-b border-slate-800 pb-1">Visitor Data (Live Meta)</div>
-            <div class="grid grid-cols-2 gap-y-1 divide-y divide-slate-800/50">
-              <div class="text-slate-400 py-0.5">store_url:</div> <div class="text-blue-400 font-mono py-0.5 truncate">61cde3-42.myshopify.com</div>
-              <div class="text-slate-400 py-0.5">store_id:</div> <div class="text-slate-200 font-mono py-0.5">98846605679</div>
-              <div class="text-slate-400 py-0.5">store_country:</div> <div class="text-slate-200 py-0.5">Vietnam</div>
-              <div class="text-slate-400 py-0.5">store_plan:</div> <div class="text-emerald-400 font-bold py-0.5">Shopify Premium</div>
-              <div class="text-slate-400 py-0.5">store_email:</div> <div class="text-blue-400 truncate py-0.5">brandnoxen10@gmail.com</div>
-              <div class="text-slate-400 py-0.5">user_agent:</div> <div class="text-slate-400 text-[10px] truncate py-0.5">Chrome/151.0.0.0 (Macintosh)</div>
-              <div class="text-slate-400 py-0.5">add_charge:</div> <div class="text-slate-200 py-0.5">V3</div>
-              <div class="text-slate-400 py-0.5">app_version:</div> <div class="text-slate-200 py-0.5">v2</div>
-              <div class="text-slate-400 py-0.5">app_plan:</div> <div class="text-emerald-400 font-bold py-0.5">FREE</div>
-              <div class="text-slate-400 py-0.5">pricing_ver:</div> <div class="text-slate-200 py-0.5">v5</div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-3 space-y-2 text-[11px]">
+            <div class="font-bold text-white border-b border-zinc-800 pb-1">Visitor Data (Live Meta)</div>
+            <div class="grid grid-cols-2 gap-y-1 divide-y divide-zinc-800/50">
+              <div class="text-zinc-400 py-0.5">store_url:</div> <div class="text-zinc-200 font-mono py-0.5 truncate">61cde3-42.myshopify.com</div>
+              <div class="text-zinc-400 py-0.5">store_id:</div> <div class="text-zinc-200 font-mono py-0.5">98846605679</div>
+              <div class="text-zinc-400 py-0.5">store_country:</div> <div class="text-zinc-200 py-0.5">Vietnam</div>
+              <div class="text-zinc-400 py-0.5">store_plan:</div> <div class="text-emerald-400 font-bold py-0.5">Shopify Premium</div>
+              <div class="text-zinc-400 py-0.5">store_email:</div> <div class="text-zinc-300 truncate py-0.5">brandnoxen10@gmail.com</div>
+              <div class="text-zinc-400 py-0.5">user_agent:</div> <div class="text-zinc-400 text-[10px] truncate py-0.5">Chrome/151.0.0.0 (Macintosh)</div>
+              <div class="text-zinc-400 py-0.5">add_charge:</div> <div class="text-zinc-200 py-0.5">V3</div>
+              <div class="text-zinc-400 py-0.5">app_version:</div> <div class="text-zinc-200 py-0.5">v2</div>
+              <div class="text-zinc-400 py-0.5">app_plan:</div> <div class="text-emerald-400 font-bold py-0.5">FREE</div>
+              <div class="text-zinc-400 py-0.5">pricing_ver:</div> <div class="text-zinc-200 py-0.5">v5</div>
             </div>
           </div>
         </div>
@@ -168,54 +168,54 @@
 
   <!-- PLATFORM 2: SLACK THREAD SYNC SIMULATOR -->
   <div id="platform-slack" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 max-w-4xl mx-auto">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-4 max-w-4xl mx-auto">
+      <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
         <div class="flex items-center space-x-2">
           <span class="text-lg font-bold text-white">#apo-paid-task</span>
-          <span class="text-xs text-slate-400">Tech support cases for PAYING users of Aris Product Options</span>
+          <span class="text-xs text-zinc-400">Tech support cases for PAYING users of Aris Product Options</span>
         </div>
-        <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-1 rounded border border-purple-500/30">Posted via Slack OAuth User Token</span>
+        <span class="bg-zinc-800 text-zinc-300 text-xs px-2.5 py-1 rounded border border-zinc-700">Posted via Slack OAuth User Token</span>
       </div>
 
       <div id="slack-messages-container" class="space-y-4"></div>
     </div>
   </div>
 
-  <!-- PLATFORM 3: INTERNAL WEB APP -->
+  <!-- PLATFORM 3: INTERNAL WEB APP (MONOCHROME BLACK & WHITE) -->
   <div id="platform-internal" class="flex-1 flex w-full">
 
     <!-- LEFT SIDEBAR NAVIGATION -->
-    <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between p-4 custom-scrollbar">
+    <aside class="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col justify-between p-4 custom-scrollbar">
       <div class="space-y-6">
 
-        <div class="flex items-center space-x-3 p-2 bg-slate-900/60 rounded-xl border border-slate-800">
-          <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">AY</div>
+        <div class="flex items-center space-x-3 p-2 bg-zinc-900 rounded-xl border border-zinc-800">
+          <div class="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 text-white font-bold flex items-center justify-center text-xs">AY</div>
           <div class="min-w-0 flex-1">
             <div class="text-xs font-bold text-white truncate">Aylin</div>
-            <div class="text-[10px] text-slate-400 truncate">aylin@avisplus.io</div>
+            <div class="text-[10px] text-zinc-400 truncate">aylin@avisplus.io</div>
           </div>
         </div>
 
         <div class="space-y-1">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 mb-1">APPS</div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-500 px-2 mb-1">APPS</div>
           <div id="sidebar-apps-list" class="space-y-1"></div>
         </div>
 
-        <div class="space-y-1 border-t border-slate-800/80 pt-3">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-blue-400 px-2 mb-1">HELPDESK CS TOOLS</div>
-          <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
+        <div class="space-y-1 border-t border-zinc-800/80 pt-3">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">HELPDESK CS TOOLS</div>
+          <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-white text-zinc-950 shadow-sm flex items-center space-x-2">
             <span>📊 CS Dashboard</span>
           </button>
-          <button onclick="switchInternalView('shops')" id="side-shops" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+          <button onclick="switchInternalView('shops')" id="side-shops" class="w-full text-left px-3 py-2 rounded-xl text-xs text-zinc-400 hover:bg-zinc-900 hover:text-white flex items-center space-x-2">
             <span>🏪 Shop 360° View</span>
           </button>
-          <button onclick="switchInternalView('reviews')" id="side-reviews" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+          <button onclick="switchInternalView('reviews')" id="side-reviews" class="w-full text-left px-3 py-2 rounded-xl text-xs text-zinc-400 hover:bg-zinc-900 hover:text-white flex items-center space-x-2">
             <span>⭐ App Store Reviews</span>
           </button>
-          <button onclick="switchInternalView('duty')" id="side-duty" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+          <button onclick="switchInternalView('duty')" id="side-duty" class="w-full text-left px-3 py-2 rounded-xl text-xs text-zinc-400 hover:bg-zinc-900 hover:text-white flex items-center space-x-2">
             <span>📅 Duty Shift Roster</span>
           </button>
-          <button onclick="switchInternalView('analytics')" id="side-analytics" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-400 hover:bg-slate-900 hover:text-white flex items-center space-x-2">
+          <button onclick="switchInternalView('analytics')" id="side-analytics" class="w-full text-left px-3 py-2 rounded-xl text-xs text-zinc-400 hover:bg-zinc-900 hover:text-white flex items-center space-x-2">
             <span>📈 CS Analytics</span>
           </button>
           <button onclick="switchInternalView('guide')" id="side-guide" class="w-full text-left px-3 py-2 rounded-xl text-xs text-amber-300 font-bold bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 flex items-center space-x-2">
@@ -250,34 +250,34 @@
     <!-- MAIN INTERNAL TOOL CONTENT AREA -->
     <main class="flex-1 p-6 max-w-6xl mx-auto w-full custom-scrollbar">
 
-      <!-- VIEW 1: CS DASHBOARD -->
+      <!-- VIEW 1: CS DASHBOARD (MONOCHROME BLACK & WHITE) -->
       <div id="internal-view-dashboard" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
-            <div class="text-xs text-slate-400 mb-1">📋 Ticket mở trong ca</div>
+          <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-zinc-400 mb-1">📋 Ticket mở trong ca</div>
             <div class="text-2xl font-bold text-white" id="stat-total-open">3</div>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
-            <div class="text-xs text-slate-400 mb-1">👤 Ticket gán cho tôi (Aylin)</div>
-            <div class="text-2xl font-bold text-blue-400" id="stat-assigned-me">2</div>
+          <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-zinc-400 mb-1">👤 Ticket gán cho tôi (Aylin)</div>
+            <div class="text-2xl font-bold text-white" id="stat-assigned-me">2</div>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-sm">
-            <div class="text-xs text-slate-400 mb-1">📬 Ticket unread</div>
+          <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl shadow-sm">
+            <div class="text-xs text-zinc-400 mb-1">📬 Ticket unread</div>
             <div class="text-2xl font-bold text-amber-400" id="stat-unread">1</div>
           </div>
         </div>
 
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="bg-zinc-900/80 border border-zinc-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center space-x-2" id="dashboard-app-filter-buttons"></div>
 
           <div class="flex items-center space-x-2">
-            <select id="status-filter-select" onchange="filterTickets()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1 focus:outline-none"></select>
-            <button onclick="filterByAssignee('ME')" id="filter-me-btn" class="px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300">Assigned to me</button>
+            <select id="status-filter-select" onchange="filterTickets()" class="bg-zinc-950 text-zinc-200 border border-zinc-800 rounded-lg text-xs px-2.5 py-1 focus:outline-none"></select>
+            <button onclick="filterByAssignee('ME')" id="filter-me-btn" class="px-3 py-1 rounded-lg text-xs bg-zinc-800 text-zinc-300 border border-zinc-700 hover:bg-zinc-700 font-medium">Assigned to me</button>
           </div>
         </div>
 
         <div class="relative">
-          <input type="text" id="search-input" oninput="filterTickets()" placeholder="🔍 Live search by request summary, store domain, ticket ID..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+          <input type="text" id="search-input" oninput="filterTickets()" placeholder="🔍 Live search by request summary, store domain, ticket ID..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-200 focus:outline-none focus:border-zinc-500">
         </div>
 
         <div id="tickets-container" class="space-y-4"></div>
@@ -285,64 +285,64 @@
 
       <!-- VIEW 2: SHOP 360 -->
       <div id="internal-view-shops" class="hidden space-y-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-5">
-          <div class="flex items-center justify-between flex-wrap gap-3 border-b border-slate-800 pb-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-5">
+          <div class="flex items-center justify-between flex-wrap gap-3 border-b border-zinc-800 pb-4">
             <div>
               <div class="flex items-center space-x-3">
                 <h2 class="text-xl font-bold text-white" id="shop-name-title">Kai Fitness</h2>
                 <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold border border-emerald-500/30" id="shop-status-badge">ACTIVE</span>
               </div>
-              <p class="text-xs text-slate-400 font-mono mt-1" id="shop-subdomain-desc">kaifit.myapp.io • Growth plan • GMT+7 - Da Nang</p>
+              <p class="text-xs text-zinc-400 font-mono mt-1" id="shop-subdomain-desc">kaifit.myapp.io • Growth plan • GMT+7 - Da Nang</p>
             </div>
 
             <div class="flex items-center space-x-2">
-              <input type="text" id="store-search-domain-input" placeholder="🔍 Enter store domain (e.g. kaifit.myapp.io)..." class="w-72 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 font-mono">
-              <button onclick="handleStoreSearchByDomain()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow">Search</button>
+              <input type="text" id="store-search-domain-input" placeholder="🔍 Enter store domain (e.g. kaifit.myapp.io)..." class="w-72 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-zinc-500 font-mono">
+              <button onclick="handleStoreSearchByDomain()" class="bg-white hover:bg-zinc-200 text-zinc-950 text-xs px-3 py-1.5 rounded-lg font-bold shadow">Search</button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 space-y-4">
               <div class="space-y-2">
-                <h3 class="text-xs font-bold text-slate-400 uppercase">1 - NEEDS ACTION</h3>
+                <h3 class="text-xs font-bold text-zinc-400 uppercase">1 - NEEDS ACTION</h3>
                 <div class="grid grid-cols-2 gap-4">
                   <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl">
                     <div class="text-xl font-bold text-red-400" id="shop-urgent-count">1 URGENT</div>
-                    <div class="text-xs text-slate-400">tickets to handle now</div>
+                    <div class="text-xs text-zinc-400">tickets to handle now</div>
                   </div>
-                  <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-                    <div class="text-xl font-bold text-slate-300">0 REVIEWS</div>
-                    <div class="text-xs text-slate-500">reviews < 3★</div>
+                  <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-xl">
+                    <div class="text-xl font-bold text-zinc-300">0 REVIEWS</div>
+                    <div class="text-xs text-zinc-500">reviews < 3★</div>
                   </div>
                 </div>
               </div>
 
-              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
-                <div class="flex justify-between font-bold text-blue-400"><span>NO FEEDBACK LOOP</span> <span>2 tickets closed</span></div>
-                <p class="text-slate-300">Both tickets closed last week with no CSAT response. Healthy account, quiet customer.</p>
-                <button onclick="alert('Sent check-in email to customer!')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-1 rounded">Send check-in</button>
+              <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-xl space-y-2 text-xs">
+                <div class="flex justify-between font-bold text-zinc-200"><span>NO FEEDBACK LOOP</span> <span>2 tickets closed</span></div>
+                <p class="text-zinc-300">Both tickets closed last week with no CSAT response. Healthy account, quiet customer.</p>
+                <button onclick="alert('Sent check-in email to customer!')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs px-3 py-1 rounded border border-zinc-700">Send check-in</button>
               </div>
             </div>
 
             <div class="space-y-4">
-              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
-                <h3 class="font-bold text-white border-b border-slate-800 pb-2">Account Info & Visitor Meta</h3>
-                <div class="flex justify-between"><span>Shop ID:</span> <span class="font-mono text-slate-300" id="shop-id-val">55302118874</span></div>
-                <div class="flex justify-between"><span>Email:</span> <span class="text-blue-400" id="shop-email-val">anh@kaifit.vn</span></div>
-                <div class="flex justify-between"><span>Owner:</span> <span class="text-slate-300" id="shop-owner-val">Kai Fitness Co.</span></div>
-                <div class="flex justify-between"><span>Plan:</span> <span class="text-slate-300" id="shop-plan-val">Growth</span></div>
-                <div class="flex justify-between"><span>Country:</span> <span class="text-slate-300">Vietnam</span></div>
-                <div class="flex justify-between"><span>App Version:</span> <span class="text-slate-300">v2</span></div>
+              <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-xl space-y-2 text-xs">
+                <h3 class="font-bold text-white border-b border-zinc-800 pb-2">Account Info & Visitor Meta</h3>
+                <div class="flex justify-between"><span>Shop ID:</span> <span class="font-mono text-zinc-300" id="shop-id-val">55302118874</span></div>
+                <div class="flex justify-between"><span>Email:</span> <span class="text-zinc-200 font-medium" id="shop-email-val">anh@kaifit.vn</span></div>
+                <div class="flex justify-between"><span>Owner:</span> <span class="text-zinc-300" id="shop-owner-val">Kai Fitness Co.</span></div>
+                <div class="flex justify-between"><span>Plan:</span> <span class="text-zinc-300" id="shop-plan-val">Growth</span></div>
+                <div class="flex justify-between"><span>Country:</span> <span class="text-zinc-300">Vietnam</span></div>
+                <div class="flex justify-between"><span>App Version:</span> <span class="text-zinc-300">v2</span></div>
                 <div class="flex justify-between"><span>Rating:</span> <span class="text-amber-400 font-bold">4.8 ★ (96)</span></div>
               </div>
 
-              <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2 text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <div class="bg-zinc-950 border border-zinc-800 p-4 rounded-xl space-y-2 text-xs">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
                   <h3 class="font-bold text-white">CS Pinned Notes</h3>
-                  <button onclick="addShopNote()" class="text-blue-400 hover:underline text-[11px]">+ Add note</button>
+                  <button onclick="addShopNote()" class="text-zinc-300 hover:underline text-[11px] font-medium">+ Add note</button>
                 </div>
                 <div id="shop-notes-list" class="space-y-1.5">
-                  <div class="bg-slate-900 p-2.5 rounded border border-slate-800 text-slate-300 italic">"Owner prefers Zalo over email. Never call before 9:00 AM."</div>
+                  <div class="bg-zinc-900 p-2.5 rounded border border-zinc-800 text-zinc-300 italic">"Owner prefers Zalo over email. Never call before 9:00 AM."</div>
                 </div>
               </div>
             </div>
@@ -1097,13 +1097,14 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
     }
 
     // RENDER ADMIN PANELS
+    // RENDER ADMIN PANELS (MONOCHROME BLACK & WHITE)
     function renderAdminPanels() {
       const appsGrid = document.getElementById('admin-apps-grid');
       appsGrid.innerHTML = state.config.apps.map(a => `
-        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+        <div class="bg-zinc-950 border border-zinc-800 p-3 rounded-xl flex items-center justify-between">
           <div>
             <strong class="text-white text-sm">${a.icon} ${a.name}</strong>
-            <div class="text-slate-400 font-mono text-[11px]">Code: ${a.code}</div>
+            <div class="text-zinc-400 font-mono text-[11px]">Code: ${a.code}</div>
           </div>
           <button onclick="removeTargetApp('${a.code}')" class="text-red-400 hover:underline">Remove</button>
         </div>
@@ -1111,10 +1112,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
       const channelsList = document.getElementById('admin-channels-list');
       channelsList.innerHTML = state.config.slackChannels.map(c => `
-        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+        <div class="bg-zinc-950 border border-zinc-800 p-3 rounded-xl flex justify-between items-center">
           <div>
-            <strong class="text-purple-300 font-mono text-xs">${c.code}</strong>
-            <p class="text-slate-400 text-[11px]">${c.desc}</p>
+            <strong class="text-zinc-200 font-mono text-xs">${c.code}</strong>
+            <p class="text-zinc-400 text-[11px]">${c.desc}</p>
           </div>
           <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px] font-bold">Active Sync</span>
         </div>
@@ -1122,29 +1123,29 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
       const statusesList = document.getElementById('admin-statuses-list');
       statusesList.innerHTML = state.config.statuses.map(s => `
-        <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between">
+        <div class="bg-zinc-950 border border-zinc-800 p-2.5 rounded-xl flex items-center justify-between">
           <span class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[11px] font-bold">${s.code}</span>
-          <span class="text-slate-500 text-[10px]">${s.group}</span>
+          <span class="text-zinc-500 text-[10px]">${s.group}</span>
         </div>
       `).join('');
 
       document.getElementById('admin-cs-team-list').innerHTML = state.config.csTeam.map(m => `
-        <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center text-slate-200">
-          <span>🎧 ${m}</span> <span class="text-blue-400 text-[10px] font-mono">@cs member</span>
+        <div class="bg-zinc-900 p-2 rounded border border-zinc-800 flex justify-between items-center text-zinc-200">
+          <span>🎧 ${m}</span> <span class="text-zinc-400 text-[10px] font-mono">@cs member</span>
         </div>
       `).join('');
 
       document.getElementById('admin-dev-team-list').innerHTML = state.config.devTeam.map(m => `
-        <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center text-slate-200">
+        <div class="bg-zinc-900 p-2 rounded border border-zinc-800 flex justify-between items-center text-zinc-200">
           <span>💻 ${m}</span> <span class="text-emerald-400 text-[10px] font-mono">@dev member</span>
         </div>
       `).join('');
 
       // Sidebar apps render
       document.getElementById('sidebar-apps-list').innerHTML = state.config.apps.map(a => `
-        <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-300 hover:bg-slate-900 hover:text-white flex items-center justify-between">
+        <button class="w-full text-left px-3 py-2 rounded-xl text-xs text-zinc-300 hover:bg-zinc-900 hover:text-white flex items-center justify-between">
           <span>${a.icon} ${a.name}</span>
-          <span class="text-[10px] bg-slate-800 px-1.5 py-0.2 rounded font-mono">${a.code}</span>
+          <span class="text-[10px] bg-zinc-800 px-1.5 py-0.2 rounded font-mono">${a.code}</span>
         </button>
       `).join('');
 
@@ -1154,10 +1155,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
     function populateSelectDropdowns() {
       const appBtns = document.getElementById('dashboard-app-filter-buttons');
       appBtns.innerHTML = `
-        <span class="text-xs font-semibold text-slate-400 uppercase mr-1">App Filter:</span>
-        <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-semibold ${state.activeAppFilter === 'ALL' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300'}">ALL</button>
+        <span class="text-xs font-semibold text-zinc-400 uppercase mr-1">App Filter:</span>
+        <button onclick="filterByApp('ALL')" id="appbtn-ALL" class="px-3 py-1 rounded-lg text-xs font-bold ${state.activeAppFilter === 'ALL' ? 'bg-white text-zinc-950 shadow' : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:bg-zinc-800'}">ALL</button>
       ` + state.config.apps.map(a => `
-        <button onclick="filterByApp('${a.code}')" id="appbtn-${a.code}" class="px-3 py-1 rounded-lg text-xs font-medium ${state.activeAppFilter === a.code ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${a.code}</button>
+        <button onclick="filterByApp('${a.code}')" id="appbtn-${a.code}" class="px-3 py-1 rounded-lg text-xs font-medium ${state.activeAppFilter === a.code ? 'bg-white text-zinc-950 shadow font-bold' : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:bg-zinc-800'}">${a.code}</button>
       `).join('');
 
       document.getElementById('add-app-select').innerHTML = state.config.apps.map(a => `<option value="${a.code}">${a.name} (${a.code})</option>`).join('');
@@ -1636,7 +1637,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       state.activeAppFilter = app;
       state.config.apps.concat([{code:'ALL'}]).forEach(a => {
         const btn = document.getElementById('appbtn-' + a.code);
-        if (btn) btn.className = a.code === app ? "px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700";
+        if (btn) btn.className = a.code === app ? "px-3 py-1 rounded-lg text-xs font-bold bg-white text-zinc-950 shadow" : "px-3 py-1 rounded-lg text-xs font-medium bg-zinc-900 text-zinc-300 border border-zinc-800 hover:bg-zinc-800";
       });
       renderTickets();
     }
@@ -1644,7 +1645,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
     function filterByAssignee(mode) {
       state.activeAssigneeFilter = state.activeAssigneeFilter === mode ? 'ALL' : mode;
       const btn = document.getElementById('filter-me-btn');
-      btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1 rounded-lg text-xs bg-blue-600 text-white font-bold" : "px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300";
+      btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1 rounded-lg text-xs bg-white text-zinc-950 font-bold shadow" : "px-3 py-1 rounded-lg text-xs bg-zinc-800 text-zinc-300 border border-zinc-700 hover:bg-zinc-700 font-medium";
       renderTickets();
     }
 
@@ -1655,7 +1656,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       if (input.value.trim()) {
         const val = input.value.trim();
         const span = document.createElement('span');
-        span.className = "bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/30 font-mono";
+        span.className = "bg-zinc-800 text-zinc-300 text-[10px] px-2 py-0.5 rounded border border-zinc-700 font-mono";
         span.innerText = val;
         document.getElementById('subdomain-list').appendChild(span);
         input.value = '';
@@ -1667,7 +1668,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       const text = prompt('Nhập ghi chú nội bộ cho Shop này:');
       if (text) {
         const div = document.createElement('div');
-        div.className = "bg-slate-900 p-2.5 rounded border border-slate-800 text-slate-300 italic";
+        div.className = "bg-zinc-900 p-2.5 rounded border border-zinc-800 text-zinc-300 italic";
         div.innerText = `"${text}"`;
         document.getElementById('shop-notes-list').appendChild(div);
         showToast('Đã thêm CS Note mới!');

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="vi" data-mode="dark" data-theme="default">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk OS — CS & Admin Suite (Phase 1 Live Demo)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* SDS Base Variables - Primitives */
+      --sds-font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --sds-font-mono: 'JetBrains Mono', monospace;
+      
+      /* Mode: SDS Dark (Default) */
+      --sds-color-bg-app: #0b0f17;
+      --sds-color-bg-surface: #131b2e;
+      --sds-color-bg-surface-hover: #1c2744;
+      --sds-color-bg-card: #162036;
+      --sds-color-border: #233154;
+      --sds-color-border-subtle: #1c2847;
+      
+      --sds-color-text-primary: #f1f5f9;
+      --sds-color-text-secondary: #94a3b8;
+      --sds-color-text-muted: #64748b;
+      
+      --sds-color-brand: #3b82f6;
+      --sds-color-brand-hover: #2563eb;
+      --sds-color-brand-glow: rgba(59, 130, 246, 0.25);
+      
+      /* Yellow Cards - Semantics */
+      --sds-color-note-transfer-bg: #2d2613;
+      --sds-color-note-transfer-border: #eab308;
+      --sds-color-note-transfer-text: #fef08a;
+      
+      --sds-color-note-summary-bg: #2a2010;
+      --sds-color-note-summary-border: #f59e0b;
+      --sds-color-note-summary-text: #fde68a;
+      
+      /* Status colors */
+      --sds-status-dev-bg: #1e1b4b;
+      --sds-status-dev-text: #a5b4fc;
+      --sds-status-cs-bg: #064e3b;
+      --sds-status-cs-text: #6ee7b7;
+      --sds-status-flup-bg: #701a75;
+      --sds-status-flup-text: #f5d0fe;
+      
+      --sds-radius-sm: 6px;
+      --sds-radius-md: 10px;
+      --sds-radius-lg: 16px;
+      --sds-radius-pill: 9999px;
+      
+      --sds-shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+      --sds-shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    [data-mode="light"] {
+      --sds-color-bg-app: #f8fafc;
+      --sds-color-bg-surface: #ffffff;
+      --sds-color-bg-surface-hover: #f1f5f9;
+      --sds-color-bg-card: #ffffff;
+      --sds-color-border: #e2e8f0;
+      --sds-color-border-subtle: #f1f5f9;
+      
+      --sds-color-text-primary: #0f172a;
+      --sds-color-text-secondary: #475569;
+      --sds-color-text-muted: #94a3b8;
+      
+      --sds-color-note-transfer-bg: #fefce8;
+      --sds-color-note-transfer-border: #ca8a04;
+      --sds-color-note-transfer-text: #854d0e;
+      
+      --sds-color-note-summary-bg: #fffbeb;
+      --sds-color-note-summary-border: #d97706;
+      --sds-color-note-summary-text: #92400e;
+      
+      --sds-status-dev-bg: #e0e7ff;
+      --sds-status-dev-text: #3730a3;
+      --sds-status-cs-bg: #d1fae5;
+      --sds-status-cs-text: #065f46;
+      --sds-status-flup-bg: #fae8ff;
+      --sds-status-flup-text: #86198f;
+    }
+
+    /* Custom Themes */
+    [data-theme="morning-dew"] {
+      --sds-color-brand: #10b981;
+      --sds-color-brand-hover: #059669;
+      --sds-color-brand-glow: rgba(16, 185, 129, 0.25);
+    }
+    [data-theme="ash-blue"] {
+      --sds-color-brand: #6366f1;
+      --sds-color-brand-hover: #4f46e5;
+      --sds-color-brand-glow: rgba(99, 102, 241, 0.25);
+    }
+    [data-theme="emerald-waltz"] {
+      --sds-color-brand: #14b8a6;
+      --sds-color-brand-hover: #0d9488;
+      --sds-color-brand-glow: rgba(20, 184, 166, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sds-font-family);
+      background-color: var(--sds-color-bg-app);
+      color: var(--sds-color-text-primary);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Layout */
+    .sidebar {
+      width: 260px;
+      background: var(--sds-color-bg-surface);
+      border-right: 1px solid var(--sds-color-border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      gap: 24px;
+      z-index: 10;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--sds-color-text-primary);
+      letter-spacing: -0.5px;
+    }
+    .brand-logo span {
+      background: linear-gradient(135deg, var(--sds-color-brand), #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      background: var(--sds-color-brand-glow);
+      color: var(--sds-color-brand);
+      border-radius: var(--sds-radius-pill);
+      border: 1px solid var(--sds-color-brand);
+    }
+
+    .nav-group { display: flex; flex-direction: column; gap: 4px; }
+    .nav-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--sds-color-text-muted); padding: 8px; letter-spacing: 0.5px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--sds-radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--sds-color-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-item:hover {
+      background: var(--sds-color-bg-surface-hover);
+      color: var(--sds-color-text-primary);
+    }
+    .nav-item.active {
+      background: var(--sds-color-brand-glow);
+      color: var(--sds-color-brand);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .nav-item.highlight-gold {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(245, 158, 11, 0.1));
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      color: #eab308;
+    }
+
+    /* Main Container */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .top-header {
+      height: 64px;
+      background: var(--sds-color-bg-surface);
+      border-bottom: 1px solid var(--sds-color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 16px; }
+
+    .theme-controls { display: flex; align-items: center; gap: 8px; background: var(--sds-color-bg-card); padding: 4px 8px; border-radius: var(--sds-radius-pill); border: 1px solid var(--sds-color-border); }
+    .select-sm { background: transparent; border: none; color: var(--sds-color-text-primary); font-size: 0.8rem; font-weight: 600; outline: none; cursor: pointer; }
+
+    .user-profile { display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 1px solid var(--sds-color-border); }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 0.85rem; }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Crisp Plugin Drawer */
+    .crisp-drawer {
+      position: fixed;
+      right: 0;
+      top: 64px;
+      bottom: 0;
+      width: 380px;
+      background: var(--sds-color-bg-surface);
+      border-left: 1px solid var(--sds-color-border);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .crisp-drawer.open { transform: translateX(0); }
+    .crisp-header { padding: 16px; border-bottom: 1px solid var(--sds-color-border); display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; }
+
+    /* Cards & Grids */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .stat-card {
+      background: var(--sds-color-bg-card);
+      border: 1px solid var(--sds-color-border);
+      border-radius: var(--sds-radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--card-accent, var(--sds-color-brand));
+    }
+    .stat-num { font-size: 2rem; font-weight: 800; font-family: var(--sds-font-mono); }
+    .stat-label { font-size: 0.8rem; font-weight: 600; color: var(--sds-color-text-secondary); text-transform: uppercase; }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .tabs-group { display: flex; gap: 6px; background: var(--sds-color-bg-surface); padding: 4px; border-radius: var(--sds-radius-md); border: 1px solid var(--sds-color-border); }
+    .tab-btn { padding: 8px 16px; border-radius: var(--sds-radius-sm); font-size: 0.82rem; font-weight: 700; border: none; background: transparent; color: var(--sds-color-text-secondary); cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: var(--sds-color-brand); color: white; box-shadow: var(--sds-shadow-sm); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--sds-radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--sds-color-brand); color: white; }
+    .btn-primary:hover { background: var(--sds-color-brand-hover); }
+    .btn-secondary { background: var(--sds-color-bg-surface); border-color: var(--sds-color-border); color: var(--sds-color-text-primary); }
+    .btn-secondary:hover { background: var(--sds-color-bg-surface-hover); }
+    .btn-warning { background: #eab308; color: #1e1b4b; font-weight: 700; }
+
+    /* Ticket Card - 2 Column Layout */
+    .ticket-card {
+      background: var(--sds-color-bg-card);
+      border: 1px solid var(--sds-color-border);
+      border-radius: var(--sds-radius-lg);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ticket-card:hover { border-color: var(--sds-color-brand); box-shadow: var(--sds-shadow-lg); }
+
+    .ticket-main { display: flex; flex-direction: column; gap: 14px; }
+    .ticket-meta-side { display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--sds-color-border-subtle); padding-left: 20px; }
+
+    .ticket-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .badge-app { padding: 4px 8px; border-radius: var(--sds-radius-sm); font-size: 0.72rem; font-weight: 800; font-family: var(--sds-font-mono); background: #3b82f61a; color: #60a5fa; border: 1px solid #3b82f640; }
+    .ticket-id { font-family: var(--sds-font-mono); font-weight: 700; color: var(--sds-color-text-muted); font-size: 0.85rem; }
+
+    /* Custom Status Selector */
+    .status-select {
+      padding: 4px 10px;
+      border-radius: var(--sds-radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .status-dev { background: var(--sds-status-dev-bg); color: var(--sds-status-dev-text); }
+    .status-cs { background: var(--sds-status-cs-bg); color: var(--sds-status-cs-text); }
+    .status-flup { background: var(--sds-status-flup-bg); color: var(--sds-status-flup-text); }
+
+    .urgency-badge { padding: 2px 8px; border-radius: var(--sds-radius-pill); font-size: 0.7rem; font-weight: 800; }
+    .urgency-p1 { background: #ef444420; color: #f87171; border: 1px solid #ef444440; }
+    .urgency-p2 { background: #3b82f620; color: #60a5fa; border: 1px solid #3b82f640; }
+
+    /* Yellow Cards */
+    .note-card-transfer {
+      background: var(--sds-color-note-transfer-bg);
+      border: 1px dashed var(--sds-color-note-transfer-border);
+      color: var(--sds-color-note-transfer-text);
+      padding: 12px;
+      border-radius: var(--sds-radius-md);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .note-card-summary {
+      background: var(--sds-color-note-summary-bg);
+      border: 1px solid var(--sds-color-note-summary-border);
+      color: var(--sds-color-note-summary-text);
+      padding: 12px;
+      border-radius: var(--sds-radius-md);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .note-title { font-weight: 800; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+
+    .tag-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: var(--sds-radius-pill); font-size: 0.72rem; background: var(--sds-color-bg-surface-hover); color: var(--sds-color-text-secondary); border: 1px solid var(--sds-color-border); }
+
+    /* Accordion Component */
+    .accordion-item {
+      background: var(--sds-color-bg-card);
+      border: 1px solid var(--sds-color-border);
+      border-radius: var(--sds-radius-lg);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .accordion-header {
+      padding: 18px 20px;
+      background: var(--sds-color-bg-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .accordion-header:hover { background: var(--sds-color-bg-surface-hover); }
+    .accordion-content {
+      padding: 20px;
+      border-top: 1px solid var(--sds-color-border);
+      display: none;
+      line-height: 1.6;
+      font-size: 0.88rem;
+    }
+    .accordion-item.active .accordion-content { display: block; }
+    .accordion-icon { transition: transform 0.3s ease; }
+    .accordion-item.active .accordion-icon { transform: rotate(180deg); }
+
+    /* Modal Backdrop */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--sds-color-bg-surface);
+      border: 1px solid var(--sds-color-border);
+      border-radius: var(--sds-radius-lg);
+      width: 540px;
+      max-width: 90vw;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--sds-shadow-lg);
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--sds-color-bg-app);
+      border: 1px solid var(--sds-color-border);
+      border-radius: var(--sds-radius-md);
+      color: var(--sds-color-text-primary);
+      font-family: inherit;
+      outline: none;
+    }
+    .input-field:focus { border-color: var(--sds-color-brand); }
+
+    /* Toast Alert */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--sds-radius-md);
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: var(--sds-shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 300;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    .view-section { display: none; }
+    .view-section.active { display: flex; flex-direction: column; gap: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Nav -->
+  <aside class="sidebar">
+    <div class="brand-logo">
+      <span>Helpdesk OS</span>
+      <span class="brand-badge">v5.7 Phase 1</span>
+    </div>
+
+    <nav class="nav-group">
+      <div class="nav-label">Core Workspace</div>
+      <a class="nav-item active" onclick="switchView('dashboard', this)">
+        <span>📊</span> CS Dashboard
+      </a>
+      <a class="nav-item" onclick="switchView('shop360', this)">
+        <span>🏪</span> Shop 360° View
+      </a>
+      <a class="nav-item" onclick="switchView('reviews', this)">
+        <span>⭐</span> App Store Reviews
+      </a>
+      <a class="nav-item highlight-gold" onclick="switchView('workflow', this)">
+        <span>📖</span> CS Workflow Guide
+      </a>
+    </nav>
+
+    <nav class="nav-group" style="margin-top: auto;">
+      <div class="nav-label">Integrations</div>
+      <a class="nav-item" onclick="toggleCrispPlugin()">
+        <span>💬</span> Crisp Plugin Panel
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div style="font-weight: 700; font-size: 1.1rem;" id="page-title">📊 CS Dashboard Operations</div>
+
+      <div class="header-actions">
+        <!-- Theme Controls -->
+        <div class="theme-controls">
+          <label style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Theme:</label>
+          <select class="select-sm" onchange="setTheme(this.value)">
+            <option value="default">Default Value</option>
+            <option value="morning-dew">Morning Dew</option>
+            <option value="ash-blue">Ash Blue</option>
+            <option value="emerald-waltz">Emerald Waltz</option>
+          </select>
+          <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="toggleMode()">
+            <span id="mode-icon">🌙</span> Dark
+          </button>
+        </div>
+
+        <!-- User Profile -->
+        <div class="user-profile">
+          <div class="avatar">AT</div>
+          <div style="font-size: 0.8rem;">
+            <div style="font-weight: 700;">Aylin Tran</div>
+            <div style="font-size: 0.7rem; color: var(--sds-color-text-muted);">CS Lead (Slack OAuth Connected)</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-area">
+
+      <!-- View 1: CS Dashboard Operations -->
+      <section id="view-dashboard" class="view-section active">
+        <!-- Stats Bar -->
+        <div class="stats-grid">
+          <div class="stat-card" style="--card-accent: #ef4444;">
+            <div class="stat-label">Cần Xử Lý Ngay</div>
+            <div class="stat-num" style="color: #f87171;">04</div>
+            <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">2 Ticket Urgent P1</div>
+          </div>
+          <div class="stat-card" style="--card-accent: #3b82f6;">
+            <div class="stat-label">Đang Check - Dev</div>
+            <div class="stat-num" style="color: #60a5fa;">12</div>
+            <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Đang trao đổi trên Slack</div>
+          </div>
+          <div class="stat-card" style="--card-accent: #eab308;">
+            <div class="stat-label">Follow-up (Fl up 1-2-3)</div>
+            <div class="stat-num" style="color: #fde047;">08</div>
+            <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Đợi phản hồi merchant</div>
+          </div>
+        </div>
+
+        <!-- Filter & Action Bar -->
+        <div class="filter-bar">
+          <div class="tabs-group">
+            <button class="tab-btn active" onclick="filterApp('ALL', this)">Tất cả (24)</button>
+            <button class="tab-btn" onclick="filterApp('APO', this)">APO (12)</button>
+            <button class="tab-btn" onclick="filterApp('APB', this)">APB (5)</button>
+            <button class="tab-btn" onclick="filterApp('ACS', this)">ACS (7)</button>
+          </div>
+
+          <button class="btn btn-primary" onclick="openModal('add-ticket')">
+            <span>+</span> Create New Ticket (Slack Post)
+          </button>
+        </div>
+
+        <!-- Tickets Feed List -->
+        <div id="tickets-container" style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Ticket Item 1 -->
+          <div class="ticket-card" data-app="APO">
+            <div class="ticket-main">
+              <div class="ticket-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="badge-app">APO</span>
+                  <span class="ticket-id">#TK-1082</span>
+                  <span class="urgency-badge urgency-p1">P1 Urgent</span>
+                </div>
+
+                <select class="status-select status-dev" onchange="updateTicketStatus(this)">
+                  <optgroup label="Nhóm Dev">
+                    <option value="Chờ check - Dev">Chờ check - Dev</option>
+                    <option value="Đang check - Dev" selected>Đang check - Dev</option>
+                    <option value="Đã check - Dev">Đã check - Dev</option>
+                  </optgroup>
+                  <optgroup label="Nhóm CS">
+                    <option value="Chờ collab - CS">Chờ collab - CS</option>
+                    <option value="CHỜ KHÁCH - CS">CHỜ KHÁCH - CS</option>
+                    <option value="Done - CS">Done - CS (Resolve)</option>
+                  </optgroup>
+                  <optgroup label="Nhóm Follow-up">
+                    <option value="Fl up 1 (12h)">Fl up 1 (12h)</option>
+                    <option value="Fl up 2 (24h)">Fl up 2 (24h)</option>
+                    <option value="Fl up 3 (36h)">Fl up 3 (36h)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div style="font-weight: 700; font-size: 0.95rem;">
+                Option set cannot be rendered on Product Detail Page (PDP) after theme update
+              </div>
+
+              <div style="font-size: 0.82rem; color: var(--sds-color-text-secondary); line-height: 1.5;">
+                Merchant kaifit.myapp.io báo lỗi Option set không hiển thị khi chọn variant thứ 2. Dev đang kiểm tra selector JavaScript trên theme Dawn v12.
+              </div>
+
+              <!-- Tags -->
+              <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                <span class="tag-pill">🏷️ JavaScript Error</span>
+                <span class="tag-pill">🏷️ Dawn Theme</span>
+                <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.7rem;" onclick="openModal('tagging')">+ Tag</button>
+              </div>
+            </div>
+
+            <!-- Right Meta Side -->
+            <div class="ticket-meta-side">
+              <!-- Note 1: Transfer note -->
+              <div class="note-card-transfer">
+                <div class="note-title">🔄 Note transfer case (Ca trực)</div>
+                <div>Đã ping Dev @alex trên Slack channel #apo-urgent-case. Ca sau theo dõi phản hồi dev lúc 17h.</div>
+              </div>
+
+              <!-- Note 2: Summary note -->
+              <div class="note-card-summary">
+                <div class="note-title">📝 Summary note (Lưu DB)</div>
+                <div>Lỗi xung đột DOM selector với ứng dụng Sticky Add to Cart. Đã gửi workaround script cho merchant.</div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: auto;">
+                <button class="btn btn-secondary" style="flex: 1; font-size: 0.75rem;" onclick="openModal('edit-ticket')">✏️ Edit</button>
+                <button class="btn btn-secondary" style="flex: 1; font-size: 0.75rem;" onclick="openModal('transfer')">🔄 Transfer</button>
+                <button class="btn btn-warning" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openShop360('kaifit.myapp.io')">🏪 Shop 360°</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 2: Shop 360° Comprehensive View -->
+      <section id="view-shop360" class="view-section">
+        <div style="display: flex; gap: 12px; align-items: center; background: var(--sds-color-bg-card); padding: 16px; border-radius: var(--sds-radius-lg); border: 1px solid var(--sds-color-border);">
+          <input type="text" id="shop-search-input" class="input-field" value="kaifit.myapp.io" placeholder="🔍 Enter store domain or sub-domain..." style="max-width: 400px;">
+          <button class="btn btn-primary" onclick="searchShop360()">Search Shop 360°</button>
+        </div>
+
+        <!-- Shop Header Meta -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+          <div class="stat-card" style="--card-accent: #3b82f6;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <h2 style="font-size: 1.3rem;">Kai Fitness Store (`kaifit.myapp.io`)</h2>
+                <div style="font-size: 0.8rem; color: var(--sds-color-text-muted); margin-top: 4px;">Shop ID: #SH-98402 | Owner: Mykola | Country: Ukraine 🇺🇦</div>
+              </div>
+              <span class="badge-app" style="background: #10b98120; color: #34d399; border-color: #10b98140;">ACTIVE PLAN</span>
+            </div>
+
+            <!-- Subdomains List & Add Subdomain -->
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--sds-color-border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-secondary);">Tracking Sub-domains:</span>
+              <span class="tag-pill" style="background: var(--sds-color-brand-glow); color: var(--sds-color-brand);">kaifit-checkout.myapp.io</span>
+              <span class="tag-pill" style="background: var(--sds-color-brand-glow); color: var(--sds-color-brand);">kaifit-eu.myapp.io</span>
+              
+              <!-- Add Sub-domain inline widget -->
+              <div style="display: flex; gap: 4px; margin-left: auto;">
+                <input type="text" id="subdomain-input" placeholder="Add sub-domain..." style="padding: 4px 8px; font-size: 0.75rem; border-radius: var(--sds-radius-sm); border: 1px solid var(--sds-color-border); background: var(--sds-color-bg-app); color: white;">
+                <button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="addSubDomain()">+ Add</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CS Pinned Notes -->
+          <div class="stat-card" style="--card-accent: #f59e0b;">
+            <div class="stat-label">📌 CS Pinned Notes (Persistent)</div>
+            <div style="font-size: 0.82rem; line-height: 1.5; color: var(--sds-color-text-secondary);">
+              - Merchant ưu tiên hỗ trợ đặc biệt (Shop VIP).<br>
+              - Cần chú ý tương thích theme custom Dawn modified.
+            </div>
+            <button class="btn btn-secondary" style="margin-top: auto; font-size: 0.75rem; align-self: flex-start;" onclick="addPinnedNote()">+ Add Note</button>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1rem; font-weight: 700; margin-top: 8px;">📋 Tất Cả Ticket Của Store Này (Hiển thị 100% thẻ 2 cột)</h3>
+        <div id="shop-tickets-list" style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Render full 2 column ticket card -->
+        </div>
+      </section>
+
+      <!-- View 3: App Store Reviews Tracking -->
+      <section id="view-reviews" class="view-section">
+        <div class="stats-grid">
+          <div class="stat-card" style="--card-accent: #eab308;">
+            <div class="stat-label">Rating Breakdown</div>
+            <div style="display: flex; gap: 4px; align-items: center; margin-top: 4px;">
+              <span style="font-size: 1.5rem; font-weight: 800; color: #fde047;">4.8 ★</span>
+              <span style="font-size: 0.8rem; color: var(--sds-color-text-muted);">(128 reviews)</span>
+            </div>
+          </div>
+          <div class="stat-card" style="--card-accent: #ec4899;">
+            <div class="stat-label">Top Complaint Themes</div>
+            <div style="font-size: 0.82rem; font-weight: 600; color: var(--sds-color-text-secondary);">
+              1. Theme compatibility (45%)<br>
+              2. Checkout UI Freeze (30%)
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="ticket-card" style="grid-template-columns: 1fr 260px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="color: #f59e0b; font-weight: 800;">★☆☆☆☆ (1/5)</span>
+                <span class="badge-app">Bug Signal</span>
+                <span style="font-size: 0.75rem; color: var(--sds-color-text-muted);">2 hours ago by Kaifit Owner</span>
+              </div>
+              <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;">App freeze after latest update</h3>
+              <p style="font-size: 0.85rem; color: var(--sds-color-text-secondary); line-height: 1.5;">
+                We experienced a major issue on cart page. Custom options disappeared completely. Need urgent support!
+              </p>
+              
+              <div style="margin-top: 12px; font-size: 0.8rem; color: var(--sds-color-brand);">
+                Store Domain: <strong>kaifit.myapp.io</strong> (Matched 3-Way Auto Linking)
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; justify-content: center; border-left: 1px solid var(--sds-color-border); padding-left: 16px;">
+              <button class="btn btn-primary" style="font-size: 0.75rem;" onclick="openModal('add-ticket')">Create Ticket</button>
+              <button class="btn btn-secondary" style="font-size: 0.75rem;" onclick="toggleCrispPlugin()">💬 Crisp</button>
+              <button class="btn btn-warning" style="font-size: 0.75rem;" onclick="openShop360('kaifit.myapp.io')">🏪 Store Info</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 4: CS Operational Workflow Guide (Accordion UI) -->
+      <section id="view-workflow" class="view-section">
+        <div style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(59, 130, 246, 0.1)); padding: 20px; border-radius: var(--sds-radius-lg); border: 1px solid rgba(234, 179, 8, 0.3);">
+          <h2 style="font-size: 1.2rem; color: #eab308; margin-bottom: 6px;">📖 CS Operational Workflow Guide</h2>
+          <p style="font-size: 0.85rem; color: var(--sds-color-text-secondary);">
+            Tài liệu tra cứu chuẩn hóa quy trình CS Helpdesk OS. Nhấp vào từng Accordion bên dưới để xem hướng dẫn chi tiết.
+          </p>
+        </div>
+
+        <!-- Accordion 1 -->
+        <div class="accordion-item active">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Sơ Đồ Luồng 4 Bước (4-Step Operational Flow)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+              <li><strong>Bước 1 - Tiếp nhận Crisp Chat:</strong> CS kiểm tra thông tin Store URL / Visitor Data trên Crisp Plugin Sidebar.</li>
+              <li><strong>Bước 2 - Tạo Ticket:</strong> Bấm `+ Add ticket` để tạo ticket mới. Hệ thống sẽ phát tin nhắn lên Slack Thread dưới tên tài khoản Slack cá nhân của CS (OAuth User Token).</li>
+              <li><strong>Bước 3 - Thảo luận Slack:</strong> Mọi trao đổi với Dev diễn ra duy nhất tại Slack Thread. Web App lắng nghe dữ liệu im lặng.</li>
+              <li><strong>Bước 4 - Bàn giao ca (`Transfer Ticket`):</strong> Nhập `Note transfer case` cho ca sau và `Summary note` lưu cố định trong DB.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Accordion 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Quy Trình Follow-up Thủ Công (Manual Follow-up Flow)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+              <li><strong>Khi Dev báo Request Done:</strong> CS thực hiện **Resolve đoạn chat trên Crisp** với merchant.</li>
+              <li><strong>Chuyển Fl up 1 (12h):</strong> CS chủ động đổi trạng thái ticket sang `Fl up 1 (12h)` thủ công (`manually`).</li>
+              <li><strong>Chuyển Fl up 2 & 3:</strong> Tiếp tục theo dõi và chuyển lần lượt sang `Fl up 2 (24h)` ➔ `Fl up 3 (36h)` thủ công (`manually`).</li>
+              <li><strong>Resolve Ticket:</strong> Sau khi hoàn tất `Fl up 3 (36h)` (hoặc merchant xác nhận OK), CS đổi trạng thái ticket sang `Done - CS` (Resolve).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Accordion 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Quy Tắc 12 Trạng Thái Custom (12 Custom Statuses)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p style="margin-bottom: 10px;">Phân định rạch ròi 3 nhóm trách nhiệm xử lý:</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+              <div style="background: var(--sds-status-dev-bg); color: var(--sds-status-dev-text); padding: 12px; border-radius: var(--sds-radius-md);">
+                <strong>Nhóm Dev:</strong><br>
+                - Chờ check - Dev<br>- Đang check - Dev<br>- Đã check - Dev<br>- Rejected - Dev lead
+              </div>
+              <div style="background: var(--sds-status-cs-bg); color: var(--sds-status-cs-text); padding: 12px; border-radius: var(--sds-radius-md);">
+                <strong>Nhóm CS:</strong><br>
+                - Chờ collab - CS<br>- CHỜ KHÁCH - CS<br>- Chờ CS<br>- Uninstall<br>- Done - CS (Resolve)
+              </div>
+              <div style="background: var(--sds-status-flup-bg); color: var(--sds-status-flup-text); padding: 12px; border-radius: var(--sds-radius-md);">
+                <strong>Nhóm Follow-up:</strong><br>
+                - Fl up 1 (12h)<br>- Fl up 2 (24h)<br>- Fl up 3 (36h)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion 4 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>4. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="note-card-transfer">
+                <div class="note-title">🔄 Card 1 — Note transfer case (Giao ca)</div>
+                Ghi chú ngắn hạn cho ca trực tiếp theo. Không lưu vĩnh viễn trong lịch sử lâu dài.
+              </div>
+              <div class="note-card-summary">
+                <div class="note-title">📝 Card 2 — Summary note (Cốt lõi DB)</div>
+                Tóm tắt nguyên nhân & hướng xử lý cốt lõi lưu vĩnh viễn trong DB, tự động auto-fill khi mở Modal Transfer.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Crisp Plugin Drawer -->
+  <div class="crisp-drawer" id="crisp-plugin-drawer">
+    <div class="crisp-header">
+      <div style="font-weight: 700; font-size: 0.9rem;">💬 Crisp Plugin Sidebar</div>
+      <button onclick="toggleCrispPlugin()" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 1.1rem;">✕</button>
+    </div>
+
+    <!-- Slack Error Banner Simulation -->
+    <div style="background: #7f1d1d; color: #fca5a5; padding: 10px 14px; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center;">
+      <span>⚠️ System slack connection failed</span>
+      <button class="btn btn-warning" style="padding: 2px 8px; font-size: 0.7rem;" onclick="showToast('Re-sending message to Slack via OAuth...')">Resend</button>
+    </div>
+
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
+      <div style="background: var(--sds-color-bg-card); padding: 12px; border-radius: var(--sds-radius-md); border: 1px solid var(--sds-color-border);">
+        <div style="font-weight: 700; font-size: 0.85rem;">Visitor: Mykola</div>
+        <div style="font-size: 0.78rem; color: var(--sds-color-text-muted);">Store: kaifit.myapp.io</div>
+      </div>
+
+      <button class="btn btn-primary" onclick="openModal('add-ticket')">+ Add Ticket to Slack</button>
+
+      <div style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-secondary); margin-top: 8px;">Active Store Tickets:</div>
+      <div style="background: var(--sds-color-bg-card); padding: 10px; border-radius: var(--sds-radius-md); font-size: 0.8rem;">
+        <strong>#TK-1082</strong> — Option set cannot render<br>
+        <span class="status-select status-dev" style="display: inline-block; margin-top: 4px;">Đang check - Dev</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Component -->
+  <div class="modal-overlay" id="modal-container">
+    <div class="modal-box" id="modal-content">
+      <!-- Dynamic modal body -->
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast-notification">
+    <span>✅</span> <span id="toast-message">Thao tác thành công!</span>
+  </div>
+
+  <script>
+    // System State
+    let currentMode = 'dark';
+
+    function toggleMode() {
+      currentMode = currentMode === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-mode', currentMode);
+      document.getElementById('mode-icon').innerText = currentMode === 'dark' ? '🌙' : '☀️';
+      showToast(`Đã chuyển giao diện sang ${currentMode.toUpperCase()} mode`);
+    }
+
+    function setTheme(themeName) {
+      document.documentElement.setAttribute('data-theme', themeName);
+      showToast(`Đã áp dụng theme ${themeName}`);
+    }
+
+    function switchView(viewId, element) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(`view-${viewId}`).classList.add('active');
+      if (element) element.classList.add('active');
+
+      const titles = {
+        'dashboard': '📊 CS Dashboard Operations',
+        'shop360': '🏪 Shop 360° Comprehensive View',
+        'reviews': '⭐ App Store Reviews Tracking',
+        'workflow': '📖 CS Operational Workflow Guide'
+      };
+      document.getElementById('page-title').innerText = titles[viewId];
+    }
+
+    function filterApp(appCode, btn) {
+      document.querySelectorAll('.tabs-group .tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('#tickets-container .ticket-card');
+      cards.forEach(card => {
+        if (appCode === 'ALL' || card.dataset.app === appCode) {
+          card.style.display = 'grid';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      showToast(`Lọc danh sách theo ứng dụng ${appCode}`);
+    }
+
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('active');
+    }
+
+    function toggleCrispPlugin() {
+      const drawer = document.getElementById('crisp-plugin-drawer');
+      drawer.classList.toggle('open');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-notification');
+      document.getElementById('toast-message').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function openModal(type) {
+      const overlay = document.getElementById('modal-container');
+      const box = document.getElementById('modal-content');
+      overlay.classList.add('open');
+
+      if (type === 'add-ticket') {
+        box.innerHTML = `
+          <h3 style="font-size: 1.1rem; font-weight: 700;">+ Create Ticket (Slack OAuth Post)</h3>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Target App:</label>
+            <select class="input-field" style="margin-top: 4px;"><option>APO</option><option>APB</option><option>ACS</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Slack Channel:</label>
+            <select class="input-field" style="margin-top: 4px;"><option>#apo-paid-task</option><option>#apo-urgent-case</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Request Content (gửi Slack Thread):</label>
+            <textarea class="input-field" rows="3" placeholder="Nhập nội dung yêu cầu hỗ trợ..."></textarea>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="submitTicket()">Gửi Ticket lên Slack</button>
+          </div>
+        `;
+      } else if (type === 'transfer') {
+        box.innerHTML = `
+          <h3 style="font-size: 1.1rem; font-weight: 700;">🔄 Transfer Ticket (Bàn Giao Ca)</h3>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Note transfer case (Ca trực ngắn hạn):</label>
+            <textarea class="input-field" rows="2" placeholder="Ghi chú ca trực cho CS tiếp theo..."></textarea>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Summary note (Auto-fill DB):</label>
+            <textarea class="input-field" rows="2">Lỗi xung đột DOM selector với ứng dụng Sticky Add to Cart. Đã gửi workaround script cho merchant.</textarea>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="closeModal(); showToast('Đã bàn giao ticket thành công!');">Bàn Giao Ticket</button>
+          </div>
+        `;
+      } else if (type === 'edit-ticket') {
+        box.innerHTML = `
+          <h3 style="font-size: 1.1rem; font-weight: 700;">✏️ Edit Ticket</h3>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-muted);">Request Content (KHÓA Read-only):</label>
+            <textarea class="input-field" rows="2" disabled style="opacity: 0.7;">Option set cannot be rendered on Product Detail Page (PDP) after theme update</textarea>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Summary note:</label>
+            <textarea class="input-field" rows="2">Lỗi xung đột DOM selector với ứng dụng Sticky Add to Cart.</textarea>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="closeModal(); showToast('Đã cập nhật thông tin ticket!');">Lưu Thay Đổi</button>
+          </div>
+        `;
+      } else if (type === 'tagging') {
+        box.innerHTML = `
+          <h3 style="font-size: 1.1rem; font-weight: 700;">🏷️ Modal Tagging kiểu Shopify</h3>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0;">
+            <span class="tag-pill">🏷️ JavaScript Error ✕</span>
+            <span class="tag-pill">🏷️ Dawn Theme ✕</span>
+          </div>
+          <input type="text" class="input-field" placeholder="Nhập tag mới và nhấn Enter...">
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+            <button class="btn btn-primary" onclick="closeModal(); showToast('Đã lưu danh sách tags!');">Lưu Tags</button>
+          </div>
+        `;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modal-container').classList.remove('open');
+    }
+
+    function submitTicket() {
+      closeModal();
+      showToast('Đã đăng ticket lên Slack Channel #apo-paid-task dưới tên Aylin Tran!');
+    }
+
+    function openShop360(domain) {
+      switchView('shop360');
+      document.getElementById('shop-search-input').value = domain;
+      searchShop360();
+    }
+
+    function searchShop360() {
+      const container = document.getElementById('shop-tickets-list');
+      const ticketHtml = document.querySelector('#tickets-container .ticket-card').outerHTML;
+      container.innerHTML = ticketHtml;
+      showToast('Đã tải toàn bộ thông tin Shop 360° và các ticket thuộc store!');
+    }
+
+    function addSubDomain() {
+      const val = document.getElementById('subdomain-input').value;
+      if (val) {
+        showToast(`Đã thêm sub-domain ${val} vào tracking list của Store!`);
+        document.getElementById('subdomain-input').value = '';
+      }
+    }
+
+    function addPinnedNote() {
+      showToast('Đã thêm CS Pinned Note cố định cho Store!');
+    }
+
+    function updateTicketStatus(select) {
+      const val = select.value;
+      if (val.includes('Dev')) select.className = 'status-select status-dev';
+      else if (val.includes('CS')) select.className = 'status-select status-cs';
+      else select.className = 'status-select status-flup';
+      showToast(`Đã cập nhật trạng thái ticket sang: ${val}`);
+    }
+
+    // Initial render
+    searchShop360();
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpdesk OS — Legacy Old Demo (Ver 1.0 - Unrefined Doc Spec)</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .banner-warning {
+      background: #f38ba820;
+      border: 1px solid #f38ba8;
+      color: #f38ba8;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr 320px;
+      gap: 16px;
+    }
+    .card {
+      background: #181825;
+      border: 1px solid #313244;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .nav-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      color: #a6adc8;
+      font-size: 0.85rem;
+    }
+    .nav-item.active {
+      background: #89b4fa;
+      color: #11111b;
+      font-weight: bold;
+    }
+    .ticket-item {
+      background: #1e1e2e;
+      border: 1px solid #313244;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+    }
+    .btn-basic {
+      background: #313244;
+      color: #cdd6f4;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .modal-box {
+      background: #181825;
+      border: 1px solid #45475a;
+      padding: 16px;
+      border-radius: 8px;
+      width: 320px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Legacy Warning Banner -->
+  <div class="banner-warning">
+    ⚠️ BẢN DEMO CŨ (V1.0) — Dựa trên tài liệu ban đầu chưa có Mockup thực tế và chưa có Spec 9 Modules.
+    <br><span style="font-size: 0.8rem; font-weight: normal; color: #a6adc8;">Bản này thiếu: Accordion UI, Luồng Follow-up 1-2-3, Duty Roster, CS Analytics, Admin 6 Tabs, Modal Tagging Shopify và Layout Modal chuẩn Mockup.</span>
+  </div>
+
+  <div class="grid-layout">
+    <!-- Sidebar -->
+    <div class="card">
+      <h3 style="margin-top: 0; font-size: 0.95rem;">Navigation (Cũ)</h3>
+      <div class="nav-item active">📊 Dashboard</div>
+      <div class="nav-item">🏪 Shop Info</div>
+      <div class="nav-item">⭐ Reviews</div>
+      <div class="nav-item">📖 Workflow Guide (Văn bản phẳng)</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="card">
+      <h3 style="margin-top: 0; font-size: 0.95rem;">CS Dashboard (Bản sơ khai)</h3>
+      <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+        <div style="background: #313244; padding: 10px; border-radius: 6px; flex: 1;">
+          <div style="font-size: 0.75rem; color: #a6adc8;">Total Tickets</div>
+          <div style="font-size: 1.2rem; font-weight: bold;">3</div>
+        </div>
+        <div style="background: #313244; padding: 10px; border-radius: 6px; flex: 1;">
+          <div style="font-size: 0.75rem; color: #a6adc8;">My Tickets</div>
+          <div style="font-size: 1.2rem; font-weight: bold; color: #89b4fa;">2</div>
+        </div>
+      </div>
+
+      <!-- Ticket Items (Layout sơ khai 1 cột đơn giản) -->
+      <div class="ticket-item">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="color: #f9e2af; font-weight: bold;">[Pending] TK-4821</span>
+          <span style="color: #a6adc8;">woodesign.ie.myshopify.com</span>
+        </div>
+        <p style="margin: 4px 0; color: #bac2de;">Request: style button ở collection page không giống style trong app.</p>
+        <div style="margin-top: 8px; display: flex; gap: 6px;">
+          <button class="btn-basic">Edit Ticket</button>
+          <button class="btn-basic">Transfer</button>
+        </div>
+      </div>
+
+      <div class="ticket-item">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="color: #a6e3a1; font-weight: bold;">[Done] TK-4817</span>
+          <span style="color: #a6adc8;">kaifit.myapp.io</span>
+        </div>
+        <p style="margin: 4px 0; color: #bac2de;">Request: Khách nhận order mất option KTGPS-2522.</p>
+        <div style="margin-top: 8px; display: flex; gap: 6px;">
+          <button class="btn-basic">Edit Ticket</button>
+          <button class="btn-basic">Transfer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Crisp Plugin Drawer Simulator (Sơ khai) -->
+    <div class="card">
+      <h3 style="margin-top: 0; font-size: 0.95rem;">Crisp Plugin Panel (Bản Cũ)</h3>
+      <div style="font-size: 0.8rem; color: #a6adc8; margin-bottom: 10px;">
+        Store: 61cde3-42.myshopify.com
+      </div>
+      <button class="btn-basic" style="width: 100%; margin-bottom: 12px; background: #89b4fa; color: #11111b; font-weight: bold;">
+        + Add New Ticket (Basic Form)
+      </button>
+
+      <div class="modal-box" style="width: auto; box-sizing: border-box;">
+        <div style="font-size: 0.8rem; font-weight: bold; margin-bottom: 8px;">Modal Add Ticket (Cũ - Thiếu Layout Mockup)</div>
+        <input type="text" placeholder="Select App..." style="width: 100%; margin-bottom: 6px; padding: 6px; box-sizing: border-box; background: #11111b; border: 1px solid #45475a; color: white;">
+        <input type="text" placeholder="Channel..." style="width: 100%; margin-bottom: 6px; padding: 6px; box-sizing: border-box; background: #11111b; border: 1px solid #45475a; color: white;">
+        <textarea placeholder="Mô tả..." style="width: 100%; margin-bottom: 6px; padding: 6px; box-sizing: border-box; background: #11111b; border: 1px solid #45475a; color: white;"></textarea>
+        <button class="btn-basic" style="width: 100%; background: #45475a;">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

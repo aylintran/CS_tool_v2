@@ -800,31 +800,102 @@
   </div>
 
   <!-- Crisp Plugin Drawer -->
-  <div class="crisp-drawer" id="crisp-plugin-drawer">
-    <div class="crisp-header">
-      <div style="font-weight: 700; font-size: 0.9rem;">💬 Crisp Plugin Sidebar</div>
+  <div class="crisp-drawer" id="crisp-plugin-drawer" style="width: 400px; background: var(--sds-color-bg-surface);">
+    <div class="crisp-header" style="background: #0f172a; padding: 12px 16px;">
+      <div style="font-weight: 700; font-size: 0.9rem; color: white;">💬 Crisp Sidebar Plugin</div>
       <button onclick="toggleCrispPlugin()" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 1.1rem;">✕</button>
     </div>
 
-    <!-- Slack Error Banner Simulation -->
-    <div style="background: #7f1d1d; color: #fca5a5; padding: 10px 14px; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center;">
+    <!-- Slack Connection Error Banner (Simulation) -->
+    <div style="background: #7f1d1d; color: #fca5a5; padding: 8px 12px; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #991b1b;">
       <span>⚠️ System slack connection failed</span>
       <button class="btn btn-warning" style="padding: 2px 8px; font-size: 0.7rem;" onclick="showToast('Re-sending message to Slack via OAuth...')">Resend</button>
     </div>
 
-    <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
-      <div style="background: var(--sds-color-bg-card); padding: 12px; border-radius: var(--sds-radius-md); border: 1px solid var(--sds-color-border);">
-        <div style="font-weight: 700; font-size: 0.85rem;">Visitor: Mykola</div>
-        <div style="font-size: 0.78rem; color: var(--sds-color-text-muted);">Store: kaifit.myapp.io</div>
+    <!-- Plugin Main Content Area -->
+    <div style="padding: 14px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; flex: 1;">
+
+      <!-- Top Row: Search Input & Add Ticket Button -->
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="text" class="input-field" placeholder="🔍 Search by request" style="flex: 1; border-radius: 8px; padding: 8px 12px; font-size: 0.82rem;">
+        <button class="btn" style="background: #27272a; color: white; border-radius: 8px; padding: 8px 14px; font-size: 0.82rem; font-weight: 700; white-space: nowrap;" onclick="openModal('add-ticket')">Add ticket</button>
       </div>
 
-      <button class="btn btn-primary" onclick="openModal('add-ticket')">+ Add Ticket to Slack</button>
-
-      <div style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-secondary); margin-top: 8px;">Active Store Tickets:</div>
-      <div style="background: var(--sds-color-bg-card); padding: 10px; border-radius: var(--sds-radius-md); font-size: 0.8rem;">
-        <strong>#TK-1082</strong> — Option set cannot render<br>
-        <span class="status-select status-dev" style="display: inline-block; margin-top: 4px;">Đang check - Dev</span>
+      <!-- Store URL & Sub domain -->
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.83rem; color: var(--sds-color-text-secondary); margin: 2px 0;">
+        <div><strong style="color: var(--sds-color-text-primary);">Store URL:</strong> 61cde3-42.myshopify.com</div>
+        <div><strong style="color: var(--sds-color-text-primary);">Sub domain:</strong> 61cde3-42.myshopify.com</div>
       </div>
+
+      <!-- Ticket Cards Feed -->
+
+      <!-- Card 1 (Đang check) -->
+      <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; display: inline-flex; align-items: center;">🟡 Đang check</span>
+          <span style="background: #fee2e2; color: #991b1b; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; display: inline-flex; align-items: center;">🔴 5</span>
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+          <div><strong>Channel:</strong> apo-urgent-case</div>
+          <div style="display: flex; justify-content: space-between; margin-top: 2px;">
+            <span><strong>Assigned to:</strong> Aylin</span>
+            <span><strong>at:</strong> 6:46 pm 13/08/2026</span>
+          </div>
+        </div>
+
+        <div style="font-size: 0.82rem; color: var(--sds-color-text-primary); line-height: 1.4;">
+          <strong>Request:</strong><br>
+          Khách nhận order mất option, KTGPS -2522, KTGPS -2511, KTGPS -2506, KTGPS -2494 đây là 1 trong số ít khách tìm được
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+          <strong>Feature:</strong> Live preview
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;" onclick="openModal('edit-ticket')">Edit</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;" onclick="showToast('Opening Slack Thread...')">View Slack</button>
+          <button class="btn" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; background: #27272a; color: white;" onclick="openModal('transfer')">Transfer</button>
+        </div>
+      </div>
+
+      <!-- Card 2 (done) -->
+      <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: #d1fae5; color: #065f46; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; display: inline-flex; align-items: center;">🟢 done</span>
+          <span style="background: #fee2e2; color: #991b1b; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; display: inline-flex; align-items: center;">🔴 5</span>
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+          <div><strong>Channel:</strong> apo-urgent-case</div>
+          <div style="display: flex; justify-content: space-between; margin-top: 2px;">
+            <span><strong>Assigned to:</strong> Aylin</span>
+            <span><strong>at:</strong> 6:46 pm 13/08/2026</span>
+          </div>
+        </div>
+
+        <div style="font-size: 0.82rem; color: var(--sds-color-text-primary); line-height: 1.4;">
+          <strong>Request:</strong><br>
+          Khách nhận order mất option, KTGPS -2522, KTGPS -2511, KTGPS -2506, KTGPS -2494 đây là 1 trong số ít khách tìm được
+        </div>
+
+        <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+          <strong>Feature:</strong> Live preview
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;" onclick="openModal('edit-ticket')">Edit</button>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;" onclick="showToast('Opening Slack Thread...')">View Slack</button>
+          <button class="btn" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; background: #27272a; color: white;" onclick="openModal('transfer')">Transfer</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Plugin Footer -->
+    <div style="padding: 12px 16px; border-top: 1px solid var(--sds-color-border); font-size: 0.82rem; font-weight: 600; color: var(--sds-color-text-secondary); background: var(--sds-color-bg-surface);">
+      CS name: Aylin
     </div>
   </div>
 

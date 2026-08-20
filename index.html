@@ -968,18 +968,52 @@
         `;
       } else if (type === 'transfer') {
         box.innerHTML = `
-          <h3 style="font-size: 1.1rem; font-weight: 700;">🔄 Transfer Ticket (Bàn Giao Ca)</h3>
-          <div>
-            <label style="font-size: 0.8rem; font-weight: 700;">Note transfer case (Ca trực ngắn hạn):</label>
-            <textarea class="input-field" rows="2" placeholder="Ghi chú ca trực cho CS tiếp theo..."></textarea>
-          </div>
-          <div>
-            <label style="font-size: 0.8rem; font-weight: 700;">Summary note (Auto-fill DB):</label>
-            <textarea class="input-field" rows="2">Lỗi xung đột DOM selector với ứng dụng Sticky Add to Cart. Đã gửi workaround script cho merchant.</textarea>
-          </div>
-          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
-            <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
-            <button class="btn btn-primary" onclick="closeModal(); showToast('Đã bàn giao ticket thành công!');">Bàn Giao Ticket</button>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <!-- Modal Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--sds-color-border);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--sds-color-text-primary);">Transfer ticket</span>
+              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">⌵</span>
+            </div>
+
+            <!-- Row 1: Transfer to & Remind -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
+                <option value="Aylin" selected>Transfer to: Aylin</option>
+                <option value="Alex">Transfer to: Alex</option>
+                <option value="Mykola">Transfer to: Mykola</option>
+              </select>
+
+              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
+                <option value="May 8th, 8:00 AM" selected>Remind: May 8th, 8:0...</option>
+                <option value="May 8th, 2:00 PM">Remind: May 8th, 2:0...</option>
+                <option value="May 9th, 9:00 AM">Remind: May 9th, 9:0...</option>
+              </select>
+            </div>
+
+            <!-- Row 2: Status & Urgency -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
+                <option value="Chờ check" selected>Status: Chờ check</option>
+                <option value="Đang check">Status: Đang check</option>
+                <option value="Chờ collab">Status: Chờ collab</option>
+              </select>
+
+              <select class="input-field" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 500;">
+                <option value="1" selected>Urgency: 1</option>
+                <option value="2">Urgency: 2</option>
+              </select>
+            </div>
+
+            <!-- Row 3: Handoff note Label & Textarea -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.9rem; font-weight: 600; color: var(--sds-color-text-primary);">Handoff note</label>
+              <textarea class="input-field" rows="4" style="border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; font-weight: 400; resize: vertical;" placeholder="Ticket or handoff note..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn" style="width: 100%; justify-content: center; background: #27272a; color: #ffffff; border: 1px solid #3f3f46; border-radius: 12px; padding: 14px; font-size: 0.95rem; font-weight: 700; margin-top: 4px;" onclick="closeModal(); showToast('Đã bàn giao ticket thành công!');">
+              Submit Note
+            </button>
           </div>
         `;
       } else if (type === 'edit-ticket') {

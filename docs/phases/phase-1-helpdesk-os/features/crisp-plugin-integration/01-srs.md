@@ -29,7 +29,8 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho Sidebar Plugi
 ### 2.1 In Scope
 - **Tab Tickets**: Hiển thị danh sách ticket của store hiện tại. Nút `+ Add ticket` mở form tạo ticket mới. Nút `View Slack` mở thread Slack tương ứng. Nút `Transfer` mở modal bàn giao ticket.
 - **Tab Store Info**: Hiển thị bảng **Visitor Data** (store_url, store_id, store_country, store_plan, store_email, user_agent, add_charge, app_version, app_plan, pricing_ver) và danh sách các sub-domain đã liên kết.
-- **Form Add Ticket**: Form tạo ticket gồm các trường: Target App (`APO`, `APB`, `ACS`), Slack Channel (`#apo-paid-task`, `#apo-urgent-case`...), Status (12 trạng thái), Urgency (1/2), Store Domain, Feature Tag, Request Content.
+- **Form Add Ticket**: Form tạo ticket gồm các trường: Target App (`APO`, `APB`, `ACS`), Slack Channel (`#apo-paid-task`, `#apo-urgent-case`...), Status (12 trạng thái), Urgency (1/2), Feature Tag, Request Content.
+- **Form Transfer Ticket**: Modal bàn giao ca trực gồm các trường: `Transfer to` (chọn CS nhận ca), `Remind` (ngày giờ nhắc nhở), `Status` (12 trạng thái), `Urgency` (1/2), `Handoff note` (ghi chú ca trực) và nút `Submit Note`.
 
 ### 2.2 Out of Scope
 - **Add Sub-domain**: Tính năng thêm và quản lý sub-domain thuộc phạm vi màn hình **Shop 360° Detail** (Crisp Plugin chỉ hiển thị read-only các sub-domain đã được thêm).

@@ -32,7 +32,7 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho màn hình **
   1. Tiếp nhận Crisp Chat ➔ Check Plugin Visitor Data.
   2. Tạo Ticket (+ Add ticket) ➔ Đẩy Slack Thread dưới tên cá nhân CS (User Token).
   3. Thảo luận duy nhất tại Slack ➔ Web App lắng nghe im lặng không gây nhiễu alert.
-  4. Bàn giao ca (Transfer) ➔ Handoff Note ngắn hạn + Summary Note lưu DB auto-fill.
+  4. Bàn giao ca (Transfer Modal) ➔ Chọn CS nhận (`Transfer to`), cài nhắc nhở (`Remind`), đổi `Status` & `Urgency`, nhập `Handoff note` ngắn hạn ➔ Bấm `Submit Note`.
 - **Quy trình Follow-up (Follow-up Flow)**:
   - Khi Dev trả case trên Slack và báo Request Done: CS tiến hành Resolve đoạn chat trên Crisp với merchant.
   - Sau đó, CS chuyển trạng thái ticket sang `Fl up 1 (12h)` thủ công (manually).

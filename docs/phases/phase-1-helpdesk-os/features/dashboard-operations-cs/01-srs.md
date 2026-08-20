@@ -37,7 +37,7 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho màn hình **
   - Ô Request Content bị **KHÓA (Read-only)** vì đồng bộ trực tiếp với Slack Thread gốc.
   - Cho phép sửa Status (12 trạng thái), Urgency, Summary Note.
   - Tích hợp **Modal Tagging như Shopify** (chọn checkbox, gõ tag mới, gỡ tag pills).
-- **Modal Transfer Ticket**: Bàn giao ca trực kèm Handoff Note và Summary Note auto-fill từ DB.
+- **Modal Transfer Ticket**: Bàn giao ca trực gồm các trường: `Transfer to` (chọn CS nhận ca), `Remind` (thời gian nhắc nhở), `Status` (12 trạng thái), `Urgency` (1/2), `Handoff note` (ghi chú giao ca ngắn hạn) và nút `Submit Note`.
 
 ### 2.2 Out of Scope
 - Chỉnh sửa trực tiếp bài đăng trên Slack Thread từ Dashboard (phải sửa trên Slack).

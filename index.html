@@ -450,7 +450,16 @@
     </div>
 
     <nav class="nav-group">
-      <div class="nav-label">Core Workspace</div>
+      <div class="nav-label">Target Apps</div>
+      <div style="display: flex; gap: 6px; padding: 4px 8px;">
+        <span class="badge-app" style="cursor: pointer;" onclick="filterApp('APO', document.querySelector('.tab-btn'))">APO</span>
+        <span class="badge-app" style="cursor: pointer; background: #10b98120; color: #34d399; border-color: #10b98140;" onclick="filterApp('APB', document.querySelector('.tab-btn'))">APB</span>
+        <span class="badge-app" style="cursor: pointer; background: #8b5cf620; color: #a78bfa; border-color: #8b5cf640;" onclick="filterApp('ACS', document.querySelector('.tab-btn'))">ACS</span>
+      </div>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-label">Helpdesk CS Tools</div>
       <a class="nav-item active" onclick="switchView('dashboard', this)">
         <span>📊</span> CS Dashboard
       </a>
@@ -460,8 +469,21 @@
       <a class="nav-item" onclick="switchView('reviews', this)">
         <span>⭐</span> App Store Reviews
       </a>
+      <a class="nav-item" onclick="switchView('duty', this)">
+        <span>📅</span> Duty Shift Roster
+      </a>
+      <a class="nav-item" onclick="switchView('analytics', this)">
+        <span>📈</span> CS Analytics
+      </a>
       <a class="nav-item highlight-gold" onclick="switchView('workflow', this)">
         <span>📖</span> CS Workflow Guide
+      </a>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-label">Admin & Dev Tools</div>
+      <a class="nav-item" style="color: #c084fc; background: #a855f71a; border: 1px solid #a855f730;" onclick="switchView('admin', this)">
+        <span>⚙️</span> Admin Settings
       </a>
     </nav>
 
@@ -477,7 +499,16 @@
   <div class="main-wrapper">
     <!-- Top Header -->
     <header class="top-header">
-      <div style="font-weight: 700; font-size: 1.1rem;" id="page-title">📊 CS Dashboard Operations</div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="font-weight: 700; font-size: 1.05rem;" id="page-title">📊 CS Dashboard Operations</div>
+        
+        <!-- Platform Switcher Tabs -->
+        <div class="tabs-group" style="margin-left: 8px;">
+          <button class="tab-btn" onclick="toggleCrispPlugin()">💬 Crisp Chat</button>
+          <button class="tab-btn" onclick="showToast('Opening Slack Thread Sync Platform...')">💬 Slack Sync</button>
+          <button class="tab-btn active">🌐 Web App</button>
+        </div>
+      </div>
 
       <div class="header-actions">
         <!-- Theme Controls -->
@@ -499,7 +530,7 @@
           <div class="avatar">AT</div>
           <div style="font-size: 0.8rem;">
             <div style="font-weight: 700;">Aylin Tran</div>
-            <div style="font-size: 0.7rem; color: var(--sds-color-text-muted);">CS Lead (Slack OAuth Connected)</div>
+            <div style="font-size: 0.7rem; color: #10b981; font-weight: 600;">● Online (CS Lead)</div>
           </div>
         </div>
       </div>
@@ -787,9 +818,411 @@
                 <div class="note-title">🔄 Card 1 — Note transfer case (Giao ca)</div>
                 Ghi chú ngắn hạn cho ca trực tiếp theo. Không lưu vĩnh viễn trong lịch sử lâu dài.
               </div>
-              <div class="note-card-summary">
-                <div class="note-title">📝 Card 2 — Summary note (Cốt lõi DB)</div>
-                Tóm tắt nguyên nhân & hướng xử lý cốt lõi lưu vĩnh viễn trong DB, tự động auto-fill khi mở Modal Transfer.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 5: Duty Shift Roster (Module 5) -->
+      <section id="view-duty" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--sds-color-bg-card); padding: 18px 20px; border-radius: var(--sds-radius-lg); border: 1px solid var(--sds-color-border);">
+          <div>
+            <h2 style="font-size: 1.15rem; font-weight: 700;">📅 Duty Shift Roster (CS & Dev Team)</h2>
+            <div style="font-size: 0.8rem; color: var(--sds-color-text-muted); margin-top: 2px;">Lịch phân ca trực tuần: 17/08/2026 – 23/08/2026 (Mon–Sun)</div>
+          </div>
+          <button class="btn btn-primary" style="background: #10b981;" onclick="showToast('Đã phát thông báo Lịch trực ca tuần mới lên Slack Channel #cs-team!')">
+            📢 Publish Roster to Slack
+          </button>
+        </div>
+
+        <!-- Roster Table -->
+        <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-lg); overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.83rem;">
+            <thead>
+              <tr style="background: var(--sds-color-bg-surface); border-bottom: 1px solid var(--sds-color-border); text-align: left;">
+                <th style="padding: 12px 16px; font-weight: 700; width: 160px;">Team Member</th>
+                <th style="padding: 12px 10px; font-weight: 700;">MON</th>
+                <th style="padding: 12px 10px; font-weight: 700;">TUE</th>
+                <th style="padding: 12px 10px; font-weight: 700;">WED</th>
+                <th style="padding: 12px 10px; font-weight: 700;">THU</th>
+                <th style="padding: 12px 10px; font-weight: 700;">FRI</th>
+                <th style="padding: 12px 10px; font-weight: 700;">SAT</th>
+                <th style="padding: 12px 10px; font-weight: 700;">SUN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- CS Members -->
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                <td style="padding: 12px 16px; font-weight: 700; color: #60a5fa;">🎧 Aylin Tran (Lead)</td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #3b82f620; color: #60a5fa; cursor: pointer;" onclick="cycleShift(this)">Morning 08-16</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #3b82f620; color: #60a5fa; cursor: pointer;" onclick="cycleShift(this)">Morning 08-16</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #a855f720; color: #c084fc; cursor: pointer;" onclick="cycleShift(this)">Night 20-04</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #64748b20; color: #94a3b8; cursor: pointer;" onclick="cycleShift(this)">Day off</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #64748b20; color: #94a3b8; cursor: pointer;" onclick="cycleShift(this)">Day off</span></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                <td style="padding: 12px 16px; font-weight: 700; color: #60a5fa;">🎧 Sarah Miller (CS)</td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #a855f720; color: #c084fc; cursor: pointer;" onclick="cycleShift(this)">Night 20-04</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #a855f720; color: #c084fc; cursor: pointer;" onclick="cycleShift(this)">Night 20-04</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #3b82f620; color: #60a5fa; cursor: pointer;" onclick="cycleShift(this)">Morning 08-16</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #10b98120; color: #34d399; cursor: pointer;" onclick="cycleShift(this)">On-call</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #64748b20; color: #94a3b8; cursor: pointer;" onclick="cycleShift(this)">Day off</span></td>
+              </tr>
+
+              <!-- Dev Members -->
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle); background: var(--sds-color-bg-surface-hover);">
+                <td style="padding: 12px 16px; font-weight: 700; color: #c084fc;">💻 Alex Chen (Dev Lead)</td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #10b98120; color: #34d399; cursor: pointer;" onclick="cycleShift(this)">On-call</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #3b82f620; color: #60a5fa; cursor: pointer;" onclick="cycleShift(this)">Morning 08-16</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #3b82f620; color: #60a5fa; cursor: pointer;" onclick="cycleShift(this)">Morning 08-16</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #f59e0b20; color: #fbbf24; cursor: pointer;" onclick="cycleShift(this)">Afternoon 14-22</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #64748b20; color: #94a3b8; cursor: pointer;" onclick="cycleShift(this)">Day off</span></td>
+                <td style="padding: 8px 6px;"><span class="tag-pill" style="background: #64748b20; color: #94a3b8; cursor: pointer;" onclick="cycleShift(this)">Day off</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SLA Routing Rules Panel -->
+        <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-lg); padding: 20px;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px; color: var(--sds-color-brand);">🎯 SLA Routing Rules — Active Duty Coverage</h3>
+          
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--sds-color-border); text-align: left; color: var(--sds-color-text-muted);">
+                <th style="padding: 8px 0;">Urgency Level</th>
+                <th style="padding: 8px 0;">Plan Rule</th>
+                <th style="padding: 8px 0;">SLA Target</th>
+                <th style="padding: 8px 0;">On-duty Assignee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                <td style="padding: 10px 0;"><span class="urgency-badge urgency-p1">🔴 Urgent</span></td>
+                <td style="padding: 10px 0; color: var(--sds-color-text-secondary);">High risk tickets (Order/Checkout broken)</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #ef4444;">15 Phút</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #60a5fa;">Aylin Tran (Morning Shift)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                <td style="padding: 10px 0;"><span class="urgency-badge urgency-p2" style="background: #f59e0b20; color: #fbbf24; border-color: #f59e0b40;">🟠 High</span></td>
+                <td style="padding: 10px 0; color: var(--sds-color-text-secondary);">Premium / Advance plan merchants</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #f59e0b;">1 Giờ</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #60a5fa;">Aylin Tran (Morning Shift)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                <td style="padding: 10px 0;"><span class="urgency-badge urgency-p2">🔵 Medium</span></td>
+                <td style="padding: 10px 0; color: var(--sds-color-text-secondary);">Pro / Basic plan merchants</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #3b82f6;">4 Giờ</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #60a5fa;">Aylin Tran (Morning Shift)</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 0;"><span class="urgency-badge" style="background: #64748b20; color: #94a3b8; border: 1px solid #64748b40;">⚪ Low</span></td>
+                <td style="padding: 10px 0; color: var(--sds-color-text-secondary);">Free / Old / Dev plan merchants</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #94a3b8;">24 Giờ</td>
+                <td style="padding: 10px 0; font-weight: 700; color: #60a5fa;">Aylin Tran (Morning Shift)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- View 6: CS Analytics (Module 6) -->
+      <section id="view-analytics" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.2rem; font-weight: 700;">📈 CS Analytics & Operational Reporting</h2>
+          
+          <div class="tabs-group">
+            <button class="tab-btn active" onclick="setAnalyticsRange('7d', this)">Last 7 days</button>
+            <button class="tab-btn" onclick="setAnalyticsRange('14d', this)">Last 14 days</button>
+            <button class="tab-btn" onclick="setAnalyticsRange('30d', this)">Last 30 days</button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card" style="--card-accent: #3b82f6;">
+            <div class="stat-label">CREATED TICKETS</div>
+            <div class="stat-num" style="color: #60a5fa;">128</div>
+            <div style="font-size: 0.75rem; color: #10b981;">↑ 12% vs tuần trước</div>
+          </div>
+          <div class="stat-card" style="--card-accent: #10b981;">
+            <div class="stat-label">RESOLVED TICKETS</div>
+            <div class="stat-num" style="color: #34d399;">114</div>
+            <div style="font-size: 0.75rem; color: #10b981;">Tỷ lệ xử lý: 89.0%</div>
+          </div>
+          <div class="stat-card" style="--card-accent: #f59e0b;">
+            <div class="stat-label">MEDIAN RESOLUTION TIME</div>
+            <div class="stat-num" style="color: #fbbf24;">6h 12m</div>
+            <div style="font-size: 0.75rem; color: #10b981;">↓ 45 Phút nhanh hơn</div>
+          </div>
+          <div class="stat-card" style="--card-accent: #ec4899;">
+            <div class="stat-label">ESCALATION RATE (DEV)</div>
+            <div class="stat-num" style="color: #f472b6;">18.4%</div>
+            <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">23 Ticket cần Dev check</div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <!-- Chart 1: Status Distribution -->
+          <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-lg); padding: 20px;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">📊 Tickets by Status (12 Custom Statuses)</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                  <span>Đang check - Dev</span>
+                  <span style="font-weight: 700;">42 tickets (36%)</span>
+                </div>
+                <div style="background: var(--sds-color-bg-app); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 36%; height: 100%; background: #6366f1;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                  <span>Done - CS (Resolve)</span>
+                  <span style="font-weight: 700;">56 tickets (48%)</span>
+                </div>
+                <div style="background: var(--sds-color-bg-app); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 48%; height: 100%; background: #10b981;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                  <span>Fl up 1-2-3 (Follow-up)</span>
+                  <span style="font-weight: 700;">18 tickets (16%)</span>
+                </div>
+                <div style="background: var(--sds-color-bg-app); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 16%; height: 100%; background: #f59e0b;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 2: SLA Performance Table -->
+          <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-lg); padding: 20px;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">🎯 SLA Performance & Breach Analysis</h3>
+            
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--sds-color-border); text-align: left; color: var(--sds-color-text-muted);">
+                  <th style="padding: 6px 0;">Urgency</th>
+                  <th style="padding: 6px 0;">SLA Target</th>
+                  <th style="padding: 6px 0;">Met SLA %</th>
+                  <th style="padding: 6px 0;">Breach Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                  <td style="padding: 8px 0; font-weight: 700; color: #ef4444;">🔴 Urgent</td>
+                  <td style="padding: 8px 0;">15m</td>
+                  <td style="padding: 8px 0; font-weight: 700; color: #10b981;">95.2%</td>
+                  <td style="padding: 8px 0; color: #f87171;">1 ticket</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--sds-color-border-subtle);">
+                  <td style="padding: 8px 0; font-weight: 700; color: #f59e0b;">🟠 High</td>
+                  <td style="padding: 8px 0;">1h</td>
+                  <td style="padding: 8px 0; font-weight: 700; color: #10b981;">98.0%</td>
+                  <td style="padding: 8px 0; color: #10b981;">0 ticket</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: 700; color: #3b82f6;">🔵 Medium</td>
+                  <td style="padding: 8px 0;">4h</td>
+                  <td style="padding: 8px 0; font-weight: 700; color: #10b981;">92.5%</td>
+                  <td style="padding: 8px 0; color: #f87171;">3 tickets</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 7: Admin Settings (Module 8 - 6 Tabs) -->
+      <section id="view-admin" class="view-section">
+        <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(59, 130, 246, 0.1)); padding: 18px 20px; border-radius: var(--sds-radius-lg); border: 1px solid rgba(168, 85, 247, 0.3); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h2 style="font-size: 1.15rem; color: #c084fc; font-weight: 700;">⚙️ Admin & System Settings</h2>
+            <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary); margin-top: 2px;">Bảng điều khiển dành riêng cho vai trò `admin` và `dev_lead` (PO / Lead)</div>
+          </div>
+          <button class="btn btn-primary" style="background: #a855f7;" onclick="showToast('Đã lưu toàn bộ cấu hình Admin!')">
+            💾 Save All Settings
+          </button>
+        </div>
+
+        <!-- 6 Tabs Switcher -->
+        <div class="tabs-group" style="flex-wrap: wrap;">
+          <button class="tab-btn active" onclick="switchAdminTab('tab-apps', this)">1. Target Apps</button>
+          <button class="tab-btn" onclick="switchAdminTab('tab-slack-channels', this)">2. Slack Channels Picker</button>
+          <button class="tab-btn" onclick="switchAdminTab('tab-statuses', this)">3. Status Workflow</button>
+          <button class="tab-btn" onclick="switchAdminTab('tab-urgency', this)">4. Urgency Rules</button>
+          <button class="tab-btn" onclick="switchAdminTab('tab-guide-editor', this)">5. Full CS Guide Editor</button>
+          <button class="tab-btn" onclick="switchAdminTab('tab-slack-teams', this)">6. Slack Teams Sync</button>
+        </div>
+
+        <!-- Admin Tab Contents -->
+
+        <!-- Tab 1: Target Apps -->
+        <div id="admin-tab-apps" class="admin-tab-content" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 0.95rem; font-weight: 700;">Application Target List</h3>
+            <button class="btn btn-secondary" style="font-size: 0.75rem;" onclick="showToast('Mở Form thêm Target App mới...')">+ Add Target App</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+            <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); padding: 14px; border-radius: var(--sds-radius-md); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-weight: 700; font-size: 0.9rem;">⭐ Avis Product Options</div>
+                <div style="font-size: 0.75rem; color: var(--sds-color-text-muted); font-family: var(--sds-font-mono);">Code: APO</div>
+              </div>
+              <span class="badge-app">APO</span>
+            </div>
+
+            <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); padding: 14px; border-radius: var(--sds-radius-md); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-weight: 700; font-size: 0.9rem;">🏷️ Aris Product Badges</div>
+                <div style="font-size: 0.75rem; color: var(--sds-color-text-muted); font-family: var(--sds-font-mono);">Code: APB</div>
+              </div>
+              <span class="badge-app" style="background: #10b98120; color: #34d399; border-color: #10b98140;">APB</span>
+            </div>
+
+            <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); padding: 14px; border-radius: var(--sds-radius-md); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-weight: 700; font-size: 0.9rem;">🎨 Aris Color Swatch</div>
+                <div style="font-size: 0.75rem; color: var(--sds-color-text-muted); font-family: var(--sds-font-mono);">Code: ACS</div>
+              </div>
+              <span class="badge-app" style="background: #8b5cf620; color: #a78bfa; border-color: #8b5cf640;">ACS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Slack Channels Picker (Slack Web API) -->
+        <div id="admin-tab-slack-channels" class="admin-tab-content" style="display: none; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 style="font-size: 0.95rem; font-weight: 700;">Slack Channels Mapping (Slack API Sync)</h3>
+              <div style="font-size: 0.78rem; color: var(--sds-color-text-muted);">Danh sách các kênh được phép gửi ticket từ Crisp Plugin & CS Dashboard</div>
+            </div>
+            <button class="btn btn-primary" style="font-size: 0.75rem;" onclick="openModal('slack-picker')">+ Add Channel (Select from Slack API)</button>
+          </div>
+
+          <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--sds-color-border-subtle);">
+              <div>
+                <span style="font-weight: 700; font-family: var(--sds-font-mono); color: #60a5fa;">#apo-paid-task</span>
+                <span style="font-size: 0.75rem; color: var(--sds-color-text-muted); margin-left: 8px;">Kênh xử lý task có phí ứng dụng APO</span>
+              </div>
+              <span class="badge-app" style="background: #10b98120; color: #34d399; border-color: #10b98140;">Active Sync</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span style="font-weight: 700; font-family: var(--sds-font-mono); color: #60a5fa;">#apo-urgent-case</span>
+                <span style="font-size: 0.75rem; color: var(--sds-color-text-muted); margin-left: 8px;">Kênh xử lý các trường hợp khẩn cấp P1</span>
+              </div>
+              <span class="badge-app" style="background: #10b98120; color: #34d399; border-color: #10b98140;">Active Sync</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Status Workflow -->
+        <div id="admin-tab-statuses" class="admin-tab-content" style="display: none; flex-direction: column; gap: 14px;">
+          <h3 style="font-size: 0.95rem; font-weight: 700;">Standard Statuses Configuration (12 Statuses)</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div style="background: var(--sds-status-dev-bg); color: var(--sds-status-dev-text); padding: 12px; border-radius: var(--sds-radius-md);">
+              <strong>Nhóm Dev (4 Statuses):</strong><br>
+              Chờ check - Dev<br>Đang check - Dev<br>Đã check - Dev<br>Rejected - Dev lead
+            </div>
+            <div style="background: var(--sds-status-cs-bg); color: var(--sds-status-cs-text); padding: 12px; border-radius: var(--sds-radius-md);">
+              <strong>Nhóm CS (5 Statuses):</strong><br>
+              Chờ collab - CS<br>CHỜ KHÁCH - CS<br>Chờ CS<br>Uninstall<br>Done - CS (Resolve)
+            </div>
+            <div style="background: var(--sds-status-flup-bg); color: var(--sds-status-flup-text); padding: 12px; border-radius: var(--sds-radius-md);">
+              <strong>Nhóm Follow-up (3 Statuses):</strong><br>
+              Fl up 1 (12h)<br>Fl up 2 (24h)<br>Fl up 3 (36h)
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Urgency Rules -->
+        <div id="admin-tab-urgency" class="admin-tab-content" style="display: none; flex-direction: column; gap: 14px;">
+          <h3 style="font-size: 0.95rem; font-weight: 700;">Urgency Levels & Plan Rules Configuration</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+            <div style="background: #ef444415; border: 1px solid #ef444440; padding: 14px; border-radius: var(--sds-radius-md);">
+              <div style="font-weight: 700; color: #f87171;">🔴 Urgent (SLA: 15 Mins)</div>
+              <div style="font-size: 0.78rem; color: var(--sds-color-text-secondary); margin-top: 4px;">High risk tickets (checkout / order flow broken)</div>
+            </div>
+            <div style="background: #f59e0b15; border: 1px solid #f59e0b40; padding: 14px; border-radius: var(--sds-radius-md);">
+              <div style="font-weight: 700; color: #fbbf24;">🟠 High (SLA: 1 Hour)</div>
+              <div style="font-size: 0.78rem; color: var(--sds-color-text-secondary); margin-top: 4px;">Premium / Advance plan merchants</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Full CS Guide Editor (Markdown + Live Preview) -->
+        <div id="admin-tab-guide-editor" class="admin-tab-content" style="display: none; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 0.95rem; font-weight: 700;">Edit Entire CS Workflow Guide Content (Markdown Editor)</h3>
+            <button class="btn btn-primary" style="background: #10b981; font-size: 0.75rem;" onclick="publishGuideContent()">
+              🚀 Publish Updated Guide
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <!-- Left: Markdown Source Editor -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-text-muted);">Markdown Source Editor:</label>
+              <textarea id="markdown-editor-input" class="input-field" rows="14" style="font-family: var(--sds-font-mono); font-size: 0.82rem; line-height: 1.5;" oninput="updateGuideLivePreview(this.value)"># CS Operational Workflow Guide
+
+## 1. Sơ Đồ Luồng 4 Bước
+1. Tiếp nhận Crisp Chat -> Check Visitor Data.
+2. Tạo Ticket (+ Add ticket) -> Post Slack Thread via OAuth User Token.
+3. Thảo luận duy nhất tại Slack Thread.
+4. Bàn giao ca (Transfer Ticket).
+
+## 2. Luồng Follow-up
+- Dev báo Request Done -> CS Resolve chat Crisp -> Chuyển Fl up 1-2-3 (manually) -> Resolve ticket.
+              </textarea>
+            </div>
+
+            <!-- Right: Live Preview Panel -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--sds-color-brand);">Live Preview Panel:</label>
+              <div id="markdown-live-preview-box" style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); border-radius: var(--sds-radius-md); padding: 16px; min-height: 280px; font-size: 0.85rem; line-height: 1.6; overflow-y: auto;">
+                <!-- Live rendered content -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 6: Slack Teams Sync -->
+        <div id="admin-tab-slack-teams" class="admin-tab-content" style="display: none; flex-direction: column; gap: 14px;">
+          <h3 style="font-size: 0.95rem; font-weight: 700;">Slack Usergroups Sync (`@cs` & `@dev`)</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); padding: 16px; border-radius: var(--sds-radius-md); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; color: #60a5fa;">🎧 CS Team (Synced from Slack @cs)</span>
+                <button class="btn btn-secondary" style="font-size: 0.72rem;" onclick="showToast('Calling Slack API usergroups.users.list for @cs...')">🔄 Sync @cs</button>
+              </div>
+              <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+                Members: Aylin Tran, Sarah Miller
+              </div>
+            </div>
+
+            <div style="background: var(--sds-color-bg-card); border: 1px solid var(--sds-color-border); padding: 16px; border-radius: var(--sds-radius-md); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; color: #c084fc;">💻 Dev Team (Synced from Slack @dev)</span>
+                <button class="btn btn-secondary" style="font-size: 0.72rem;" onclick="showToast('Calling Slack API usergroups.users.list for @dev...')">🔄 Sync @dev</button>
+              </div>
+              <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+                Members: Alex Chen, Viktor
               </div>
             </div>
           </div>
@@ -931,21 +1364,79 @@
       document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
       
-      document.getElementById(`view-${viewId}`).classList.add('active');
+      const target = document.getElementById(`view-${viewId}`);
+      if (target) target.classList.add('active');
       if (element) element.classList.add('active');
 
       const titles = {
         'dashboard': '📊 CS Dashboard Operations',
         'shop360': '🏪 Shop 360° Comprehensive View',
         'reviews': '⭐ App Store Reviews Tracking',
-        'workflow': '📖 CS Operational Workflow Guide'
+        'duty': '📅 Duty Shift Roster (CS & Dev Team)',
+        'analytics': '📈 CS Analytics & Operational Reporting',
+        'workflow': '📖 CS Operational Workflow Guide',
+        'admin': '⚙️ Admin & System Settings'
       };
-      document.getElementById('page-title').innerText = titles[viewId];
+      document.getElementById('page-title').innerText = titles[viewId] || 'Helpdesk OS';
+
+      if (viewId === 'admin') {
+        const input = document.getElementById('markdown-editor-input');
+        if (input) updateGuideLivePreview(input.value);
+      }
+    }
+
+    function switchAdminTab(tabId, btn) {
+      document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('#view-admin .tabs-group .tab-btn').forEach(b => b.classList.remove('active'));
+      
+      const target = document.getElementById(`admin-${tabId}`);
+      if (target) target.style.display = 'flex';
+      btn.classList.add('active');
+    }
+
+    function cycleShift(span) {
+      const shifts = [
+        { text: 'Morning 08-16', bg: '#3b82f620', color: '#60a5fa' },
+        { text: 'Afternoon 14-22', bg: '#f59e0b20', color: '#fbbf24' },
+        { text: 'Night 20-04', bg: '#a855f720', color: '#c084fc' },
+        { text: 'On-call', bg: '#10b98120', color: '#34d399' },
+        { text: 'Day off', bg: '#64748b20', color: '#94a3b8' }
+      ];
+      const currentText = span.innerText;
+      let nextIndex = (shifts.findIndex(s => s.text === currentText) + 1) % shifts.length;
+      const next = shifts[nextIndex];
+      
+      span.innerText = next.text;
+      span.style.background = next.bg;
+      span.style.color = next.color;
+      showToast(`Đã đổi ca trực thành: ${next.text}`);
+    }
+
+    function setAnalyticsRange(range, btn) {
+      document.querySelectorAll('#view-analytics .tabs-group .tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      showToast(`Đã tải dữ liệu Báo cáo Analytics cho: ${range.toUpperCase()}`);
+    }
+
+    function updateGuideLivePreview(text) {
+      const box = document.getElementById('markdown-live-preview-box');
+      if (box) {
+        box.innerHTML = text
+          .replace(/^# (.*$)/gim, '<h1 style="font-size:1.2rem; font-weight:700; color:#eab308; margin-bottom:8px;">$1</h1>')
+          .replace(/^## (.*$)/gim, '<h2 style="font-size:1rem; font-weight:700; color:#38bdf8; margin-top:12px; margin-bottom:6px;">$1</h2>')
+          .replace(/^\d+\. (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
+          .replace(/^- (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
+          .replace(/\n/g, '<br>');
+      }
+    }
+
+    function publishGuideContent() {
+      showToast('🚀 Đã xuất bản nội dung CS Workflow Guide mới lên DB!');
     }
 
     function filterApp(appCode, btn) {
       document.querySelectorAll('.tabs-group .tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
 
       const cards = document.querySelectorAll('#tickets-container .ticket-card');
       cards.forEach(card => {
@@ -980,7 +1471,43 @@
       const box = document.getElementById('modal-content');
       overlay.classList.add('open');
 
-      if (type === 'add-ticket') {
+      if (type === 'slack-picker') {
+        box.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--sds-color-border);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--sds-color-text-primary);">Select Available Channel from Slack Workspace</span>
+              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">⌵</span>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--sds-color-text-secondary);">
+              Gọi Slack Web API GET /conversations.list từ workspace:
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; max-h-[220px]; overflow-y: auto;">
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--sds-color-border); border-radius: 8px; cursor: pointer; background: var(--sds-color-bg-card);">
+                <input type="radio" name="slack-channel-opt" checked>
+                <div>
+                  <div style="font-weight: 700; font-family: var(--sds-font-mono); color: #60a5fa;">#apo-urgent-case</div>
+                  <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Urgent tickets channel for APO app</div>
+                </div>
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--sds-color-border); border-radius: 8px; cursor: pointer; background: var(--sds-color-bg-card);">
+                <input type="radio" name="slack-channel-opt">
+                <div>
+                  <div style="font-weight: 700; font-family: var(--sds-font-mono); color: #60a5fa;">#apb-paid-task</div>
+                  <div style="font-size: 0.75rem; color: var(--sds-color-text-muted);">Paid customization task channel for APB</div>
+                </div>
+              </label>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px;">
+              <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+              <button class="btn btn-primary" onclick="closeModal(); showToast('Đã ánh xạ kênh Slack mới thành công!');">+ Map Channel</button>
+            </div>
+          </div>
+        `;
+      } else if (type === 'add-ticket') {
         box.innerHTML = `
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <!-- Modal Header -->
@@ -1043,7 +1570,7 @@
             <!-- Modal Header -->
             <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--sds-color-border);">
               <span style="font-size: 1.15rem; font-weight: 700; color: var(--sds-color-text-primary);">Transfer ticket</span>
-              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">⌵</span>
+              <span style="cursor: pointer; font-size: 1rem; color: var(--sds-color-text-muted);" onclick="closeModal()">v</span>
             </div>
 
             <!-- Row 1: Transfer to & Remind -->
@@ -1162,6 +1689,8 @@
 
     // Initial render
     searchShop360();
+    const initGuideInput = document.getElementById('markdown-editor-input');
+    if (initGuideInput) updateGuideLivePreview(initGuideInput.value);
   </script>
 </body>
 </html>

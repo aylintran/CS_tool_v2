@@ -12,32 +12,31 @@
       theme: {
         extend: {
           colors: {
-            darkBg: '#0f172a',
-            cardBg: '#1e293b',
-            borderBg: '#334155',
-            accentBlue: '#3b82f6',
-            accentYellow: '#f59e0b',
-            accentGreen: '#10b981',
-            accentRed: '#ef4444'
+            darkBg: '#09090b',
+            cardBg: '#18181b',
+            borderBg: '#27272a',
+            borderSubtle: '#3f3f46',
+            accentBlue: '#2563eb',
+            accentPurple: '#7c3aed'
           }
         }
       }
     }
   </script>
   <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #09090b; }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
     .toast-animate { animation: slideIn 0.3s ease-out forwards; }
     @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .prose h1, .prose h2, .prose h3 { color: #f8fafc; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; }
-    .prose p { margin-bottom: 0.75rem; color: #cbd5e1; }
-    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; color: #cbd5e1; }
-    .prose code { background: #0f172a; color: #f59e0b; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; }
+    .prose h1, .prose h2, .prose h3 { color: #f4f4f5; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; }
+    .prose p { margin-bottom: 0.75rem; color: #a1a1aa; }
+    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; color: #a1a1aa; }
+    .prose code { background: #18181b; color: #f59e0b; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; }
   </style>
 </head>
-<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col custom-scrollbar">
+<body class="bg-[#09090b] text-zinc-100 min-h-screen flex flex-col custom-scrollbar">
 
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed top-16 right-6 z-50 space-y-2 pointer-events-none"></div>
@@ -1007,12 +1006,29 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
-    // URGENCY BADGE STYLING HELPER (URGENT, HIGH, MEDIUM, LOW)
+    // URGENCY BADGE STYLING HELPER (URGENT, HIGH, MEDIUM, LOW - THANG MÀU URGENCY SCALE)
     function getUrgencyBadgeHtml(urgency) {
-      if (urgency === 'Urgent') return `<span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-2 py-0.5 rounded font-bold">🔴 Urgent (High risk)</span>`;
-      if (urgency === 'High') return `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded font-bold">🟠 High (Premium)</span>`;
-      if (urgency === 'Medium') return `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs px-2 py-0.5 rounded font-medium">🔵 Medium (Pro)</span>`;
-      return `<span class="bg-slate-800 text-slate-400 text-xs px-2 py-0.5 rounded font-medium">⚪ Low (Free/Dev)</span>`;
+      if (urgency === 'Urgent' || urgency === 1 || urgency === '1') return `<span class="bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🔴 Urgent (High risk)</span>`;
+      if (urgency === 'High' || urgency === 2 || urgency === '2') return `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">🟠 High (Premium)</span>`;
+      if (urgency === 'Medium' || urgency === 3 || urgency === '3') return `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs px-2.5 py-0.5 rounded-full font-medium">🔵 Medium (Pro)</span>`;
+      return `<span class="bg-zinc-800 text-zinc-400 border border-zinc-700 text-xs px-2.5 py-0.5 rounded-full font-medium">⚪ Low (Free/Dev)</span>`;
+    }
+
+    // STATUS BADGE STYLING HELPER (THANG MÀU STATUS WORKFLOW SCALE)
+    function getStatusBadgeHtml(status) {
+      if (status.includes('Done') || status.includes('Resolved')) {
+        return `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟢 ${status}</span>`;
+      }
+      if (status.includes('Dev') || status.includes('collab')) {
+        return `<span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟣 ${status}</span>`;
+      }
+      if (status.includes('Fl up') || status.includes('Followup')) {
+        return `<span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🔵 ${status}</span>`;
+      }
+      if (status.includes('Rejected') || status.includes('Uninstall')) {
+        return `<span class="bg-red-500/20 text-red-300 border border-red-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🔴 ${status}</span>`;
+      }
+      return `<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${status}</span>`;
     }
 
     // SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG SLACK WORKSPACE)
@@ -1229,10 +1245,11 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           <div class="flex-1 space-y-3 text-xs">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div class="flex items-center space-x-2">
-                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                ${getStatusBadgeHtml(t.status)}
                 ${getUrgencyBadgeHtml(t.urgency)}
                 <span class="text-xs text-slate-400 font-mono">${t.id}</span>
                 <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+                ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded-full font-bold">🟡 Reopened</span>` : ''}
               </div>
               <span class="text-slate-400">Channel: <strong class="text-slate-200">${t.channel}</strong></span>
             </div>
@@ -1300,10 +1317,11 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           <div class="flex-1 space-y-3 text-xs">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div class="flex items-center space-x-2">
-                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-semibold">🟡 ${t.status}</span>
+                ${getStatusBadgeHtml(t.status)}
                 ${getUrgencyBadgeHtml(t.urgency)}
                 <span class="text-xs text-slate-400 font-mono">${t.id}</span>
                 <span class="bg-blue-500/20 text-blue-300 text-[10px] px-1.5 py-0.2 rounded font-bold">${t.app}</span>
+                ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2 py-0.5 rounded-full font-bold">🟡 Reopened</span>` : ''}
               </div>
               <span class="text-slate-400">Channel: <strong class="text-slate-200">${t.channel}</strong></span>
             </div>
@@ -1352,15 +1370,28 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       `).join('');
 
       pluginContainer.innerHTML = state.tickets.map(t => `
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full font-bold">🟡 ${t.status}</span>
-            <span class="text-[10px] text-slate-500 font-bold">${t.urgency}</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2 text-xs">
+          <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
+            ${getStatusBadgeHtml(t.status)}
+            <span class="bg-red-500/20 text-red-400 text-[11px] px-2 py-0.5 rounded-full font-bold">🔴 5</span>
+            ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] px-2 py-0.5 rounded-full font-bold">🟡 Reopened</span>` : ''}
           </div>
-          <div class="text-slate-300 font-medium">${t.requestContent}</div>
+          <div class="text-slate-400 text-[11px]">
+            Channel: <strong class="text-slate-200 font-mono">${t.channel}</strong>
+          </div>
+          <div class="text-slate-400 text-[11px]">
+            Assigned to: <strong class="text-slate-200">${t.assignedTo}</strong> <span class="ml-2">at: ${t.timestamp}</span>
+          </div>
+          <div class="text-slate-200 bg-slate-950 p-2 rounded border border-slate-800 text-xs">
+            <strong>Request:</strong> ${t.requestContent}
+          </div>
+          <div class="text-slate-400 text-[11px]">
+            <strong>Feature:</strong> ${t.feature || 'Live preview'}
+          </div>
           <div class="flex items-center space-x-1.5 pt-1">
-            <button onclick="switchPlatform('slack')" class="px-2 py-1 rounded text-[10px] bg-purple-600/30 text-purple-300">View Slack</button>
-            <button onclick="openTransferModalById('${t.id}')" class="px-2 py-1 rounded text-[10px] bg-slate-800 text-slate-200">Transfer</button>
+            <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1 rounded text-xs bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 font-medium">Edit</button>
+            <button onclick="switchPlatform('slack')" class="px-3 py-1 rounded text-xs bg-purple-600/30 text-purple-300 border border-purple-500/30 hover:bg-purple-600/40 font-medium">View Slack</button>
+            <button onclick="openTransferModalById('${t.id}')" class="px-3 py-1 rounded text-xs bg-zinc-800 text-white font-bold border border-zinc-700 shadow">Transfer</button>
           </div>
         </div>
       `).join('');

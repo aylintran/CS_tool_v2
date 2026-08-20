@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   
   <style>
     :root {
@@ -1421,12 +1422,16 @@
     function updateGuideLivePreview(text) {
       const box = document.getElementById('markdown-live-preview-box');
       if (box) {
-        box.innerHTML = text
-          .replace(/^# (.*$)/gim, '<h1 style="font-size:1.2rem; font-weight:700; color:#eab308; margin-bottom:8px;">$1</h1>')
-          .replace(/^## (.*$)/gim, '<h2 style="font-size:1rem; font-weight:700; color:#38bdf8; margin-top:12px; margin-bottom:6px;">$1</h2>')
-          .replace(/^\d+\. (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
-          .replace(/^- (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
-          .replace(/\n/g, '<br>');
+        if (typeof marked !== 'undefined') {
+          box.innerHTML = marked.parse(text || '');
+        } else {
+          box.innerHTML = text
+            .replace(/^# (.*$)/gim, '<h1 style="font-size:1.2rem; font-weight:700; color:#eab308; margin-bottom:8px;">$1</h1>')
+            .replace(/^## (.*$)/gim, '<h2 style="font-size:1rem; font-weight:700; color:#38bdf8; margin-top:12px; margin-bottom:6px;">$1</h2>')
+            .replace(/^\d+\. (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
+            .replace(/^- (.*$)/gim, '<li style="margin-left:16px;">$1</li>')
+            .replace(/\n/g, '<br>');
+        }
       }
     }
 

@@ -1,41 +1,38 @@
-# HELPDESK OS — CS & DEV OPERATIONS SUITE (PHASE 1)
+# HELPDESK OS — HỒ SƠ TÀI LIỆU KỸ THUẬT & BÀN GIAO TOÀN DIỆN DÀNH CHO DEV TEAM (PHASE 1)
 
-> **Repository Master Documentation & Developer Handover Guide**  
-> **Ecosystem**: Shopify Apps Portfolio (Avis Product Options, App Bundles, Aris Color Swatch, etc.)  
-> **Core Platforms**: Crisp Livechat + Sidebar Plugin • Slack OAuth Thread Sync • Internal Helpdesk Web App  
-> **Interactive Demo**: [`Helpdesk_demo 3.html`](file:///e:/ABC%20soft%20files/CS_tool_v2/Helpdesk_demo%203.html) *(Bản Demo 3.0 hoàn chỉnh nhất)*  
-> **Version**: 3.0 (Light Mode • Semantic Design System • Full Specs)  
+> **Document Type**: Technical Specification & System Architecture Handover  
+> **Target Audience**: Backend Engineers, Frontend Engineers, Fullstack Leads, QA Engineers  
+> **System Name**: Helpdesk OS (Customer Support & Admin Operations Suite)  
+> **Version**: 3.0 (Production Blueprint)  
 > **Last Updated**: 21/08/2026  
 
 ---
 
-## 📑 MỤC LỤC
+## MỤC LỤC
 
 1. [TỔNG QUAN REPOSITORY (REPO CÓ GÌ?)](#1-tổng-quan-repository-repo-có-gì)
 2. [MỤC ĐÍCH HỆ THỐNG (TOOL NÀY ĐỂ LÀM GÌ?)](#2-mục-đích-hệ-thống-tool-này-để-làm-gì)
 3. [CRISP PLUGIN LÀM GÌ? (KIẾN TRÚC & TÍNH NĂNG PLUGIN)](#3-crisp-plugin-làm-gì-kiến-trúc--tính-năng-plugin)
 4. [QUY TẮC NGHIỆP VỤ CỐT LÕI (CORE BUSINESS RULES)](#4-quy-tắc-nghiệp-vụ-cốt-lõi-core-business-rules)
-5. [TECH DESIGN: HỆ THỐNG API ENDPOINTS CHO BACKEND/DEV](#5-tech-design-hệ-thống-api-endpoints-cho-backenddev)
+5. [TECH DESIGN: HỆ THỐNG API ENDPOINTS CẦN XÂY DỰNG](#5-tech-design-hệ-thống-api-endpoints-cần-xây-dựng)
 6. [DATABASE SCHEMA (PRISMA / POSTGRESQL DESIGN)](#6-database-schema-prisma--postgresql-design)
-7. [HƯỚNG DẪN KHỞI CHẠY DEMO & BÀN GIAO CHO DEV](#7-hướng-dẫn-khởi-chạy-demo--bàn-giao-cho-dev)
+7. [CHECKLIST TRIỂN KHAI CHO DEV & QA](#7-checklist-triển-khai-cho-dev--qa)
 
 ---
 
 ## 1. TỔNG QUAN REPOSITORY (REPO CÓ GÌ?)
 
-### 1.1 Cấu Trúc Thư Mục & Tài Liệu Kỹ Thuật
+### 1.1 Cấu Trúc File & Thư Mục
 
 ```
 CS_tool_v2/
 ├── .agents/
-│   └── AGENTS.md                                # Quy chuẩn SDS Tokens, DOM safety, Light mode
-├── .claude/
-│   └── skills/                                  # 17 SDLC & Shopify Platform Automation Skills
+│   └── AGENTS.md                                # Quy chuẩn tối thượng: SDS Tokens, DOM safety, Light mode
 ├── docs/
-│   ├── HANDOVER_DOCS_DEV.md                     # Tài liệu bàn giao kỹ thuật chi tiết cho Dev
+│   ├── HANDOVER_DOCS_DEV.md                     # Tài liệu bàn giao tổng thể cho Dev (File này)
 │   └── phases/
 │       └── phase-1-helpdesk-os/
-│           ├── 00-prd.md                        # Master PRD (Product Requirements Document)
+│           ├── 00-prd.md                        # Phase PRD (Product Requirements Document)
 │           └── features/                        # 8 Feature SRS Documents chi tiết
 │               ├── crisp-plugin-integration/    # 01-srs.md (Crisp Plugin + Auto Segment)
 │               ├── dashboard-operations-cs/     # 01-srs.md (CS Dashboard, Filters, Search)
@@ -48,67 +45,65 @@ CS_tool_v2/
 ├── Helpdesk_demo 3.html                         # Live Interactive Demo 3.0 hoàn chỉnh nhất (Single Page App)
 ├── helpdesk_demo_3.html                         # Bản backup demo 3.0
 ├── helpdesk_cs_v2.html                          # Bản đồng bộ demo 3.0
-└── README.md                                    # File tổng quan dự án (File này)
+└── README.md                                    # Hướng dẫn khởi chạy và tổng quan nhanh
 ```
 
 ### 1.2 Các Phiên Bản Demo Trong Repo
-- **[`Helpdesk_demo 3.html`](file:///e:/ABC%20soft%20files/CS_tool_v2/Helpdesk_demo%203.html)**: Bản mô phỏng tương tác 100% logic hoàn chỉnh gồm 3 Platform Switcher:
-  1. *Platform 1*: **Crisp Chat Simulator** + **Helpdesk OS Plugin Sidebar**.
-  2. *Platform 2*: **Slack Thread Sync Simulator** (mô phỏng bài đăng cá nhân CS qua Slack OAuth User Token).
-  3. *Platform 3*: **Internal Web App** với 7 màn hình làm việc:
-     - `CS Dashboard`: 3 Stat Cards, App Filter buttons, Toggle "Gán cho tôi", 12-status filter, Multi-factor Search, Ticket Cards 2 cột với Dual Notes.
-     - `Shop 360° View`: Search domain, Needs Attention (`URGENT`), No Feedback Loop (`Send check-in`), Visitor Live Meta, CS Pinned Notes, Store tickets.
-     - `App Store Reviews`: 3-Way Auto Linking (Review ➔ Domain ➔ Crisp ID), Rating breakdown, Top complaints, 1-click Create Ticket.
-     - `Duty Shift Roster`: Lịch ca trực Mon-Sun, click đổi ca xoay vòng, Publish Roster to `#cs-announcements`, SLA Routing table.
-     - `CS Analytics`: Date range (7d, 14d, 30d), 4 Top KPI cards, Status & Urgency distribution, Bảng đánh giá CS Agent.
-     - `CS Workflow Guide`: Render Markdown động qua `marked.js` với 4 bước luồng, SLA, 12 status, Dual note cards, Crisp Auto Segment rules.
-     - `Admin Settings (6 Tabs)`: Target Apps, Slack Channels Picker modal, Status Workflow, Urgency & SLA, Split-pane Markdown Editor (<50ms preview), Slack Teams Sync (`@cs` và `@dev`).
+- **`Helpdesk_demo 3.html`**: Bản mô phỏng tương tác 100% logic của toàn bộ hệ thống gồm 3 Platform Switcher:
+  1. *Platform 1*: Crisp Chat Simulator + Helpdesk OS Plugin Sidebar.
+  2. *Platform 2*: Slack Thread Sync Simulator (bài đăng cá nhân qua OAuth User Token).
+  3. *Platform 3*: Internal Web App Dashboard với 7 màn hình làm việc (Dashboard, Shop 360°, Reviews Feed, Duty Shift, Analytics, CS Guide Markdown, Admin Settings).
 
 ---
 
 ## 2. MỤC ĐÍCH HỆ THỐNG (TOOL NÀY ĐỂ LÀM GÌ?)
 
-### 2.1 Vấn Đề Cần Giải Quyết
-Khi vận hành portfolio nhiều Shopify Apps, đội ngũ CS và Dev thường gặp phải:
-1. **Phân mảnh luồng thông tin**: Khách chat trên Crisp, nội bộ bàn giao qua Slack, tra cứu dữ liệu khách trên Shopify Admin riêng biệt.
-2. **Spam thông báo gây nhiễu**: Mỗi lần cập nhật trạng thái bắn bot notification làm trôi tin nhắn kỹ thuật quan trọng của Dev.
-3. **Mất ngữ cảnh khi giao ca**: Ghi chú ngắn hạn của ca trước bị ghi đè hoặc nhầm lẫn với phân tích kỹ thuật dài hạn.
-4. **Bỏ sót khiếu nại**: Review tiêu cực trên App Store không được kết nối với Store Domain và tài khoản Crisp để kịp thời chăm sóc.
+### 2.1 Bối Cảnh & Vấn Đề Cần Giải Quyết
+Đội ngũ vận hành CS hỗ trợ nhiều Shopify Apps (Avis Product Options, App Bundles, Aris Color Swatch...). Hiện tại quy trình đang gặp các điểm nghẽn:
+- **Phân mảnh kênh trao đổi**: Khách chat trên Crisp, nội bộ bàn giao qua Slack, quản lý case trên bảng tính rời rạc khiến trôi sót ticket.
+- **Thiếu ngữ cảnh kỹ thuật khi chat**: CS phải mở tab Shopify Admin riêng để tra cứu Store ID, cước phí, plan, app version.
+- **Spam thông báo Slack**: Việc bắn thông báo tự động mỗi khi đổi trạng thái làm loãng các kênh trao đổi kỹ thuật của Dev.
+- **Bàn giao ca trực đứt đoạn**: Ghi chú ngắn hạn của ca trước bị lẫn với mô tả lỗi kỹ thuật dài hạn.
 
 ### 2.2 Mục Đích Cốt Lõi Của Helpdesk OS
-Helpdesk OS là hệ thống điều hành hỗ trợ vận hành tập trung (Unified Operations Suite) nhằm:
-- **Hợp nhất luồng công việc 3 nền tảng**: Crisp Livechat ➔ Slack Thread (kênh trao đổi kỹ thuật duy nhất) ➔ Helpdesk OS Dashboard.
-- **Tạo Ticket cá nhân hóa**: Đăng bài mở Slack Thread dưới danh nghĩa cá nhân của CS (thông qua Slack OAuth User Token) thay vì Bot vô danh.
-- **Thảo luận không gây nhiễu**: Mọi thảo luận, gửi file, tag Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe webhook để cập nhật status im lặng.
-- **Tự động hóa thông minh**: Tự động gán Segment trên Crisp Chat theo trạng thái ticket, tự động phát hiện Reopen ticket khi khách quay lại, và tự động điều phối cho CS trực ca (`CS online`).
+Helpdesk OS là hệ điều hành vận hành tập trung (Unified Operations OS) nhằm:
+1. **Đồng bộ luồng công việc 3 bên liên tục**: Crisp Livechat ➔ Slack Thread (trao đổi kỹ thuật duy nhất) ➔ Helpdesk OS Web App.
+2. **Không spam notification**: Mọi trao đổi diễn ra duy nhất trong **Slack Thread**. Web App lắng nghe webhook để cập nhật status im lặng.
+3. **Phân biệt rạch ròi ghi chú**: Tách biệt thẻ màu vàng **`Note transfer case`** (giao ca ngắn hạn giữa CS) và **`Summary note`** (lưu DB dài hạn).
+4. **Tự động hóa thông minh**: Tự động phân loại Crisp Segment theo trạng thái ticket, tự động phát hiện Reopen ticket khi khách quay lại, và tự động điều phối cho CS trực ca (`CS online`).
 
 ---
 
 ## 3. CRISP PLUGIN LÀM GÌ? (KIẾN TRÚC & TÍNH NĂNG PLUGIN)
 
-Plugin Helpdesk OS được nhúng trực tiếp vào Sidebar bên phải của giao diện Crisp Chat Dashboard khi CS chat với khách hàng:
+Plugin Helpdesk OS được nhúng trực tiếp vào Sidebar bên phải của giao diện Crisp Chat Dashboard khi CS chat với merchant:
 
-### 3.1 Các Chức Năng Của Crisp Plugin
-1. **Trích Xuất Live Visitor Data**: Tự động lấy `store_url`, `store_id`, `store_country`, `store_plan`, `store_email`, `user_agent`, `add_charge`, `app_version`, `app_plan`, `pricing_ver` ngay khi mở cuộc trò chuyện.
-2. **Quản Lý Multi-Domain & Sub-Domains**: Cho phép CS gắn nhiều sub-domain hoặc custom domain vào cùng một store tracking profile.
-3. **Tạo Ticket Nhanh 1-Click (`+ Add ticket`)**: Tự động nạp sẵn Store Domain hiện tại, cho phép chọn Target App, Slack Channel, Urgency, Tag ➔ Bắn bài mở Slack Thread dưới token cá nhân CS.
-4. **Mini Ticket Cards & Điều Phối Nhanh**: Hiển thị danh sách ticket đang mở của store ngay trên sidebar kèm các nút thao tác `Edit`, `View Slack`, `Transfer`.
+### 3.1 Các Chức Năng Chính Của Crisp Plugin
+1. **Trích Xuất Metadata Thời Gian Thực (Live Visitor Data)**:
+   - Tự động nhận diện Store URL từ session của khách (`store_url`, `store_id`, `store_country`, `store_plan`, `store_email`, `user_agent`, `add_charge`, `app_version`, `app_plan`, `pricing_ver`).
+2. **Quản Lý Multi-Domain & Sub-Domains**:
+   - Cho phép CS gán nhiều sub-domain hoặc custom domain vào cùng 1 store profile.
+3. **Tạo Ticket Nhanh 1-Click (`+ Add ticket`)**:
+   - Tự động điền Store Domain hiện tại, cho phép CS chọn Target App, Slack Channel, Urgency, Tag ➔ Bắn bài đăng mở **Slack Thread** dưới tên cá nhân của CS (Slack OAuth User Token).
+4. **Xem Mini Ticket Cards & Điều Phối**:
+   - Hiển thị danh sách ticket đang mở của chính store đó ngay trên sidebar.
+   - Nút thao tác nhanh: `Edit`, `View Slack`, `Transfer`.
 5. **Cơ Chế Tự Động Gán Crisp Segment (Auto Segment Engine)**:
-   - Khi trạng thái ticket thay đổi, Helpdesk OS tự động gán segment viết tắt tương ứng trên Crisp Chat:
-     - **`NW`** (*No one waiting*): Áp dụng khi ticket hoàn thành (`Done - CS`, `Done - Need CS Check`, `Uninstall`, `Rejected - Dev lead`, `Done`, `Resolved`).
-     - **`WR`** (*Waiting reply*): Áp dụng khi Dev/CS đã phản hồi và đang chờ merchant trả lời (`Đã check - Dev`, `Fl up 1/2/3`).
+   - Tự động gắn tag Segment viết tắt lên phiên chat Crisp khi status ticket thay đổi:
+     - **`NW`** (*No one waiting*): Áp dụng khi ticket hoàn thành (`Done - CS`, `Done - Need CS Check`, `Uninstall`, `Rejected - Dev lead`, `Done`).
+     - **`WR`** (*Waiting reply*): Áp dụng khi Dev/CS đã phản hồi và đang theo dõi merchant trả lời (`Đã check - Dev`, `Fl up 1/2/3`).
      - **`POC`** (*Pending on customer*): Áp dụng khi chờ thông tin bổ sung từ merchant (`CHỜ KHÁCH - CS`, `Chờ CS`, `Chờ collab - CS`).
-     - **`POD`** (*Pending on dev*): Áp dụng khi yêu cầu đang nằm trong hàng đợi hoặc kỹ sư Dev đang trực tiếp xử lý (`Chờ check - Dev`, `Đang check - Dev`).
+     - **`POD`** (*Pending on dev*): Áp dụng khi yêu cầu đang nằm trong hàng đợi hoặc Dev đang xử lý (`Chờ check - Dev`, `Đang check - Dev`).
 
 ---
 
 ## 4. QUY TẮC NGHIỆP VỤ CỐT LÕI (CORE BUSINESS RULES)
 
 ### 4.1 Quy Tắc 4 Cấp Độ Urgency & SLA Routing
-- **🔴 Urgent**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout, lỗi order) — **SLA Target: 15 phút**.
-- **🟠 High**: Khách hàng gói **Premium, Advance plan** — **SLA Target: 1 giờ**.
-- **🔵 Medium**: Khách hàng gói **Pro, Basic plan** — **SLA Target: 4 giờ**.
-- **⚪ Low**: Khách hàng gói **Free, Old, Dev plan** — **SLA Target: 24 giờ**.
+- **Urgent (Đỏ)**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout, lỗi thanh toán order) — **SLA Target: 15 phút**.
+- **High (Vàng cam)**: Khách hàng gói **Premium, Advance plan** — **SLA Target: 1 giờ**.
+- **Medium (Xanh dương)**: Khách hàng gói **Pro, Basic plan** — **SLA Target: 4 giờ**.
+- **Low (Xám)**: Khách hàng gói **Free, Old, Dev plan** — **SLA Target: 24 giờ**.
 
 ### 4.2 Quy Tắc 12 Trạng Thái Custom (Status Workflow)
 - **Nhóm Dev**: `Chờ check - Dev`, `Đang check - Dev`, `Đã check - Dev`, `Done - Need CS Check`, `Rejected - Dev lead`.
@@ -119,42 +114,42 @@ Plugin Helpdesk OS được nhúng trực tiếp vào Sidebar bên phải của 
 - Khi một ticket đang ở trạng thái kết thúc (`Done - CS`, `Done`, `Done - Need CS Check`, `Resolved`) mà được chuyển về bất kỳ trạng thái mở nào ➔ Hệ thống tự động tăng `reopenCount += 1` và gán nhãn `Reopened` màu vàng nổi bật.
 
 ### 4.4 Quy Tắc Dual Note Cards
-- **Card 1 — `Note transfer case`**: Ghi chú nội bộ ngắn hạn phục vụ riêng cho ca trực tiếp theo (bị ghi đè ở mỗi lần transfer).
-- **Card 2 — `Summary note`**: Tóm tắt bản chất kỹ thuật cốt lõi lưu cố định trong DB (tự động nạp sẵn vào các form/modal).
+- **Card 1 - `Note transfer case`**: Ghi chú nội bộ ngắn hạn phục vụ giao ca (bị ghi đè ở mỗi lần transfer).
+- **Card 2 - `Summary note`**: Tóm tắt bản chất kỹ thuật cốt lõi lưu trữ DB vĩnh viễn (tự động pre-fill vào các modal).
 
 ### 4.5 Quy Tắc Transfer Recipient & Điều Phối "CS online"
 - Trong Modal Transfer Ticket, trường `Transfer to` cho phép:
-  - Chọn đích danh CS: `@aylin (Aylin Tran)`, `@ngan (Ngan Pham)`, `@ha (Ha Tran)`, `@thao (Thao Vo)` (kèm Slack tag cá nhân `@cs-aylin`, `@cs-ngan`...).
+  - Chọn đích danh CS: `@aylin (Aylin Tran)`, `@ngan (Ngan Pham)`, `@ha (Ha Tran)`, `@thao (Thao Vo)`.
   - Chọn **`CS online`**: Hệ thống sẽ truy vấn bảng phân ca `Duty Shift Roster` tại thời điểm `remind_at` để tự động gán ticket cho CS đang trực ca tương ứng.
 
 ---
 
-## 5. TECH DESIGN: HỆ THỐNG API ENDPOINTS CHO BACKEND/DEV
+## 5. TECH DESIGN: HỆ THỐNG API ENDPOINTS CẦN XÂY DỰNG
 
 Backend API được thiết kế theo chuẩn RESTful JSON API (`/api/v1/`), stateless JWT auth cho Web App và OAuth 2.0 cho Slack & Crisp.
 
-### 5.1 Danh Sách API Endpoints Chi Tiết
+### 5.1 Bảng Tổng Hợp Endpoint API Contract
 
-| HTTP Method | Endpoint Path | Mô Tả Chức Năng | Request Body / Query Params | Response Structure |
+| HTTP Method | Endpoint Path | Chức Năng Chính | Request Payload / Params | Response Data |
 | :--- | :--- | :--- | :--- | :--- |
 | **AUTH & SLACK OAUTH** | | | | |
-| `POST` | `/api/v1/auth/slack/oauth/callback` | Nhận OAuth code từ Slack để lưu trữ User Token cá nhân CS | `{ code: string }` | `{ token: string, user: CSUser }` |
-| `GET` | `/api/v1/auth/me` | Lấy thông tin tài khoản CS đang đăng nhập & ca trực | Headers: `Bearer <token>` | `{ id, name, username, slackTag, role }` |
-| **CRISP INTEGRATION & PLUGIN** | | | | |
+| `POST` | `/api/v1/auth/slack/oauth/callback` | Trao đổi OAuth code lấy Slack User Token của cá nhân CS | `{ code: string }` | `{ token: string, user: CSUser }` |
+| `GET` | `/api/v1/auth/me` | Lấy thông tin CS Agent hiện tại & ca trực hôm nay | Headers: `Bearer <token>` | `{ id, name, username, slackTag, role }` |
+| **CRISP PLUGIN & INTEGRATION** | | | | |
 | `GET` | `/api/v1/crisp/session-meta` | Trích xuất Live Visitor Data của phiên chat Crisp | `?session_id=xxx&domain=xxx` | `{ store_url, store_id, plan, country, app_plan, meta }` |
-| `POST` | `/api/v1/crisp/segments/auto-tag` | Gán segment viết tắt (`NW/WR/POC/POD`) lên phiên chat Crisp | `{ session_id: string, segment: "NW"\|"WR"\|"POC"\|"POD" }` | `{ success: true, updated_segment }` |
-| `POST` | `/api/v1/crisp/subdomains` | Gắn thêm sub-domain vào tracking của store | `{ store_url: string, subdomain: string }` | `{ store_url, subdomains: string[] }` |
+| `POST` | `/api/v1/crisp/segments/auto-tag` | Gán segment viết tắt (`NW/WR/POC/POD`) lên Crisp Chat | `{ session_id: string, segment: "NW"\|"WR"\|"POC"\|"POD" }` | `{ success: true, updated_segment }` |
+| `POST` | `/api/v1/crisp/subdomains` | Gắn thêm sub-domain mới vào tracking của store | `{ store_url: string, subdomain: string }` | `{ store_url, subdomains: string[] }` |
 | **TICKET MANAGEMENT** | | | | |
-| `GET` | `/api/v1/tickets` | Danh sách ticket kèm bộ lọc (App, Assignee, Status, Search) | `?app=APO&status=ALL&assignee=me&search=button&page=1` | `{ tickets: Ticket[], total, unread_count }` |
+| `GET` | `/api/v1/tickets` | Danh sách ticket kèm filter (App, Assignee, Status, Search) | `?app=APO&status=ALL&assignee=me&search=button&page=1` | `{ tickets: Ticket[], total, unread_count }` |
 | `POST` | `/api/v1/tickets` | Tạo ticket mới & Bắn bài đăng mở Slack Thread dưới token CS | `{ app, channel, store_url, status, urgency, request_content, tags }` | `{ id: "TK-4822", slack_thread_ts: "1724...", ticket: Ticket }` |
-| `GET` | `/api/v1/tickets/:id` | Chi tiết ticket (request locked, dual notes, thread logs) | `id: string` (e.g. `TK-4821`) | `{ ticket: TicketDetail, thread_messages }` |
+| `GET` | `/api/v1/tickets/:id` | Chi tiết ticket (request locked, dual notes, logs) | `id: string` (e.g. `TK-4821`) | `{ ticket: TicketDetail, thread_messages }` |
 | `PATCH` | `/api/v1/tickets/:id` | Cập nhật Status, Urgency, Tags, Summary Note (Tự động Reopen) | `{ status?, urgency?, tags?, summary_note? }` | `{ ticket: Ticket, reopened_trigger: boolean }` |
 | `POST` | `/api/v1/tickets/:id/transfer` | Bàn giao ca trực (Hỗ trợ đích danh CS hoặc `CS online`) | `{ transfer_to: string, remind_at: string, status, urgency, handoff_note, summary_note }` | `{ ticket: Ticket, assigned_agent: string, auto_segment: string }` |
 | **SLACK THREAD & WEBHOOK SYNC** | | | | |
 | `POST` | `/api/v1/webhooks/slack/events` | Webhook nhận phản hồi trong Thread từ Dev để sync status | Slack Event Payload (url_verification / message) | `{ ok: true }` |
 | `GET` | `/api/v1/slack/workspace-channels` | Lấy danh sách channels trong Slack Workspace cho Admin | None | `channels: [{ code: "#apo-paid-task", desc }]` |
 | `POST` | `/api/v1/slack/groups/sync` | Đồng bộ danh sách `@cs` và `@dev` từ Slack User Groups | `{ group_type: "cs" \| "dev" }` | `{ members: TeamMember[] }` |
-| **SHOP 360° & HEALTH** | | | | |
+| **STORE 360° & HEALTH** | | | | |
 | `GET` | `/api/v1/shops/:domain/360` | Lấy toàn bộ dữ liệu 360° của Store (Meta, Tickets, Health) | `domain: string` (e.g. `kaifit.myapp.io`) | `{ store_info, urgent_count, review_count, no_feedback_loop, notes, tickets }` |
 | `POST` | `/api/v1/shops/:domain/notes` | Thêm CS Pinned note cho store | `{ note: string }` | `{ notes: string[] }` |
 | `POST` | `/api/v1/shops/:domain/check-in` | Gửi email check-in chăm sóc khách hàng tự động | `{ template: "no_feedback_loop" }` | `{ success: true, sent_at }` |
@@ -313,20 +308,30 @@ model SystemConfig {
 
 ---
 
-## 7. HƯỚNG DẪN KHỞI CHẠY DEMO & BÀN GIAO CHO DEV
+## 7. CHECKLIST TRIỂN KHAI CHO DEV & QA
 
-### 7.1 Cách Trải Nghiệm Demo Tương Tác
-1. Mở file [`Helpdesk_demo 3.html`](file:///e:/ABC%20soft%20files/CS_tool_v2/Helpdesk_demo%203.html) trực tiếp trên trình duyệt Chrome / Edge.
-2. Dùng thanh điều hướng phía trên để chuyển đổi qua lại giữa 3 nền tảng:
-   - **`1. Crisp Chat + Plugin`**: Trải nghiệm giao diện Livechat kết hợp Plugin trích xuất Visitor Metadata và Auto Crisp Segment badge.
-   - **`2. Slack Thread Sync`**: Xem mô phỏng bài đăng mở Thread dưới token cá nhân CS.
-   - **`3. Internal Web App`**: Trải nghiệm đầy đủ 7 màn hình làm việc của Helpdesk OS.
+### 7.1 Backend Checklist
+- [ ] Cấu hình Prisma schema và chạy database migration trên PostgreSQL.
+- [ ] Tích hợp Slack Web API (`chat.postMessage` dưới token của user CS tạo ticket để mở Slack Thread).
+- [ ] Xây dựng Webhook Receiver xử lý events từ Slack (`message.groups`, `message.channels`) để sync trạng thái ticket.
+- [ ] Tích hợp Crisp REST API:
+  - Gọi API add segment conversation (`NW`, `WR`, `POC`, `POD`) khi ticket update status.
+  - Lấy session profile meta khi mở plugin.
+- [ ] Xây dựng logic tự động phát hiện Reopen (`reopenCount++`) khi status đổi từ `Done` sang trạng thái mở.
+- [ ] Xây dựng logic điều phối `CS online` dựa vào bảng `RosterShift`.
 
-### 7.2 Checklist Bàn Giao Dành Cho Dev Team
-- [x] Đọc kỹ tài liệu bàn giao kỹ thuật tổng thể tại [`docs/HANDOVER_DOCS_DEV.md`](file:///e:/ABC%20soft%20files/CS_tool_v2/docs/HANDOVER_DOCS_DEV.md).
-- [x] Xem chi tiết từng SRS trong [`docs/phases/phase-1-helpdesk-os/features/`](file:///e:/ABC%20soft%20files/CS_tool_v2/docs/phases/phase-1-helpdesk-os/features/).
-- [x] Triển khai Schema Database và RESTful API Endpoints theo Phần 5 & 6.
-- [x] Tích hợp Slack Web API (OAuth Token) và Crisp REST API (Auto Tag Segment).
+### 7.2 Frontend Checklist
+- [ ] Triển khai giao diện dựa trên Design System SDS (Light Mode, bảng màu Slate neutral, không hardcode HEX).
+- [ ] Áp dụng triệt để Defensive Programming (`safeSetHTML`, guard checks `if (element)`) để ngăn chặn lỗi runtime.
+- [ ] Tích hợp `marked.js` cho CS Workflow Guide và Split-pane Admin Editor (độ trễ preview < 50ms).
+- [ ] Đảm bảo Modal Transfer Ticket hiển thị đầy đủ danh sách CS cá nhân và tùy chọn `CS online`.
+- [ ] Hiển thị đầy đủ các Badge: Status, Urgency, Crisp Auto Segment (`NW/WR/POC/POD`), Reopened.
+
+### 7.3 QA & Testing Scenarios
+1. **Scenario 1 - Luồng tạo ticket & gán Crisp Segment**: Tạo ticket status `Chờ check - Dev` ➔ Kiểm tra Slack xuất hiện thread dưới tên CS ➔ Kiểm tra Crisp session được gán segment `POD`.
+2. **Scenario 2 - Luồng Reopen**: Ticket đang `Done - CS` được sửa thành `Chờ check - Dev` ➔ Kiểm tra `reopenCount` tăng lên 1 và xuất hiện badge vàng `Reopened`.
+3. **Scenario 3 - Luồng Transfer sang CS Online**: Bàn giao ticket với `Transfer to: CS online`, Remind lúc 14:00 ➔ Kiểm tra ticket tự động gán cho CS Agent có ca `Afternoon 14-22` trong ngày.
+4. **Scenario 4 - Luồng Review sang Ticket**: Bấm `+ Create Ticket` từ bảng Review khiếu nại ➔ Mở modal tạo ticket với Domain và Request summary được pre-fill chính xác.
 
 ---
 *Tài liệu được biên soạn và bảo chứng bởi Tech Lead & BA Team — Helpdesk OS Phase 1.*

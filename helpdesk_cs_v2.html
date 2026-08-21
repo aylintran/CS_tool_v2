@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Helpdesk OS — CS & Admin Suite (Phase 1 Live Demo v2.0 Light Mode)</title>
+  <title>Helpdesk OS — CS & Admin Suite (Phase 1 Demo 3.0 Light Mode)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
@@ -25,106 +24,43 @@
     }
   </script>
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f8fafc;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 3px;
-    }
-
-    .toast-animate {
-      animation: slideIn 0.3s ease-out forwards;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(-20px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .prose h1,
-    .prose h2,
-    .prose h3 {
-      color: #0f172a;
-      font-weight: 700;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .prose p {
-      margin-bottom: 0.75rem;
-      color: #475569;
-    }
-
-    .prose ul {
-      list-style-type: disc;
-      padding-left: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: #475569;
-    }
-
-    .prose code {
-      background: #f1f5f9;
-      color: #d97706;
-      padding: 0.1rem 0.3rem;
-      border-radius: 0.25rem;
-      font-family: monospace;
-    }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f8fafc; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .toast-animate { animation: slideIn 0.3s ease-out forwards; }
+    @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .prose h1, .prose h2, .prose h3 { color: #0f172a; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; }
+    .prose p { margin-bottom: 0.75rem; color: #475569; }
+    .prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; color: #475569; }
+    .prose code { background: #f1f5f9; color: #d97706; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; }
   </style>
 </head>
-
 <body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col custom-scrollbar">
 
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed top-16 right-6 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- TOP WORKFLOW PLATFORMS BAR -->
-  <header
-    class="bg-white border-b border-slate-200 px-6 py-2.5 flex items-center justify-between sticky top-0 z-40 shadow-sm">
+  <header class="bg-white border-b border-slate-200 px-6 py-2.5 flex items-center justify-between sticky top-0 z-40 shadow-sm">
     <div class="flex items-center space-x-3">
-      <div
-        class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/20">
-        H</div>
+      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/20">H</div>
       <div>
         <h1 class="font-bold text-sm text-slate-900 flex items-center gap-2">
-          Helpdesk OS <span
-            class="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200 font-medium">CS &
-            Admin Suite</span>
+          Helpdesk OS <span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200 font-medium">Demo 3 — CS & Admin Suite</span>
         </h1>
       </div>
     </div>
 
     <!-- WORKFLOW PLATFORMS SELECTOR -->
     <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 space-x-1">
-      <button onclick="switchPlatform('crisp')" id="plat-crisp"
-        class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+      <button onclick="switchPlatform('crisp')" id="plat-crisp" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
         1. Crisp Chat + Plugin
       </button>
-      <button onclick="switchPlatform('slack')" id="plat-slack"
-        class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+      <button onclick="switchPlatform('slack')" id="plat-slack" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
         2. Slack Thread Sync
       </button>
-      <button onclick="switchPlatform('internal')" id="plat-internal"
-        class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5">
+      <button onclick="switchPlatform('internal')" id="plat-internal" class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5">
         3. Internal Web App
       </button>
     </div>
@@ -132,14 +68,14 @@
     <!-- USER PROFILE -->
     <div class="flex items-center space-x-2 text-xs">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="text-slate-700 font-medium">Aylin Tran (CS On Duty / Admin)</span>
+      <span class="text-slate-700 font-medium">Aylin Tran (@aylin • CS On Duty)</span>
     </div>
   </header>
 
   <!-- PLATFORM 1: CRISP CHAT & PLUGIN SIMULATOR -->
   <div id="platform-crisp" class="hidden flex-1 p-6 max-w-7xl mx-auto w-full">
-    <div
-      class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row min-h-[600px]">
+    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row min-h-[620px]">
+      <!-- Left Conversations List -->
       <div class="w-full md:w-64 bg-slate-50 border-r border-slate-200 p-3 space-y-3">
         <div class="text-xs font-semibold text-slate-500 px-2 flex justify-between">
           <span>Most Recent</span>
@@ -147,41 +83,54 @@
         </div>
         <div class="space-y-1">
           <div class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl flex items-center space-x-3 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">
-              MM</div>
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
             <div class="flex-1 min-w-0">
               <div class="text-xs font-bold text-slate-900 truncate">Mykola</div>
-              <div class="text-[11px] text-slate-500 truncate">61cde3-42.myshopify.com</div>
+              <div class="text-[11px] text-slate-500 truncate font-mono">61cde3-42.myshopify.com</div>
+            </div>
+          </div>
+          <div class="p-2.5 rounded-xl flex items-center space-x-3 cursor-pointer hover:bg-slate-100 transition">
+            <div class="w-8 h-8 rounded-full bg-slate-400 text-white font-bold flex items-center justify-center text-xs">KF</div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-700 truncate">Anh Kai</div>
+              <div class="text-[11px] text-slate-500 truncate font-mono">kaifit.myapp.io</div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Center Live Chat Area -->
       <div class="flex-1 bg-white flex flex-col border-r border-slate-200">
         <div class="p-3 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
           <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">
-              MM</div>
+            <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">MM</div>
             <div>
-              <div class="text-xs font-bold text-slate-900">Mykola</div>
-              <div class="text-[11px] text-slate-500">mykola@customer.com</div>
+              <div class="text-xs font-bold text-slate-900">Mykola <span class="text-slate-400 font-normal ml-1">via Crisp Livechat</span></div>
+              <div class="text-[11px] text-slate-500 font-mono">61cde3-42.myshopify.com • mykola@customer.com</div>
             </div>
           </div>
-          <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unresolved</span>
+          <div class="flex items-center space-x-2">
+            <!-- CRISP AUTO-SEGMENT BADGE -->
+            <span id="crisp-live-segment-badge" class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-purple-300 font-mono" title="Crisp Auto Segment: POD (pending on dev)">Segment: POD (pending on dev)</span>
+            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-200">Open Ticket</span>
+          </div>
         </div>
 
-        <div class="flex-1 p-4 space-y-3 overflow-y-auto text-xs">
+        <div id="crisp-chat-stream" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs max-h-[420px] custom-scrollbar">
           <div class="bg-slate-100 text-slate-800 p-3 rounded-2xl max-w-md">
-            Hi, I'm trying to setup option sets for custom t-shirts on my store <code>61cde3-42.myshopify.com</code>.
+            Hi, I'm trying to setup option sets for custom t-shirts on my store <code>61cde3-42.myshopify.com</code>. The style button at collection page doesn't match my app settings.
           </div>
           <div class="bg-blue-600 text-white p-3 rounded-2xl max-w-md ml-auto">
-            Chào bạn, mình đang kiểm tra vấn đề của bạn và sẽ phản hồi sớm nhất nhé!
+            Chào bạn, Aylin đã tiếp nhận thông tin và đang phối hợp với Dev team để kiểm tra code CSS trên Dawn theme cho store của bạn nhé! (Crisp Segment auto set: <code>POD</code>)
           </div>
         </div>
 
-        <div class="p-3 border-t border-slate-200 bg-slate-50/70">
-          <input type="text" placeholder="Send your message..."
-            class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+        <div class="p-3 border-t border-slate-200 bg-slate-50/70 space-y-2">
+          <div class="flex items-center space-x-2">
+            <input type="text" id="crisp-reply-input" placeholder="Reply to customer or type internal note..." class="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            <button onclick="sendCrispMessage(false)" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3.5 py-2 rounded-xl font-bold shadow">Send Reply</button>
+            <button onclick="sendCrispMessage(true)" class="bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 text-xs px-3 py-2 rounded-xl font-semibold">Internal Note</button>
+          </div>
         </div>
       </div>
 
@@ -189,21 +138,19 @@
       <div class="w-full md:w-80 bg-slate-50 p-4 space-y-4">
         <div class="flex items-center justify-between border-b border-slate-200 pb-2">
           <div class="flex space-x-2">
-            <button onclick="switchPluginTab('tickets')" id="plugtab-tickets"
-              class="text-xs font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Tickets (<span
-                id="plugin-ticket-count">3</span>)</button>
-            <button onclick="switchPluginTab('store')" id="plugtab-store"
-              class="text-xs font-semibold text-slate-500 hover:text-slate-800 pb-1">Store info</button>
+            <button onclick="switchPluginTab('tickets')" id="plugtab-tickets" class="text-xs font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Tickets (<span id="plugin-ticket-count">3</span>)</button>
+            <button onclick="switchPluginTab('store')" id="plugtab-store" class="text-xs font-semibold text-slate-500 hover:text-slate-800 pb-1">Store info</button>
           </div>
-          <button onclick="openAddTicketModal('61cde3-42.myshopify.com')"
-            class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-lg font-bold shadow">
+          <button onclick="openAddTicketModal('61cde3-42.myshopify.com')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-lg font-bold shadow">
             + Add ticket
           </button>
         </div>
 
         <div id="plugin-content-tickets" class="space-y-3 text-xs">
-          <div class="text-[11px] text-slate-500">Store URL: <strong
-              class="text-slate-800 font-mono">61cde3-42.myshopify.com</strong></div>
+          <div class="flex items-center justify-between text-[11px] text-slate-500">
+            <span>Store: <strong class="text-slate-800 font-mono">61cde3-42.myshopify.com</strong></span>
+            <span class="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded font-mono text-[10px] font-bold">Auto Segment</span>
+          </div>
           <div id="plugin-tickets-container" class="space-y-2"></div>
         </div>
 
@@ -211,40 +158,30 @@
           <div class="space-y-1">
             <label class="text-[11px] font-bold text-blue-600">Store Domain & Add Sub-domain:</label>
             <div class="flex items-center space-x-1">
-              <input id="new-subdomain-input" type="text" placeholder="Enter sub-domain..."
-                class="flex-1 bg-white border border-slate-300 rounded p-1.5 text-slate-800 text-[11px]">
-              <button onclick="addSubdomain()"
-                class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded text-[11px] font-bold">+</button>
+              <input id="new-subdomain-input" type="text" placeholder="Enter sub-domain..." class="flex-1 bg-white border border-slate-300 rounded p-1.5 text-slate-800 text-[11px]">
+              <button onclick="addSubdomain()" class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded text-[11px] font-bold">+</button>
             </div>
             <div id="subdomain-list" class="flex flex-wrap gap-1 pt-1">
-              <span
-                class="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200 font-mono">61cde3-42.myshopify.com</span>
+              <span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200 font-mono">61cde3-42.myshopify.com</span>
             </div>
           </div>
 
           <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-2 text-[11px] shadow-sm">
-            <div class="font-bold text-slate-900 border-b border-slate-200 pb-1">Visitor Data (Live Meta)</div>
+            <div class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between items-center">
+              <span>Visitor Data (Live Meta)</span>
+              <span class="text-[10px] text-emerald-600 font-normal">Active Session</span>
+            </div>
             <div class="grid grid-cols-2 gap-y-1 divide-y divide-slate-100">
-              <div class="text-slate-500 py-0.5">store_url:</div>
-              <div class="text-blue-600 font-mono py-0.5 truncate">61cde3-42.myshopify.com</div>
-              <div class="text-slate-500 py-0.5">store_id:</div>
-              <div class="text-slate-800 font-mono py-0.5">98846605679</div>
-              <div class="text-slate-500 py-0.5">store_country:</div>
-              <div class="text-slate-800 py-0.5">Vietnam</div>
-              <div class="text-slate-500 py-0.5">store_plan:</div>
-              <div class="text-emerald-700 font-bold py-0.5">Shopify Premium</div>
-              <div class="text-slate-500 py-0.5">store_email:</div>
-              <div class="text-blue-600 truncate py-0.5">brandnoxen10@gmail.com</div>
-              <div class="text-slate-500 py-0.5">user_agent:</div>
-              <div class="text-slate-500 text-[10px] truncate py-0.5">Chrome/151.0.0.0 (Macintosh)</div>
-              <div class="text-slate-500 py-0.5">add_charge:</div>
-              <div class="text-slate-800 py-0.5">V3</div>
-              <div class="text-slate-500 py-0.5">app_version:</div>
-              <div class="text-slate-800 py-0.5">v2</div>
-              <div class="text-slate-500 py-0.5">app_plan:</div>
-              <div class="text-emerald-700 font-bold py-0.5">FREE</div>
-              <div class="text-slate-500 py-0.5">pricing_ver:</div>
-              <div class="text-slate-800 py-0.5">v5</div>
+              <div class="text-slate-500 py-0.5">store_url:</div> <div class="text-blue-600 font-mono py-0.5 truncate">61cde3-42.myshopify.com</div>
+              <div class="text-slate-500 py-0.5">store_id:</div> <div class="text-slate-800 font-mono py-0.5">98846605679</div>
+              <div class="text-slate-500 py-0.5">store_country:</div> <div class="text-slate-800 py-0.5">Vietnam</div>
+              <div class="text-slate-500 py-0.5">store_plan:</div> <div class="text-emerald-700 font-bold py-0.5">Shopify Premium</div>
+              <div class="text-slate-500 py-0.5">store_email:</div> <div class="text-blue-600 truncate py-0.5">brandnoxen10@gmail.com</div>
+              <div class="text-slate-500 py-0.5">user_agent:</div> <div class="text-slate-500 text-[10px] truncate py-0.5">Chrome/151.0.0.0 (Macintosh)</div>
+              <div class="text-slate-500 py-0.5">add_charge:</div> <div class="text-slate-800 py-0.5">V3</div>
+              <div class="text-slate-500 py-0.5">app_version:</div> <div class="text-slate-800 py-0.5">v2</div>
+              <div class="text-slate-500 py-0.5">app_plan:</div> <div class="text-emerald-700 font-bold py-0.5">FREE</div>
+              <div class="text-slate-500 py-0.5">pricing_ver:</div> <div class="text-slate-800 py-0.5">v5</div>
             </div>
           </div>
         </div>
@@ -260,9 +197,7 @@
           <span class="text-lg font-bold text-slate-900">#apo-paid-task</span>
           <span class="text-xs text-slate-500">Tech support cases for PAYING users of Aris Product Options</span>
         </div>
-        <span
-          class="bg-purple-50 text-purple-700 text-xs px-2.5 py-1 rounded border border-purple-200 font-medium">Posted
-          via Slack OAuth User Token</span>
+        <span class="bg-purple-50 text-purple-700 text-xs px-2.5 py-1 rounded border border-purple-200 font-medium">Posted via Slack OAuth User Token</span>
       </div>
 
       <div id="slack-messages-container" class="space-y-4"></div>
@@ -277,72 +212,50 @@
       <div class="space-y-6">
 
         <div class="flex items-center space-x-3 p-2 bg-slate-50 rounded-xl border border-slate-200">
-          <div
-            class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
-            AY</div>
+          <div class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">AY</div>
           <div class="min-w-0 flex-1">
-            <div class="text-xs font-bold text-slate-900 truncate">Aylin</div>
-            <div class="text-[10px] text-slate-500 truncate">aylin@avisplus.io</div>
+            <div class="text-xs font-bold text-slate-900 truncate">Aylin Tran (@aylin)</div>
+            <div class="text-[10px] text-blue-600 font-mono truncate">@cs-aylin • On Duty</div>
           </div>
         </div>
 
         <div class="space-y-1">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">APPS</div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">TARGET APPS</div>
           <div id="sidebar-apps-list" class="space-y-1"></div>
         </div>
 
         <div class="space-y-1 border-t border-slate-200 pt-3">
           <div class="text-[10px] font-bold uppercase tracking-wider text-blue-600 px-2 mb-1">HELPDESK CS TOOLS</div>
-          <button onclick="switchInternalView('dashboard')" id="side-dashboard"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
+          <button onclick="switchInternalView('dashboard')" id="side-dashboard" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2">
             <span>CS Dashboard</span>
           </button>
-          <button onclick="switchInternalView('shops')" id="side-shops"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
+          <button onclick="switchInternalView('shops')" id="side-shops" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
             <span>Shop 360° View</span>
           </button>
-          <button onclick="switchInternalView('reviews')" id="side-reviews"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
+          <button onclick="switchInternalView('reviews')" id="side-reviews" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
             <span>App Store Reviews</span>
           </button>
-          <button onclick="switchInternalView('duty')" id="side-duty"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
+          <button onclick="switchInternalView('duty')" id="side-duty" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
             <span>Duty Shift Roster</span>
           </button>
-          <button onclick="switchInternalView('analytics')" id="side-analytics"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
+          <button onclick="switchInternalView('analytics')" id="side-analytics" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-2">
             <span>CS Analytics</span>
           </button>
-          <button onclick="switchInternalView('guide')" id="side-guide"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-amber-900 font-bold bg-amber-50 border border-amber-300 hover:bg-amber-100 flex items-center space-x-2">
+          <button onclick="switchInternalView('guide')" id="side-guide" class="w-full text-left px-3 py-2 rounded-xl text-xs text-amber-900 font-bold bg-amber-50 border border-amber-300 hover:bg-amber-100 flex items-center space-x-2">
             <span>CS Workflow Guide</span>
           </button>
         </div>
 
         <div class="space-y-1 border-t border-slate-200 pt-3">
           <div class="text-[10px] font-bold uppercase tracking-wider text-purple-600 px-2 mb-1">ADMIN & DEV TOOLS</div>
-          <button onclick="switchInternalView('admin')" id="side-admin"
-            class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-100 flex items-center space-x-2">
+          <button onclick="switchInternalView('admin')" id="side-admin" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-100 flex items-center space-x-2">
             <span>Admin Settings (PO/Lead)</span>
-          </button>
-        </div>
-
-        <div class="space-y-1 border-t border-slate-200 pt-3">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">TOOLS</div>
-          <button
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900">
-            <span>Internal Docs</span>
-          </button>
-          <button
-            class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 hover:text-slate-900">
-            <span>Jira Docs</span>
           </button>
         </div>
 
       </div>
 
-      <button
-        class="w-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-xl py-2 text-xs font-bold flex items-center justify-center space-x-1 mt-6">
+      <button onclick="showToast('Logged out of Helpdesk OS session.')" class="w-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-xl py-2 text-xs font-bold flex items-center justify-center space-x-1 mt-6">
         <span>Logout</span>
       </button>
     </aside>
@@ -352,6 +265,7 @@
 
       <!-- VIEW 1: CS DASHBOARD -->
       <div id="internal-view-dashboard" class="space-y-6">
+        <!-- 3 Metric Stat Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
             <div class="text-xs text-slate-500 mb-1 font-medium">Ticket mở trong ca</div>
@@ -367,25 +281,23 @@
           </div>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
-          <div class="flex items-center space-x-2" id="dashboard-app-filter-buttons"></div>
+        <!-- Filter & Toolbar -->
+        <div class="bg-white border border-slate-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+          <div class="flex items-center space-x-2 flex-wrap gap-y-1" id="dashboard-app-filter-buttons"></div>
 
           <div class="flex items-center space-x-2">
-            <select id="status-filter-select" onchange="filterTickets()"
-              class="bg-slate-50 text-slate-800 border border-slate-300 rounded-lg text-xs px-2.5 py-1 focus:outline-none"></select>
-            <button onclick="filterByAssignee('ME')" id="filter-me-btn"
-              class="px-3 py-1 rounded-lg text-xs bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200 font-medium">Assigned
-              to me</button>
+            <select id="status-filter-select" onchange="filterTickets()" class="bg-slate-50 text-slate-800 border border-slate-300 rounded-lg text-xs px-2.5 py-1.5 focus:outline-none"></select>
+            <button onclick="filterByAssignee('ME')" id="filter-me-btn" class="px-3 py-1.5 rounded-lg text-xs bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200 font-medium">Gán cho tôi</button>
+            <button onclick="openAddTicketModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow">+ Add New Ticket</button>
           </div>
         </div>
 
+        <!-- Live Search -->
         <div class="relative">
-          <input type="text" id="search-input" oninput="filterTickets()"
-            placeholder="Live search by request summary, store domain, ticket ID..."
-            class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 shadow-sm">
+          <input type="text" id="search-input" oninput="filterTickets()" placeholder="Live search by request summary, store domain, ticket ID..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 shadow-sm">
         </div>
 
+        <!-- Tickets Container -->
         <div id="tickets-container" class="space-y-4"></div>
       </div>
 
@@ -395,84 +307,73 @@
           <div class="flex items-center justify-between flex-wrap gap-3 border-b border-slate-200 pb-4">
             <div>
               <div class="flex items-center space-x-3">
-                <h2 class="text-xl font-bold text-slate-900" id="shop-name-title">Kai Fitness</h2>
-                <span
-                  class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold border border-emerald-300"
-                  id="shop-status-badge">ACTIVE</span>
+                <h2 class="text-xl font-bold text-slate-900" id="shop-name-title">KAIFIT STORE</h2>
+                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold border border-emerald-300" id="shop-status-badge">ACTIVE</span>
               </div>
-              <p class="text-xs text-slate-500 font-mono mt-1" id="shop-subdomain-desc">kaifit.myapp.io • Growth plan •
-                GMT+7 - Da Nang</p>
+              <p class="text-xs text-slate-500 font-mono mt-1" id="shop-subdomain-desc">kaifit.myapp.io • Growth plan • GMT+7</p>
             </div>
 
             <div class="flex items-center space-x-2">
-              <input type="text" id="store-search-domain-input"
-                placeholder="Enter store domain (e.g. kaifit.myapp.io)..."
-                class="w-72 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-blue-500 font-mono">
-              <button onclick="handleStoreSearchByDomain()"
-                class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow">Search</button>
+              <input type="text" id="store-search-domain-input" placeholder="Enter store domain (e.g. kaifit.myapp.io)..." class="w-72 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-blue-500 font-mono">
+              <button onclick="handleStoreSearchByDomain()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow">Search</button>
+              <button onclick="switchPlatform('crisp'); showToast('Đã mở phiên chat Crisp của store!');" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs px-3 py-1.5 rounded-lg font-medium">Open in Crisp</button>
             </div>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column: Health Alerts -->
             <div class="lg:col-span-2 space-y-4">
               <div class="space-y-2">
-                <h3 class="text-xs font-bold text-slate-500 uppercase">1 - NEEDS ACTION</h3>
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Account Health & Needs Action</h3>
                 <div class="grid grid-cols-2 gap-4">
                   <div class="bg-red-50 border border-red-200 p-4 rounded-xl">
                     <div class="text-xl font-bold text-red-700" id="shop-urgent-count">1 URGENT</div>
-                    <div class="text-xs text-slate-600">tickets to handle now</div>
+                    <div class="text-xs text-slate-600 mt-0.5">Tickets needing immediate action</div>
                   </div>
                   <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
                     <div class="text-xl font-bold text-slate-700">0 REVIEWS</div>
-                    <div class="text-xs text-slate-500">reviews &lt; 3★</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Negative reviews &lt; 3 stars</div>
                   </div>
                 </div>
               </div>
 
               <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2 text-xs">
-                <div class="flex justify-between font-bold text-blue-700"><span>NO FEEDBACK LOOP</span> <span>2 tickets
-                    closed</span></div>
-                <p class="text-slate-600">Both tickets closed last week with no CSAT response. Healthy account, quiet
-                  customer.</p>
-                <button onclick="alert('Sent check-in email to customer!')"
-                  class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs px-3 py-1 rounded border border-slate-300 font-medium">Send
-                  check-in</button>
+                <div class="flex justify-between font-bold text-blue-700">
+                  <span>NO FEEDBACK LOOP</span>
+                  <span class="text-slate-500 font-normal">2 tickets closed recently</span>
+                </div>
+                <p class="text-slate-600">Both tickets closed last week with no CSAT response. Healthy account, quiet customer.</p>
+                <button onclick="showToast('Đã gửi email check-in chăm sóc khách hàng!')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs px-3 py-1.5 rounded border border-slate-300 font-medium">Send check-in</button>
               </div>
             </div>
 
+            <!-- Right Column: Account Meta & CS Pinned Notes -->
             <div class="space-y-4">
               <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2 text-xs">
                 <h3 class="font-bold text-slate-900 border-b border-slate-200 pb-2">Account Info & Visitor Meta</h3>
-                <div class="flex justify-between"><span>Shop ID:</span> <span class="font-mono text-slate-800"
-                    id="shop-id-val">55302118874</span></div>
-                <div class="flex justify-between"><span>Email:</span> <span class="text-blue-600"
-                    id="shop-email-val">anh@kaifit.vn</span></div>
-                <div class="flex justify-between"><span>Owner:</span> <span class="text-slate-800"
-                    id="shop-owner-val">Kai Fitness Co.</span></div>
-                <div class="flex justify-between"><span>Plan:</span> <span class="text-slate-800"
-                    id="shop-plan-val">Growth</span></div>
-                <div class="flex justify-between"><span>Country:</span> <span class="text-slate-800">Vietnam</span>
-                </div>
-                <div class="flex justify-between"><span>App Version:</span> <span class="text-slate-800">v2</span></div>
+                <div class="flex justify-between py-0.5"><span>Shop ID:</span> <span class="font-mono text-slate-800" id="shop-id-val">55302118874</span></div>
+                <div class="flex justify-between py-0.5"><span>Email:</span> <span class="text-blue-600" id="shop-email-val">anh@kaifit.vn</span></div>
+                <div class="flex justify-between py-0.5"><span>Owner:</span> <span class="text-slate-800" id="shop-owner-val">Kai Fitness Co.</span></div>
+                <div class="flex justify-between py-0.5"><span>Plan:</span> <span class="text-slate-800 font-semibold" id="shop-plan-val">Growth</span></div>
+                <div class="flex justify-between py-0.5"><span>Country:</span> <span class="text-slate-800">Vietnam</span></div>
+                <div class="flex justify-between py-0.5"><span>App Version:</span> <span class="text-slate-800 font-mono">v2</span></div>
               </div>
 
               <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-2 text-xs">
                 <div class="flex justify-between items-center border-b border-slate-200 pb-2">
                   <h3 class="font-bold text-slate-900">CS Pinned Notes</h3>
-                  <button onclick="addShopNote()" class="text-blue-600 hover:underline text-[11px] font-medium">+ Add
-                    note</button>
+                  <button onclick="addShopNote()" class="text-blue-600 hover:underline text-[11px] font-medium">+ Add note</button>
                 </div>
                 <div id="shop-notes-list" class="space-y-1.5">
-                  <div class="bg-white p-2.5 rounded border border-slate-200 text-slate-700 italic">"Owner prefers Zalo
-                    over email. Never call before 9:00 AM."</div>
+                  <div class="bg-white p-2.5 rounded border border-slate-200 text-slate-700 italic">"Owner prefers Zalo over email. Never call before 9:00 AM."</div>
                 </div>
               </div>
             </div>
           </div>
 
+          <!-- Store Tickets Section -->
           <div class="pt-4 border-t border-slate-200 space-y-3">
-            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">TẤT CẢ TICKET CỦA STORE NÀY (<span
-                id="shop-ticket-count-badge">1</span>)</h3>
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">TẤT CẢ TICKET CỦA STORE NÀY (<span id="shop-ticket-count-badge">1</span>)</h3>
             <div id="shop-tickets-container" class="space-y-4"></div>
           </div>
         </div>
@@ -480,17 +381,30 @@
 
       <!-- VIEW 3: REVIEWS -->
       <div id="internal-view-reviews" class="hidden space-y-6">
-        <div
-          class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center space-x-3 text-xs text-blue-800 shadow-sm">
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center space-x-3 text-xs text-blue-900 shadow-sm">
+          <div><strong>Tracking 3 chiều tự động:</strong> Hệ thống nối tự động từ Store Review ➔ Store Domain ➔ Crisp Chat ID giúp CS liên hệ trực tiếp hỗ trợ merchant.</div>
+        </div>
 
-          <div><strong>Tracking 3 chiều tự động:</strong> Hệ thống nối tự động từ Store Review ➔ Store Domain ➔ Crisp
-            Chat ID giúp CS liên hệ trực tiếp hỗ trợ merchant.</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-1 text-xs">
+            <div class="text-slate-500 font-medium">Average App Rating</div>
+            <div class="text-2xl font-bold text-amber-600">4.8 / 5.0 <span class="text-xs text-slate-500 font-normal">(96 reviews total)</span></div>
+            <div class="text-slate-500 text-[11px]">12 negative reviews (&lt; 3 stars) requiring follow-up outreach</div>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-2 text-xs">
+            <div class="text-slate-500 font-medium">Top Complaint Themes</div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="bg-red-50 text-red-700 border border-red-200 px-2 py-0.5 rounded text-[11px] font-medium">CSS layout issue (5)</span>
+              <span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-medium">Option loading slow (4)</span>
+              <span class="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded text-[11px] font-medium">Pricing confusion (3)</span>
+            </div>
+          </div>
         </div>
 
         <div class="bg-white border border-slate-200 rounded-xl p-5 space-y-5 text-xs shadow-sm">
           <div class="flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 class="text-lg font-bold text-slate-900">App Store Customer Reviews</h2>
-            <div class="text-amber-600 font-bold text-sm">4.3 / 5 (1,284 reviews)</div>
+            <h2 class="text-lg font-bold text-slate-900">Shopify App Store Reviews Feed</h2>
+            <div class="text-slate-500 font-medium">Showing latest feedback</div>
           </div>
 
           <div id="reviews-list-container" class="space-y-3"></div>
@@ -499,87 +413,228 @@
 
       <!-- VIEW 4: DUTY SHIFT -->
       <div id="internal-view-duty" class="hidden space-y-6">
-        <div class="bg-white border border-slate-200 rounded-xl p-5 text-xs space-y-4 shadow-sm">
-          <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+        <div class="bg-white border border-slate-200 rounded-xl p-5 text-xs space-y-5 shadow-sm">
+          <div class="flex justify-between items-center border-b border-slate-200 pb-3 flex-wrap gap-2">
             <div>
-              <h2 class="text-lg font-bold text-slate-900">Duty Shift Roster (CS & Dev Roster)</h2>
-              <p class="text-slate-500">Week 33 • Aug 10 - Aug 16 ICT (UTC+7)</p>
+              <h2 class="text-lg font-bold text-slate-900">Duty Shift Roster (CS & Dev Team Schedule)</h2>
+              <p class="text-slate-500">Weekly Schedule • Mon – Sun • Click any cell to rotate shifts</p>
             </div>
-            <button onclick="showToast('Roster published successfully to team!')"
-              class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">Publish
-              Roster</button>
+            <button onclick="showToast('Đã xuất bản Duty Shift Roster lên kênh Slack #cs-announcements!')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-lg shadow">Publish Roster to #cs-announcements</button>
           </div>
 
+          <!-- Shift Legend -->
+          <div class="flex items-center space-x-2 flex-wrap gap-y-1 text-[11px]">
+            <span class="text-slate-500 font-semibold mr-1">Shift Types:</span>
+            <span class="bg-blue-100 text-blue-800 border border-blue-200 px-2 py-0.5 rounded font-medium">Morning 08-16</span>
+            <span class="bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded font-medium">Afternoon 14-22</span>
+            <span class="bg-purple-100 text-purple-800 border border-purple-200 px-2 py-0.5 rounded font-medium">Night 20-04</span>
+            <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-medium">On-call</span>
+            <span class="bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded font-medium">Day off</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[700px]">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50/50">
+                  <th class="py-2.5 px-3">Team Member</th>
+                  <th class="py-2.5 px-2">Role</th>
+                  <th class="py-2.5 px-2 text-center">MON</th>
+                  <th class="py-2.5 px-2 text-center">TUE</th>
+                  <th class="py-2.5 px-2 text-center">WED</th>
+                  <th class="py-2.5 px-2 text-center">THU</th>
+                  <th class="py-2.5 px-2 text-center">FRI</th>
+                  <th class="py-2.5 px-2 text-center">SAT</th>
+                  <th class="py-2.5 px-2 text-center">SUN</th>
+                </tr>
+              </thead>
+              <tbody id="roster-tbody" class="divide-y divide-slate-100">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SLA Routing Rules Section -->
+          <div class="pt-4 border-t border-slate-200 space-y-3">
+            <h3 class="font-bold text-slate-900 text-sm">SLA Routing Rules & Response Targets</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="bg-red-50 border border-red-200 p-3.5 rounded-xl space-y-1">
+                <div class="flex justify-between items-center">
+                  <strong class="text-red-700 font-bold text-sm">Urgent</strong>
+                  <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded border border-red-300">15 mins</span>
+                </div>
+                <p class="text-slate-600 text-[11px]">High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order)</p>
+              </div>
+
+              <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl space-y-1">
+                <div class="flex justify-between items-center">
+                  <strong class="text-amber-800 font-bold text-sm">High</strong>
+                  <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-300">1 hour</span>
+                </div>
+                <p class="text-slate-600 text-[11px]">Khách hàng gói Premium, Advance plan</p>
+              </div>
+
+              <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-xl space-y-1">
+                <div class="flex justify-between items-center">
+                  <strong class="text-blue-800 font-bold text-sm">Medium</strong>
+                  <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-300">4 hours</span>
+                </div>
+                <p class="text-slate-600 text-[11px]">Khách hàng gói Pro, Basic plan</p>
+              </div>
+
+              <div class="bg-slate-100 border border-slate-200 p-3.5 rounded-xl space-y-1">
+                <div class="flex justify-between items-center">
+                  <strong class="text-slate-800 font-bold text-sm">Low</strong>
+                  <span class="bg-slate-200 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded border border-slate-300">24 hours</span>
+                </div>
+                <p class="text-slate-600 text-[11px]">Khách hàng gói Free, Old, Dev plan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 5: ANALYTICS -->
+      <div id="internal-view-analytics" class="hidden space-y-6">
+        <!-- Date Range Filter Toolbar -->
+        <div class="bg-white border border-slate-200 rounded-xl p-3 flex justify-between items-center flex-wrap gap-2 shadow-sm text-xs">
+          <div class="flex items-center space-x-2">
+            <span class="font-semibold text-slate-500 uppercase">Date Range:</span>
+            <button onclick="setAnalyticsRange('7d')" id="range-7d" class="px-3 py-1 rounded-lg font-semibold bg-blue-600 text-white shadow">Last 7 days</button>
+            <button onclick="setAnalyticsRange('14d')" id="range-14d" class="px-3 py-1 rounded-lg font-medium bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200">Last 14 days</button>
+            <button onclick="setAnalyticsRange('30d')" id="range-30d" class="px-3 py-1 rounded-lg font-medium bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200">Last 30 days</button>
+          </div>
+          <div class="text-slate-500 text-[11px]">Auto-refreshed from Helpdesk OS Database</div>
+        </div>
+
+        <!-- 4 Top KPI Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+            <div class="text-slate-500 font-medium mb-1">TOTAL VOLUME</div>
+            <div class="text-2xl font-bold text-slate-900" id="kpi-total-volume">142</div>
+            <div class="text-emerald-600 text-[11px] mt-1 font-medium">+12% vs previous period</div>
+          </div>
+          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+            <div class="text-slate-500 font-medium mb-1">RESOLVED TICKETS</div>
+            <div class="text-2xl font-bold text-emerald-600" id="kpi-resolved">128</div>
+            <div class="text-slate-500 text-[11px] mt-1">90.1% resolution rate</div>
+          </div>
+          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+            <div class="text-slate-500 font-medium mb-1">AVG FIRST RESPONSE</div>
+            <div class="text-2xl font-bold text-blue-600" id="kpi-first-response">34m</div>
+            <div class="text-emerald-600 text-[11px] mt-1 font-medium">Target: &lt; 45m</div>
+          </div>
+          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+            <div class="text-slate-500 font-medium mb-1">AVG RESOLUTION TIME</div>
+            <div class="text-2xl font-bold text-purple-600" id="kpi-resolution-time">2h 15m</div>
+            <div class="text-slate-500 text-[11px] mt-1">Within SLA targets</div>
+          </div>
+        </div>
+
+        <!-- Charts & Breakdown Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-sm text-xs">
+            <h3 class="font-bold text-slate-900 text-sm">Status Distribution</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span>Dev Group (Đang check, Chờ check)</span> <span class="font-bold">48%</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-purple-600 h-2.5 rounded-full" style="width: 48%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span>CS Group (Chờ CS, Chờ khách)</span> <span class="font-bold">26%</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-blue-600 h-2.5 rounded-full" style="width: 26%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span>Followup Group (Fl up 12h/24h/36h)</span> <span class="font-bold">14%</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-amber-500 h-2.5 rounded-full" style="width: 14%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span>Closed & Resolved</span> <span class="font-bold">12%</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-emerald-500 h-2.5 rounded-full" style="width: 12%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-sm text-xs">
+            <h3 class="font-bold text-slate-900 text-sm">Urgency Breakdown</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span class="text-red-700 font-semibold">Urgent (SLA 15m)</span> <span class="font-bold">12 cases</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-red-600 h-2.5 rounded-full" style="width: 15%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span class="text-amber-700 font-semibold">High (SLA 1h)</span> <span class="font-bold">38 cases</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-amber-500 h-2.5 rounded-full" style="width: 35%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span class="text-blue-700 font-semibold">Medium (SLA 4h)</span> <span class="font-bold">64 cases</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-blue-600 h-2.5 rounded-full" style="width: 50%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-600 mb-1"><span class="text-slate-700 font-semibold">Low (SLA 24h)</span> <span class="font-bold">28 cases</span></div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden"><div class="bg-slate-400 h-2.5 rounded-full" style="width: 25%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CS Agents Performance Table -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-sm text-xs">
+          <h3 class="font-bold text-slate-900 text-sm">CS Agents Operational Performance</h3>
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="border-b border-slate-200 text-slate-500">
-                <th class="py-2 px-2">Member</th>
-                <th class="py-2 px-2">MON 10</th>
-                <th class="py-2 px-2">TUE 11</th>
-                <th class="py-2 px-2">WED 12</th>
-                <th class="py-2 px-2">THU 13</th>
-                <th class="py-2 px-2">FRI 14</th>
+              <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+                <th class="py-2.5 px-3">Agent Name</th>
+                <th class="py-2.5 px-3">Tickets Handled</th>
+                <th class="py-2.5 px-3">Avg First Response</th>
+                <th class="py-2.5 px-3">CSAT Score</th>
+                <th class="py-2.5 px-3">SLA Compliance</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100 text-slate-800">
               <tr>
-                <td class="py-2 px-2 font-bold text-slate-900">Aylin Tran (CS Agent)</td>
-                <td class="py-2 px-2"><span
-                    class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">Morning 08-16</span>
-                </td>
-                <td class="py-2 px-2"><span
-                    class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">Morning 08-16</span>
-                </td>
-                <td class="py-2 px-2"><span
-                    class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200">Afternoon
-                    14-22</span></td>
-                <td class="py-2 px-2"><span
-                    class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200">Afternoon
-                    14-22</span></td>
-                <td class="py-2 px-2"><span
-                    class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded border border-emerald-200">On-call</span>
-                </td>
+                <td class="py-2.5 px-3 font-bold text-slate-900">Aylin Tran (@aylin)</td>
+                <td class="py-2.5 px-3">54</td>
+                <td class="py-2.5 px-3 font-mono">18m</td>
+                <td class="py-2.5 px-3 text-amber-600 font-bold">4.95 / 5.0</td>
+                <td class="py-2.5 px-3 text-emerald-700 font-bold">98.5%</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-bold text-slate-900">Ngan Pham (@ngan)</td>
+                <td class="py-2.5 px-3">42</td>
+                <td class="py-2.5 px-3 font-mono">24m</td>
+                <td class="py-2.5 px-3 text-amber-600 font-bold">4.88 / 5.0</td>
+                <td class="py-2.5 px-3 text-emerald-700 font-bold">96.2%</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-bold text-slate-900">Ha Tran (@ha)</td>
+                <td class="py-2.5 px-3">31</td>
+                <td class="py-2.5 px-3 font-mono">32m</td>
+                <td class="py-2.5 px-3 text-amber-600 font-bold">4.80 / 5.0</td>
+                <td class="py-2.5 px-3 text-emerald-700 font-bold">94.8%</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-bold text-slate-900">Thao Vo (@thao)</td>
+                <td class="py-2.5 px-3">15</td>
+                <td class="py-2.5 px-3 font-mono">28m</td>
+                <td class="py-2.5 px-3 text-amber-600 font-bold">4.90 / 5.0</td>
+                <td class="py-2.5 px-3 text-emerald-700 font-bold">97.0%</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- VIEW 5: ANALYTICS -->
-      <div id="internal-view-analytics" class="hidden space-y-6">
-        <div class="grid grid-cols-4 gap-4 text-xs">
-          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
-            <div class="text-slate-500 font-medium">CREATED (14D)</div>
-            <div class="text-2xl font-bold text-slate-900">642</div>
-          </div>
-          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
-            <div class="text-slate-500 font-medium">RESOLVED</div>
-            <div class="text-2xl font-bold text-emerald-600">611</div>
-          </div>
-          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
-            <div class="text-slate-500 font-medium">MEDIAN RESOLUTION</div>
-            <div class="text-2xl font-bold text-blue-600">6h 12m</div>
-          </div>
-          <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
-            <div class="text-slate-500 font-medium">ESCALATION RATE</div>
-            <div class="text-2xl font-bold text-amber-600">7.4%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VIEW 6: CS WORKFLOW GUIDE (NỘI DUNG MARKDOWN ĐƯỢC RENDER DYNAMIC THEO TRÌNH BIÊN TẬP ADMIN) -->
+      <!-- VIEW 6: CS WORKFLOW GUIDE (RENDERED FROM DYNAMIC MARKDOWN) -->
       <div id="internal-view-guide" class="hidden space-y-6">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-6 shadow-sm">
           <div class="border-b border-slate-200 pb-4 flex justify-between items-center">
             <div>
-              <h2 class="text-xl font-bold text-amber-700 flex items-center gap-2">
+              <h2 class="text-xl font-bold text-amber-800 flex items-center gap-2">
                 CS Operational Workflow Guide — Helpdesk OS
               </h2>
-              <p class="text-xs text-slate-500 mt-1">Nội dung hướng dẫn chuẩn hóa cho CS Agent (PO/Lead xuất bản)</p>
+              <p class="text-xs text-slate-500 mt-1">Nội dung hướng dẫn chuẩn hóa cho CS Agent & Quy tắc gán Crisp Auto Segment</p>
             </div>
-            <button onclick="switchInternalView('admin'); switchAdminTab('guide-edit');"
-              class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 px-3 py-1 rounded text-xs font-bold">Edit
-              Guide in Admin</button>
+            <button onclick="switchInternalView('admin'); switchAdminTab('guide-edit');" class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">Edit Guide in Admin</button>
           </div>
 
           <div id="guide-markdown-rendered-view" class="prose text-xs max-w-none">
@@ -594,56 +649,42 @@
           <div class="flex items-center justify-between border-b border-slate-200 pb-4 flex-wrap gap-2">
             <div>
               <h2 class="text-xl font-bold text-purple-700 flex items-center gap-2">
-                Admin & System Settings <span
-                  class="bg-purple-100 text-purple-800 text-xs px-2.5 py-0.5 rounded border border-purple-200">PO & Dev
-                  Lead Control</span>
+                Admin & System Settings <span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-0.5 rounded border border-purple-200">PO & Dev Lead Control</span>
               </h2>
-              <p class="text-xs text-slate-500 mt-1">Cấu hình hệ thống: Quản lý Target Apps, Slack Channels Picker,
-                Status Workflow, Urgency Levels, CS Guide Editor & Teams</p>
+              <p class="text-xs text-slate-500 mt-1">Cấu hình hệ thống: Quản lý Target Apps, Slack Channels Picker, Status Workflow, Urgency Levels, CS Guide Editor & Teams</p>
             </div>
-            <button onclick="showToast('Đã lưu toàn bộ cấu hình hệ thống!')"
-              class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-md">
+            <button onclick="showToast('Đã lưu toàn bộ cấu hình hệ thống!')" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-md">
               Save All Settings
             </button>
           </div>
 
           <!-- ADMIN TABS SELECTOR -->
           <div class="flex items-center space-x-2 border-b border-slate-200 pb-2 text-xs font-semibold overflow-x-auto">
-            <button onclick="switchAdminTab('apps')" id="adm-tab-apps"
-              class="px-3 py-1.5 rounded-lg bg-purple-600 text-white">1. Target Apps</button>
-            <button onclick="switchAdminTab('channels')" id="adm-tab-channels"
-              class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">2. Slack Channels Picker</button>
-            <button onclick="switchAdminTab('statuses')" id="adm-tab-statuses"
-              class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">3. Status Workflow</button>
-            <button onclick="switchAdminTab('urgency')" id="adm-tab-urgency"
-              class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">4. Urgency Rules (4 Levels)</button>
-            <button onclick="switchAdminTab('guide-edit')" id="adm-tab-guide-edit"
-              class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">5. Full CS Guide Editor (MD)</button>
-            <button onclick="switchAdminTab('teams')" id="adm-tab-teams"
-              class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">6. Slack Teams (@cs & @dev)</button>
+            <button onclick="switchAdminTab('apps')" id="adm-tab-apps" class="px-3 py-1.5 rounded-lg bg-purple-600 text-white">1. Target Apps</button>
+            <button onclick="switchAdminTab('channels')" id="adm-tab-channels" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">2. Slack Channels Picker</button>
+            <button onclick="switchAdminTab('statuses')" id="adm-tab-statuses" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">3. Status Workflow</button>
+            <button onclick="switchAdminTab('urgency')" id="adm-tab-urgency" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">4. Urgency Rules (4 Levels)</button>
+            <button onclick="switchAdminTab('guide-edit')" id="adm-tab-guide-edit" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">5. Full CS Guide Editor (MD)</button>
+            <button onclick="switchAdminTab('teams')" id="adm-tab-teams" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">6. Slack Teams (@cs & @dev)</button>
           </div>
 
           <!-- ADMIN TAB 1: TARGET APPS -->
           <div id="admin-panel-apps" class="space-y-4 text-xs">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-slate-900 text-sm">Target Applications List</h3>
-              <button onclick="addNewTargetAppPrompt()"
-                class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">+ Add Target
-                App</button>
+              <button onclick="addNewTargetAppPrompt()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">+ Add Target App</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="admin-apps-grid"></div>
           </div>
 
-          <!-- ADMIN TAB 2: SLACK CHANNELS PICKER (CHỌN CHANNELS CÓ SẴN TRÊN SLACK) -->
+          <!-- ADMIN TAB 2: SLACK CHANNELS PICKER -->
           <div id="admin-panel-channels" class="hidden space-y-4 text-xs">
             <div class="flex justify-between items-center">
               <div>
                 <h3 class="font-bold text-slate-900 text-sm">Slack Channels Configuration</h3>
-                <p class="text-slate-500 text-[11px]">Chọn từ danh sách Channels có sẵn trong workspace Slack của team
-                </p>
+                <p class="text-slate-500 text-[11px]">Chọn từ danh sách Channels có sẵn trong workspace Slack của team</p>
               </div>
-              <button onclick="openSlackChannelPickerModal()"
-                class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+              <button onclick="openSlackChannelPickerModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                 + Add Channel (Select from Slack)
               </button>
             </div>
@@ -654,60 +695,49 @@
           <div id="admin-panel-statuses" class="hidden space-y-4 text-xs">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-slate-900 text-sm">Standard Statuses Configuration (12 Statuses)</h3>
-              <button onclick="addNewStatusPrompt()"
-                class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">+ Add Custom
-                Status</button>
+              <button onclick="addNewStatusPrompt()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg shadow">+ Add Custom Status</button>
             </div>
             <div id="admin-statuses-list" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
           </div>
 
-          <!-- ADMIN TAB 4: URGENCY LEVELS (4 CẤP ĐỘ QUY CHUẨN: URGENT, HIGH, MEDIUM, LOW) -->
+          <!-- ADMIN TAB 4: URGENCY LEVELS (4 CẤP ĐỘ QUY CHUẨN) -->
           <div id="admin-panel-urgency" class="hidden space-y-4 text-xs">
             <h3 class="font-bold text-slate-900 text-sm">Urgency Levels & Plan Rules Configuration</h3>
             <div class="space-y-3">
               <div class="bg-red-50 p-4 rounded-xl border border-red-200 flex justify-between items-center">
                 <div>
-                  <strong class="text-red-700 text-sm">Urgent:</strong> High risk tickets (Lỗi nghiêm trọng, hỏng
-                  checkout / order).
+                  <strong class="text-red-700 text-sm">Urgent:</strong> High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
                 </div>
-                <span class="bg-red-100 text-red-800 font-bold px-3 py-1 rounded border border-red-300">SLA: 15
-                  mins</span>
+                <span class="bg-red-100 text-red-800 font-bold px-3 py-1 rounded border border-red-300">SLA: 15 mins</span>
               </div>
               <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 flex justify-between items-center">
                 <div>
                   <strong class="text-amber-700 text-sm">High:</strong> Khách hàng gói Premium, Advance plan.
                 </div>
-                <span class="bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded border border-amber-300">SLA: 1
-                  hour</span>
+                <span class="bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded border border-amber-300">SLA: 1 hour</span>
               </div>
               <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex justify-between items-center">
                 <div>
                   <strong class="text-blue-700 text-sm">Medium:</strong> Khách hàng gói Pro, Basic plan.
                 </div>
-                <span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded border border-blue-300">SLA: 4
-                  hours</span>
+                <span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded border border-blue-300">SLA: 4 hours</span>
               </div>
               <div class="bg-slate-100 p-4 rounded-xl border border-slate-200 flex justify-between items-center">
                 <div>
                   <strong class="text-slate-700 text-sm">Low:</strong> Khách hàng gói Free, Old, Dev plan.
                 </div>
-                <span class="bg-slate-200 text-slate-800 font-bold px-3 py-1 rounded border border-slate-300">SLA: 24
-                  hours</span>
+                <span class="bg-slate-200 text-slate-800 font-bold px-3 py-1 rounded border border-slate-300">SLA: 24 hours</span>
               </div>
             </div>
           </div>
 
-          <!-- ADMIN TAB 5: CS WORKFLOW GUIDE FULL MARKDOWN EDITOR (SOẠN THẢO TOÀN BỘ BẰNG MD) -->
+          <!-- ADMIN TAB 5: CS WORKFLOW GUIDE FULL MARKDOWN EDITOR -->
           <div id="admin-panel-guide-edit" class="hidden space-y-4 text-xs">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-slate-900 text-sm">Edit Entire CS Workflow Guide Content (Markdown Editor)</h3>
               <div class="space-x-2">
-                <button onclick="resetDefaultGuideContent()"
-                  class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded font-medium border border-slate-300">Reset
-                  Default</button>
-                <button onclick="publishGuideContent()"
-                  class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded-lg shadow">Publish
-                  Updated Guide</button>
+                <button onclick="resetDefaultGuideContent()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded font-medium border border-slate-300">Reset Default</button>
+                <button onclick="publishGuideContent()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded-lg shadow">Publish Updated Guide</button>
               </div>
             </div>
 
@@ -715,16 +745,13 @@
               <!-- Left: Markdown Input Area -->
               <div class="space-y-1">
                 <label class="text-slate-600 font-semibold block">Markdown Source Code Editor:</label>
-                <textarea id="admin-guide-editor-text" oninput="updateGuideLivePreview()" rows="16"
-                  class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-900 font-mono text-xs focus:outline-none focus:border-purple-500 leading-relaxed"></textarea>
+                <textarea id="admin-guide-editor-text" oninput="updateGuideLivePreview()" rows="16" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-900 font-mono text-xs focus:outline-none focus:border-purple-500 leading-relaxed"></textarea>
               </div>
 
               <!-- Right: Live Preview Panel -->
               <div class="space-y-1">
                 <label class="text-purple-700 font-semibold block">Live Preview Result:</label>
-                <div id="admin-guide-editor-preview"
-                  class="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-xs prose min-h-[300px] overflow-y-auto max-h-[360px] custom-scrollbar">
-                </div>
+                <div id="admin-guide-editor-preview" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-4 text-xs prose min-h-[300px] overflow-y-auto max-h-[360px] custom-scrollbar"></div>
               </div>
             </div>
           </div>
@@ -734,22 +761,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-200 pb-2">
-                  <h4 class="font-bold text-blue-700 flex items-center gap-1">CS Team (Synced from Slack
-                    <code>@cs</code>)</h4>
-                  <button onclick="syncSlackGroup('cs')"
-                    class="bg-purple-100 hover:bg-purple-200 text-purple-800 border border-purple-300 px-2.5 py-1 rounded font-bold">Sync
-                    @cs</button>
+                  <h4 class="font-bold text-blue-700 flex items-center gap-1">CS Team (Synced from Slack <code>@cs</code>)</h4>
+                  <button onclick="syncSlackGroup('cs')" class="bg-purple-100 hover:bg-purple-200 text-purple-800 border border-purple-300 px-2.5 py-1 rounded font-bold">Sync @cs</button>
                 </div>
                 <div id="admin-cs-team-list" class="space-y-1.5"></div>
               </div>
 
               <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-200 pb-2">
-                  <h4 class="font-bold text-emerald-700 flex items-center gap-1">Dev Team (Synced from Slack
-                    <code>@dev</code>)</h4>
-                  <button onclick="syncSlackGroup('dev')"
-                    class="bg-purple-100 hover:bg-purple-200 text-purple-800 border border-purple-300 px-2.5 py-1 rounded font-bold">Sync
-                    @dev</button>
+                  <h4 class="font-bold text-emerald-700 flex items-center gap-1">Dev Team (Synced from Slack <code>@dev</code>)</h4>
+                  <button onclick="syncSlackGroup('dev')" class="bg-purple-100 hover:bg-purple-200 text-purple-800 border border-purple-300 px-2.5 py-1 rounded font-bold">Sync @dev</button>
                 </div>
                 <div id="admin-dev-team-list" class="space-y-1.5"></div>
               </div>
@@ -763,35 +784,29 @@
 
   </div>
 
-  <!-- MODAL: SLACK CHANNEL PICKER MODAL (CHỌN CHANNELS CÓ SẴN TRONG WORKSPACE SLACK) -->
-  <div id="modal-slack-channel-picker"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL: SLACK CHANNEL PICKER MODAL -->
+  <div id="modal-slack-channel-picker" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-5 space-y-4 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
         <h3 class="font-bold text-slate-900 text-sm">Select Available Channel from Slack Workspace</h3>
         <button onclick="closeSlackChannelPickerModal()" class="text-slate-400 hover:text-slate-700">✕</button>
       </div>
 
-      <p class="text-slate-500">Chọn 1 channel công khai/riêng tư từ workspace Slack của team để ánh xạ vào Helpdesk OS:
-      </p>
+      <p class="text-slate-500">Chọn 1 channel từ workspace Slack của team để ánh xạ vào Helpdesk OS:</p>
 
       <div id="slack-workspace-channels-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
         <!-- Rendered dynamically -->
       </div>
 
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
-        <button onclick="closeSlackChannelPickerModal()"
-          class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
-        <button onclick="confirmSelectSlackChannel()"
-          class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 font-bold text-white rounded shadow">+ Map
-          Channel</button>
+        <button onclick="closeSlackChannelPickerModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
+        <button onclick="confirmSelectSlackChannel()" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 font-bold text-white rounded shadow">+ Map Channel</button>
       </div>
     </div>
   </div>
 
-  <!-- MODALS TICKET CREATION, TRANSFER & EDIT -->
-  <div id="modal-add-ticket"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL ADD TICKET -->
+  <div id="modal-add-ticket" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
         <h3 class="font-bold text-slate-900 text-sm">Add New Ticket (Gửi Slack Thread)</h3>
@@ -800,64 +815,54 @@
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">App Target:</label>
-        <select id="add-app-select"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
+        <select id="add-app-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Slack Channel:</label>
-        <select id="add-channel-select"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
+        <select id="add-channel-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
       </div>
 
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-600 block mb-1 font-medium">Status:</label>
-          <select id="add-status-select"
-            class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
+          <select id="add-status-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
         </div>
         <div>
           <label class="text-slate-600 block mb-1 font-medium">Urgency:</label>
           <select id="add-urgency-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
-            <option value="Urgent">Urgent (High risk tickets)</option>
-            <option value="High">High (Premium/Advance)</option>
-            <option value="Medium">Medium (Pro/Basic)</option>
-            <option value="Low">Low (Free/Old/Dev)</option>
+            <option value="Urgent">Urgent</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Store Domain:</label>
-        <input type="text" id="add-domain-input" value="61cde3-42.myshopify.com"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 font-mono">
+        <input type="text" id="add-domain-input" value="61cde3-42.myshopify.com" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 font-mono">
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Feature Tag:</label>
-        <input type="text" id="add-feature-input" value="Live preview"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
+        <input type="text" id="add-feature-input" value="Live preview" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Request Content:</label>
-        <textarea id="add-request-input" rows="3" placeholder="Mô tả chi tiết yêu cầu..."
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+        <textarea id="add-request-input" rows="3" placeholder="Mô tả chi tiết yêu cầu kỹ thuật..." class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
       </div>
 
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
-        <button onclick="closeAddTicketModal()"
-          class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Hủy</button>
-        <button onclick="handleCreateTicketSubmit()"
-          class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Gửi Ticket lên
-          Slack</button>
+        <button onclick="closeAddTicketModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Hủy</button>
+        <button onclick="handleCreateTicketSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Gửi Ticket lên Slack</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL TRANSFER TICKET -->
-  <div id="modal-transfer-ticket"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL TRANSFER TICKET (SUPPORTS CS ONLINE AND SLACK USERNAME TAGS) -->
+  <div id="modal-transfer-ticket" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
         <h3 class="font-bold text-slate-900 text-sm">Transfer Ticket (Bàn Giao Ca)</h3>
@@ -866,76 +871,62 @@
 
       <input type="hidden" id="transfer-ticket-id">
 
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <label class="text-slate-600 block mb-1 font-medium">Transfer to:</label>
-          <select id="transfer-to-select"
-            class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
-        </div>
-        <div>
-          <label class="text-slate-600 block mb-1 font-medium">Remind:</label>
-          <input type="text" id="transfer-remind-input" value="May 8th, 8:00 AM"
-            class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
-        </div>
+      <div class="space-y-1">
+        <label class="text-slate-700 font-bold block">Transfer to (CS Agent / CS Online):</label>
+        <select id="transfer-to-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 font-medium"></select>
+        <p class="text-slate-500 text-[11px] italic">💡 Chọn "CS online" để hệ thống tự động gán cho CS trực ca vào khung giờ remind.</p>
+      </div>
+
+      <div>
+        <label class="text-slate-600 block mb-1 font-medium">Remind:</label>
+        <input type="text" id="transfer-remind-input" value="Aug 21st, 2:00 PM" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
       </div>
 
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label class="text-slate-600 block mb-1 font-medium">Status:</label>
-          <select id="transfer-status-select"
-            class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
+          <select id="transfer-status-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
         </div>
         <div>
           <label class="text-slate-600 block mb-1 font-medium">Urgency:</label>
-          <select id="transfer-urgency-select"
-            class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
-            <option value="Urgent">Urgent (High risk tickets)</option>
-            <option value="High">High (Premium/Advance)</option>
-            <option value="Medium">Medium (Pro/Basic)</option>
-            <option value="Low">Low (Free/Old/Dev)</option>
+          <select id="transfer-urgency-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
+            <option value="Urgent">Urgent</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Feature Related:</label>
-        <input type="text" id="transfer-feature-input" value="Feature: Live preview"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
+        <input type="text" id="transfer-feature-input" value="Live preview" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
       </div>
 
       <div>
-        <label class="text-amber-800 font-semibold block mb-1">Handoff / Transfer note (Ghi chú ca trực này):</label>
-        <textarea id="handoff-note-input" rows="2" placeholder="Handoff note cho ca sau..."
-          class="w-full bg-amber-50 border border-amber-300 rounded p-2 text-amber-900 focus:outline-none"></textarea>
+        <label class="text-amber-800 font-semibold block mb-1">Note transfer case (Ghi chú ca trực ngắn hạn):</label>
+        <textarea id="handoff-note-input" rows="2" placeholder="Ghi chú giao ca cho người tiếp nhận..." class="w-full bg-amber-50 border border-amber-300 rounded p-2 text-amber-900 focus:outline-none"></textarea>
       </div>
 
       <div>
-        <label class="text-slate-700 font-medium block mb-1">Summary note (Tóm tắt cốt lõi - Auto-fill từ DB):</label>
-        <textarea id="summary-note-input" rows="2" placeholder="Summary note..."
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none"></textarea>
+        <label class="text-slate-700 font-medium block mb-1">Summary note (Tóm tắt cốt lõi - Tự động nạp từ DB):</label>
+        <textarea id="summary-note-input" rows="2" placeholder="Summary note..." class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none"></textarea>
       </div>
 
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
-        <button onclick="closeTransferModal()"
-          class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Hủy</button>
-        <button onclick="handleTransferSubmit()"
-          class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Submit Note</button>
+        <button onclick="closeTransferModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Hủy</button>
+        <button onclick="handleTransferSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 font-bold text-white rounded shadow">Submit Note</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL EDIT TICKET (TICKET RELATED MODAL MATCHING USER MOCKUP WITH REOPEN BADGE) -->
-  <div id="modal-edit-ticket"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL EDIT TICKET (LOCKED REQUEST CONTENT PER SRS) -->
+  <div id="modal-edit-ticket" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-5 space-y-3 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
         <div class="flex items-center space-x-2" id="edit-modal-header-badges">
-          <span
-            class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Đang
-            check</span>
-          <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-bold">5</span>
-          <span
-            class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Reopened</span>
+          <span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Đang check - Dev</span>
+          <span class="bg-red-100 text-red-700 border border-red-200 text-xs px-2.5 py-0.5 rounded-full font-bold">Urgent</span>
         </div>
         <button onclick="closeEditTicketModal()" class="text-slate-400 hover:text-slate-700">✕</button>
       </div>
@@ -948,89 +939,90 @@
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Status:</label>
-        <select id="edit-status-select"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
-      </div>
-
-      <div>
-        <label class="text-slate-600 block mb-1 font-medium">Feature Related:</label>
-        <input type="text" id="edit-feature-input" value="Feature: Live preview"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
+        <select id="edit-status-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
       </div>
 
       <div>
         <label class="text-slate-600 block mb-1 font-medium">Urgency:</label>
         <select id="edit-urgency-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800">
-          <option value="Urgent">Urgent (High risk tickets)</option>
-          <option value="High">High (Premium/Advance)</option>
-          <option value="Medium">Medium (Pro/Basic)</option>
-          <option value="Low">Low (Free/Old/Dev)</option>
+          <option value="Urgent">Urgent</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
       </div>
 
       <div>
-        <label class="text-slate-700 font-medium block mb-1">Sumary:</label>
-        <textarea id="edit-summary-input" rows="3" placeholder="Summarize"
-          class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none"></textarea>
+        <label class="text-slate-600 block mb-1 font-medium">Assigned To:</label>
+        <select id="edit-assignee-select" class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800"></select>
       </div>
 
-      <!-- Ticket Reopened Count Text Label (Above Add Tag button) -->
-      <div id="edit-reopen-count-label" class="text-slate-500 font-medium text-xs pt-1">
+      <div>
+        <label class="text-slate-600 block mb-1 font-medium">Request Content (Locked - Read Only):</label>
+        <textarea id="edit-request-locked" rows="2" readonly disabled class="w-full bg-slate-100 border border-slate-200 rounded p-2 text-slate-600 cursor-not-allowed text-xs font-mono"></textarea>
+      </div>
+
+      <div>
+        <label class="text-slate-700 font-medium block mb-1">Summary Note (DB persistent):</label>
+        <textarea id="edit-summary-input" rows="2" placeholder="Tóm tắt kỹ thuật cốt lõi..." class="w-full bg-slate-50 border border-slate-300 rounded p-2 text-slate-800 focus:outline-none"></textarea>
+      </div>
+
+      <!-- Tag Management in Edit Modal -->
+      <div class="space-y-1">
+        <div class="flex justify-between items-center">
+          <label class="text-slate-700 font-medium">Tags:</label>
+          <button onclick="openTaggingModal()" class="text-blue-600 hover:underline text-[11px] font-medium">+ Edit Tags</button>
+        </div>
+        <div id="edit-tags-pill-list" class="flex flex-wrap gap-1 p-2 bg-slate-50 border border-slate-200 rounded-lg min-h-[36px]"></div>
+      </div>
+
+      <!-- Ticket Reopened Count Text Label -->
+      <div id="edit-reopen-count-label" class="text-amber-800 font-medium text-xs pt-1 hidden">
         Ticket reopened 1 time
       </div>
 
-      <div class="flex items-center justify-between pt-2 border-t border-slate-200">
-        <button onclick="openTaggingModal()"
-          class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Add
-          tag</button>
-        <div class="space-x-2">
-          <button onclick="closeEditTicketModal()"
-            class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
-          <button onclick="handleEditTicketSubmit()"
-            class="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded shadow">Save
-            changes</button>
-        </div>
+      <div class="flex items-center justify-end space-x-2 pt-2 border-t border-slate-200">
+        <button onclick="closeEditTicketModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
+        <button onclick="handleEditTicketSubmit()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow">Save changes</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL TAGGING SELECTION -->
-  <div id="modal-tagging-select"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL TAGGING SELECTION (SHOPIFY STYLE MASTER TAGS) -->
+  <div id="modal-tagging-select" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-5 space-y-4 text-xs shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-        <h3 class="font-bold text-slate-900 text-sm">Tagging</h3>
+        <h3 class="font-bold text-slate-900 text-sm">Dynamic Tagging</h3>
         <button onclick="closeTaggingModal()" class="text-slate-400 hover:text-slate-700">✕</button>
       </div>
 
-      <div class="space-y-2">
-        <div class="relative">
-          <input type="text" id="tag-search-input" placeholder="Type tag name..."
-            class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:border-blue-500">
+      <div class="space-y-1">
+        <label class="text-slate-600 font-medium">Search or Add New Tag:</label>
+        <div class="flex items-center space-x-1">
+          <input type="text" id="new-tag-input" placeholder="Type tag name..." class="flex-1 bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-blue-500">
+          <button onclick="addNewMasterTag()" class="bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1.5 rounded font-bold">Add</button>
         </div>
       </div>
 
       <div class="space-y-2 pt-2 border-t border-slate-200">
         <div class="flex justify-between items-center">
-          <span class="font-bold text-slate-600">Select tags</span>
+          <span class="font-bold text-slate-600">Master Tags</span>
           <button onclick="deselectAllTags()" class="text-blue-600 text-[11px] hover:underline">Deselect all</button>
         </div>
 
-        <div id="available-tags-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
+        <div id="available-tags-list" class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
       </div>
 
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
-        <button onclick="closeTaggingModal()"
-          class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
-        <button onclick="applyTagSelection()"
-          class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow">Add tags</button>
+        <button onclick="closeTaggingModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-medium border border-slate-300">Cancel</button>
+        <button onclick="applyTagSelection()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow">Apply Tags</button>
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT STATE & SYSTEM CONTROLLERS -->
+  <!-- JAVASCRIPT STATE & CONTROLLERS -->
   <script>
-    // DEFENSIVE DOM HELPER (PREVENTS FATAL UNHANDLED NULL POINTER EXCEPTIONS)
+    // DEFENSIVE DOM HELPER
     function safeSetHTML(elementId, htmlContent) {
       const el = document.getElementById(elementId);
       if (el) {
@@ -1040,9 +1032,57 @@
       }
     }
 
-    const availableTagsMaster = ['Live preview', 'Option Set', 'Bundle Cart', 'Theme Conflict', 'CSS Issue', 'Checkout Fix', 'VIP Merchant', 'Bug Signal', 'Refund Ask'];
+    const availableTagsMaster = ['Live preview', 'Option Set', 'Bundle Cart', 'Theme Conflict', 'CSS Issue', 'Checkout Fix', 'VIP Merchant', 'Bug Signal', 'Refund Ask', 'Dawn Theme'];
 
-    const defaultGuideMarkdownContent = `# CS Operational Workflow Guide — Helpdesk OS
+    // CRISP AUTO SEGMENTATION RULES
+    // NW: no one waiting
+    // WR: waiting reply (stat: đã check, fl up 1-2-3)
+    // POC: pending on customer (chờ khách)
+    // POD: pending on dev (Chờ check, Đang check)
+    function getCrispSegmentFromStatus(status) {
+      if (!status) return 'NW';
+      if (status === 'Đã check - Dev' || status.startsWith('Fl up')) return 'WR';
+      if (status === 'CHỜ KHÁCH - CS' || status === 'Chờ CS' || status === 'Chờ collab - CS') return 'POC';
+      if (status === 'Chờ check - Dev' || status === 'Đang check - Dev') return 'POD';
+      return 'NW';
+    }
+
+    function getCrispSegmentName(seg) {
+      const map = {
+        'NW': 'no one waiting',
+        'WR': 'waiting reply',
+        'POC': 'pending on customer',
+        'POD': 'pending on dev'
+      };
+      return map[seg] || seg;
+    }
+
+    function getCrispSegmentBadgeHtml(status) {
+      const seg = getCrispSegmentFromStatus(status);
+      const styles = {
+        'NW': 'bg-slate-100 text-slate-700 border-slate-300',
+        'WR': 'bg-blue-100 text-blue-800 border-blue-300',
+        'POC': 'bg-amber-100 text-amber-800 border-amber-300',
+        'POD': 'bg-purple-100 text-purple-800 border-purple-300'
+      };
+      return `<span class="${styles[seg] || 'bg-slate-100 text-slate-700 border-slate-200'} text-[10px] px-2 py-0.5 rounded-full font-bold border font-mono tracking-wider" title="Crisp Auto Segment: ${seg} (${getCrispSegmentName(seg)})">Segment: ${seg}</span>`;
+    }
+
+    function updateCrispLiveSegment(seg) {
+      const badge = document.getElementById('crisp-live-segment-badge');
+      if (badge) {
+        const styles = {
+          'NW': 'bg-slate-100 text-slate-700 border-slate-300',
+          'WR': 'bg-blue-100 text-blue-800 border-blue-300',
+          'POC': 'bg-amber-100 text-amber-800 border-amber-300',
+          'POD': 'bg-purple-100 text-purple-800 border-purple-300'
+        };
+        badge.className = `${styles[seg] || 'bg-slate-100 text-slate-700 border-slate-300'} text-[10px] font-bold px-2 py-0.5 rounded-full border font-mono`;
+        badge.innerText = `Segment: ${seg} (${getCrispSegmentName(seg)})`;
+      }
+    }
+
+    const defaultGuideMarkdownContent = `# CS Operational Workflow Guide — Helpdesk OS (Phase 1)
 
 Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS Agent) của hệ sinh thái Shopify Apps.
 
@@ -1051,40 +1091,51 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 ### 1. Sơ Đồ Luồng Vận Hành 4 Bước (Step-by-Step Flow)
 
 - **Step 1: Tiếp nhận trên Crisp Chat**
-  Khách chat tới trên Crisp ➔ CS kiểm tra Crisp Plugin ở bên phải để xem **Store Domain**, **Sub-domains** và bảng **Visitor Data**.
+  Khách chat tới trên Crisp ➔ CS kiểm tra Crisp Plugin ở bên phải để xem **Store Domain**, **Sub-domains** và bảng **Visitor Data (Live Meta)**.
 
 - **Step 2: Tạo Ticket (\`+ Add ticket\`)**
-  Bấm \`+ Add ticket\` từ Crisp Plugin ➔ Chọn Target App, Slack Channel, Status, Urgency, Tag ➔ Hệ thống tự động tạo bài đăng Slack Thread dưới tên cá nhân CS (Slack OAuth User Token).
+  Bấm \`+ Add ticket\` từ Crisp Plugin (tự động nạp sẵn Store Domain) ➔ Chọn Target App, Slack Channel, Status, Urgency, Tag ➔ Hệ thống tự động tạo bài đăng Slack Thread dưới tên cá nhân CS (thông qua Slack OAuth User Token) và tự động gán **Crisp Segment** tương ứng.
 
 - **Step 3: Thảo luận duy nhất tại Slack**
   Mọi trao đổi file, nhắn Dev diễn ra **trong duy nhất Slack Thread**. Web App lắng nghe webhook để update status mà không gửi notification push gây nhiễu.
 
 - **Step 4: Bàn giao ca trực (\`Transfer Ticket\`)**
-  Hết ca trực ➔ CS mở modal Transfer ➔ Điền \`Note transfer case\` (ghi chú ca trực ngắn hạn) + Auto-load \`Summary note\` (tóm tắt lưu DB) ➔ Chuyển ca trực tiếp không bị đứt đoạn.
+  Hết ca trực ➔ CS mở modal Transfer ➔ Chọn nhân sự nhận (\`@username\` CS trong team hoặc chọn **\`CS online\`** để tự động gán cho CS trực ca vào giờ remind) ➔ Điền \`Note transfer case\` (ghi chú ca trực ngắn hạn) + Auto-load \`Summary note\` (tóm tắt lưu DB dài hạn) ➔ Chuyển ca trực tiếp không bị đứt đoạn.
 
 ---
 
 ### 2. Quy Tắc 4 Cấp Độ Urgency & Plan Rules
 
-- **Urgent (Red)**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order).
-- **High (Amber)**: Khách hàng gói **Premium, Advance plan**.
-- **Medium (Blue)**: Khách hàng gói **Pro, Basic plan**.
-- **Low (Slate)**: Khách hàng gói **Free, Old, Dev plan**.
+- **Urgent (Red)**: High risk tickets (Lỗi nghiêm trọng, hỏng checkout / order) — SLA Target: **15 phút**.
+- **High (Amber)**: Khách hàng gói **Premium, Advance plan** — SLA Target: **1 giờ**.
+- **Medium (Blue)**: Khách hàng gói **Pro, Basic plan** — SLA Target: **4 giờ**.
+- **Low (Slate)**: Khách hàng gói **Free, Old, Dev plan** — SLA Target: **24 giờ**.
 
 ---
 
-### 3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)
+### 3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Note Cards)
 
 1. **Card 1 - Note transfer case**: Ghi chú ngắn hạn ca trực giữa các CS với nhau (được ghi đè theo từng lần giao ca).
 2. **Card 2 - Summary note**: Tóm tắt bản chất kỹ thuật gốc lưu trong DB (tự động load vào Form Transfer mà CS không cần copy-paste).
+
+---
+
+### 4. Quy Tắc Gán Segment Tự Động Trên Crisp (Auto Segment Rules)
+
+Khi ticket thay đổi trạng thái, Helpdesk OS sẽ tự động kích hoạt gán segment viết tắt tương ứng trên Crisp Chat:
+- **NW (no one waiting)**: Áp dụng khi ticket đã giải quyết xong hoặc không còn ai phải chờ (\`Done - CS\`, \`Done - Need CS Check\`, \`Uninstall\`, \`Rejected - Dev lead\`, \`Done\`, \`Resolved\`).
+- **WR (waiting reply)**: Áp dụng khi Dev/CS đã kiểm tra xong hoặc đang theo dõi phản hồi từ merchant (\`Đã check - Dev\`, \`Fl up 1 (12h)\`, \`Fl up 2 (24h)\`, \`Fl up 3 (36h)\`).
+- **POC (pending on customer)**: Áp dụng khi ticket đang chờ merchant cung cấp quyền truy cập theme, xác nhận hoặc phản hồi (\`CHỜ KHÁCH - CS\`, \`Chờ CS\`, \`Chờ collab - CS\`).
+- **POD (pending on dev)**: Áp dụng khi yêu cầu đang nằm trong hàng đợi hoặc kỹ sư Dev đang trực tiếp xử lý (\`Chờ check - Dev\`, \`Đang check - Dev\`).
 `;
 
-    // AVAILABLE SLACK WORKSPACE CHANNELS TO PICK FROM (SLACK WORKSPACE CANONICAL LIST)
+    // AVAILABLE SLACK WORKSPACE CHANNELS
     const slackWorkspaceChannelsList = [
       { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of Aris Product Options' },
       { code: '#apo-urgent-case', desc: 'Urgent escalations and checkout bugs' },
       { code: '#acs-color-swatch-task', desc: 'Color Swatch issues and theme tasks' },
       { code: '#apb-general-support', desc: 'App Bundles customer requests' },
+      { code: '#cs-announcements', desc: 'General announcements and weekly shift rosters' },
       { code: '#feedback-loop-csat', desc: 'CSAT and feedback loop tracking' },
       { code: '#dev-escalations-critical', desc: 'Critical bug escalations for Dev Leads' }
     ];
@@ -1097,9 +1148,9 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       tempEditingTags: [],
       config: {
         apps: [
-          { code: 'APO', name: 'Avis Product Options', },
-          { code: 'APB', name: 'App Bundles', },
-          { code: 'ACS', name: 'Aris Color Swatch', }
+          { code: 'APO', name: 'Avis Product Options' },
+          { code: 'APB', name: 'App Bundles' },
+          { code: 'ACS', name: 'Aris Color Swatch' }
         ],
         slackChannels: [
           { code: '#apo-paid-task', desc: 'Tech support cases for PAYING users of APO' },
@@ -1111,6 +1162,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           { code: 'Chờ check - Dev', group: 'Dev' },
           { code: 'Đang check - Dev', group: 'Dev' },
           { code: 'Đã check - Dev', group: 'Dev' },
+          { code: 'Done - Need CS Check', group: 'Dev' },
           { code: 'Rejected - Dev lead', group: 'Dev' },
           { code: 'CHỜ KHÁCH - CS', group: 'CS' },
           { code: 'Chờ CS', group: 'CS' },
@@ -1120,10 +1172,25 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           { code: 'Fl up 2 (24h)', group: 'Followup' },
           { code: 'Fl up 3 (36h)', group: 'Followup' }
         ],
-        csTeam: ['Aylin Tran', 'Ngan Pham', 'Ha Tran'],
-        devTeam: ['Tuan Nguyen', 'Minh Dao', 'Hung Le'],
+        csTeam: [
+          { name: 'Aylin Tran', username: '@aylin', slackTag: '@cs-aylin' },
+          { name: 'Ngan Pham', username: '@ngan', slackTag: '@cs-ngan' },
+          { name: 'Ha Tran', username: '@ha', slackTag: '@cs-ha' },
+          { name: 'Thao Vo', username: '@thao', slackTag: '@cs-thao' }
+        ],
+        devTeam: ['Tuan Nguyen', 'Minh Dao', 'Hung Le', 'Bao Nguyen'],
         guideMarkdown: defaultGuideMarkdownContent
       },
+      roster: [
+        { name: 'Aylin Tran (@aylin)', role: 'CS Agent', shifts: ['Morning 08-16', 'Morning 08-16', 'Afternoon 14-22', 'Afternoon 14-22', 'On-call', 'Day off', 'Day off'] },
+        { name: 'Ngan Pham (@ngan)', role: 'CS Agent', shifts: ['Afternoon 14-22', 'Afternoon 14-22', 'Night 20-04', 'Night 20-04', 'Morning 08-16', 'On-call', 'Day off'] },
+        { name: 'Ha Tran (@ha)', role: 'CS Agent', shifts: ['Night 20-04', 'Night 20-04', 'Day off', 'Morning 08-16', 'Morning 08-16', 'Afternoon 14-22', 'On-call'] },
+        { name: 'Thao Vo (@thao)', role: 'CS Agent', shifts: ['Day off', 'Day off', 'Morning 08-16', 'Morning 08-16', 'Afternoon 14-22', 'Morning 08-16', 'Afternoon 14-22'] },
+        { name: 'Tuan Nguyen', role: 'Dev Lead', shifts: ['Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'On-call', 'Day off'] },
+        { name: 'Minh Dao', role: 'Dev Lead', shifts: ['Afternoon 14-22', 'Afternoon 14-22', 'Afternoon 14-22', 'Afternoon 14-22', 'Afternoon 14-22', 'Day off', 'On-call'] },
+        { name: 'Hung Le', role: 'Dev Eng', shifts: ['Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'Morning 08-16', 'Day off', 'Day off'] },
+        { name: 'Bao Nguyen', role: 'Dev Eng', shifts: ['Night 20-04', 'Night 20-04', 'Night 20-04', 'Night 20-04', 'Night 20-04', 'Day off', 'Day off'] }
+      ],
       tickets: [
         {
           id: 'TK-4821',
@@ -1133,10 +1200,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           status: 'Đang check - Dev',
           urgency: 'Urgent',
           reopenCount: 1,
-          assignedTo: 'Aylin Tran',
-          timestamp: '4:53 pm 19/08/2026',
+          assignedTo: '@aylin (Aylin Tran)',
+          timestamp: '4:53 pm 21/08/2026',
           requestContent: 'style button ở collection page không giống style khách đang set up trong app.',
-          tags: ['Live preview', 'CSS Issue'],
+          tags: ['Live preview', 'CSS Issue', 'Dawn Theme'],
           handoffNote: '"Đã nhắn Dev Tuan check CSS lúc 15h, chờ Tuan reply để báo khách trên Crisp."',
           summaryNote: 'Khách báo lỗi button style ở collection page không khớp với setting app. Đã test trên Dawn v11 theme.',
           unread: true
@@ -1148,8 +1215,9 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           storeUrl: 'kaifit.myapp.io',
           status: 'Fl up 1 (12h)',
           urgency: 'High',
-          assignedTo: 'Aylin Tran',
-          timestamp: '6:46 pm 18/08/2026',
+          reopenCount: 0,
+          assignedTo: '@aylin (Aylin Tran)',
+          timestamp: '6:46 pm 20/08/2026',
           requestContent: 'Khách nhận order mất option KTGPS-2522, KTGPS-2511.',
           tags: ['Option Set', 'Checkout Fix'],
           handoffNote: '"Đã fix xong trên staging, hẹn 12h sau follow-up khách xem ok chưa."',
@@ -1163,8 +1231,9 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           storeUrl: 'bloomco.myshopify.com',
           status: 'Chờ check - Dev',
           urgency: 'Medium',
-          assignedTo: 'Ngan Pham',
-          timestamp: '10:15 am 19/08/2026',
+          reopenCount: 0,
+          assignedTo: '@ngan (Ngan Pham)',
+          timestamp: '10:15 am 21/08/2026',
           requestContent: 'Bundle discount price calculations wrong on mobile checkout.',
           tags: ['Bundle Cart'],
           handoffNote: '"Cần Dev check gấp trên Chrome Mobile view."',
@@ -1175,31 +1244,32 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       reviews: [
         {
           id: 'REV-01',
-          stars: '5/5',
-          title: 'Barcode scanner keeps freezing',
-          badge: 'Bug signal',
+          stars: '1/5',
+          title: 'Barcode scanner keeps freezing after update',
+          badge: 'Negative - Needs Outreach',
           badgeColor: 'bg-red-100 text-red-800 border border-red-200',
           time: '2h ago',
           author: 'kien_m • Android 3.4.0',
           domain: 'kaifit.myapp.io',
-          crispUser: 'Mykola',
+          crispUser: 'Anh Kai',
           content: 'Since the last update the scanner locks up when I scan two items quickly. I have to restart the app several times per shift.'
         },
         {
           id: 'REV-02',
           stars: '5/5',
-          title: 'Support replied in ten minutes',
-          badge: 'Positive',
+          title: 'Support replied in ten minutes & fixed theme layout',
+          badge: 'Positive Feedback',
           badgeColor: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
           time: '6h ago',
           author: 'thu.linh • iOS 3.4.1',
           domain: 'woodesign.ie.myshopify.com',
           crispUser: 'Thu Linh',
-          content: 'Asked about VAT invoices at 9pm and got a real answer, not a template. The refund flow is much clearer now.'
+          content: 'Asked about VAT invoices at 9pm and got a real answer, not a template. The refund flow is much clearer now. Great support by Aylin!'
         }
       ]
     };
 
+    // PLATFORM SWITCHER
     function switchPlatform(plat) {
       ['crisp', 'slack', 'internal'].forEach(p => {
         const el = document.getElementById('platform-' + p);
@@ -1213,6 +1283,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       if (activeBtn) activeBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 bg-blue-600 text-white shadow-md flex items-center gap-1.5";
     }
 
+    // INTERNAL VIEW SWITCHER (7 VIEWS)
     function switchInternalView(viewId) {
       ['dashboard', 'shops', 'reviews', 'duty', 'analytics', 'guide', 'admin'].forEach(v => {
         const el = document.getElementById('internal-view-' + v);
@@ -1224,15 +1295,18 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       if (activeView) activeView.classList.remove('hidden');
       const activeSideBtn = document.getElementById('side-' + viewId);
       if (activeSideBtn) {
-        if (viewId === 'admin') activeSideBtn.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-100 flex items-center space-x-2";
-        else if (viewId === 'guide') {
+        if (viewId === 'admin') {
+          activeSideBtn.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 hover:bg-purple-100 flex items-center space-x-2";
+        } else if (viewId === 'guide') {
           activeSideBtn.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-2";
           renderCSGuideMarkdownView();
+        } else {
+          activeSideBtn.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
         }
-        else activeSideBtn.className = "w-full text-left px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center space-x-2";
       }
     }
 
+    // ADMIN TABS SWITCHER (6 TABS)
     function switchAdminTab(tab) {
       ['apps', 'channels', 'statuses', 'urgency', 'guide-edit', 'teams'].forEach(t => {
         const el = document.getElementById('admin-panel-' + t);
@@ -1244,7 +1318,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       const activeTabBtn = document.getElementById('adm-tab-' + tab);
       if (activePanel) activePanel.classList.remove('hidden');
       if (activeTabBtn) activeTabBtn.className = "px-3 py-1.5 rounded-lg bg-purple-600 text-white font-bold";
-
+      
       if (tab === 'guide-edit') {
         const editor = document.getElementById('admin-guide-editor-text');
         if (editor) {
@@ -1254,7 +1328,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
-    // URGENCY BADGE STYLING HELPER (URGENT, HIGH, MEDIUM, LOW)
+    // URGENCY BADGE HELPER
     function getUrgencyBadgeHtml(urgency) {
       if (urgency === 'Urgent' || urgency === 1 || urgency === '1') return `<span class="bg-red-100 text-red-700 border border-red-200 text-xs px-2.5 py-0.5 rounded-full font-bold">Urgent</span>`;
       if (urgency === 'High' || urgency === 2 || urgency === '2') return `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs px-2.5 py-0.5 rounded-full font-bold">High</span>`;
@@ -1262,7 +1336,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       return `<span class="bg-slate-100 text-slate-700 border border-slate-200 text-xs px-2.5 py-0.5 rounded-full font-medium">Low</span>`;
     }
 
-    // STATUS BADGE STYLING HELPER
+    // STATUS BADGE HELPER
     function getStatusBadgeHtml(status) {
       if (status.includes('Done') || status.includes('Resolved')) {
         return `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-0.5 rounded-full font-semibold">${status}</span>`;
@@ -1277,6 +1351,66 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         return `<span class="bg-red-100 text-red-800 border border-red-200 text-xs px-2.5 py-0.5 rounded-full font-semibold">${status}</span>`;
       }
       return `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs px-2.5 py-0.5 rounded-full font-semibold">${status}</span>`;
+    }
+
+    // SHIFT BADGE HELPER
+    function getShiftBadgeHtml(shift) {
+      if (shift.includes('Morning')) return `<span class="bg-blue-100 text-blue-800 border border-blue-200 text-[11px] px-2 py-0.5 rounded font-medium">${shift}</span>`;
+      if (shift.includes('Afternoon')) return `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-[11px] px-2 py-0.5 rounded font-medium">${shift}</span>`;
+      if (shift.includes('Night')) return `<span class="bg-purple-100 text-purple-800 border border-purple-200 text-[11px] px-2 py-0.5 rounded font-medium">${shift}</span>`;
+      if (shift.includes('On-call')) return `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-[11px] px-2 py-0.5 rounded font-medium">${shift}</span>`;
+      return `<span class="bg-slate-100 text-slate-600 border border-slate-200 text-[11px] px-2 py-0.5 rounded font-medium">${shift}</span>`;
+    }
+
+    // ROTATE SHIFT ON CLICK
+    const shiftSequence = ['Morning 08-16', 'Afternoon 14-22', 'Night 20-04', 'On-call', 'Day off'];
+    function cycleShift(memberIndex, dayIndex) {
+      const current = state.roster[memberIndex].shifts[dayIndex];
+      const nextIdx = (shiftSequence.indexOf(current) + 1) % shiftSequence.length;
+      state.roster[memberIndex].shifts[dayIndex] = shiftSequence[nextIdx];
+      renderRoster();
+      showToast(`Đã đổi ca trực của ${state.roster[memberIndex].name} thành: ${shiftSequence[nextIdx]}`);
+    }
+
+    function renderRoster() {
+      const tbody = document.getElementById('roster-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = state.roster.map((m, mIdx) => `
+        <tr class="hover:bg-slate-50/60 transition">
+          <td class="py-2.5 px-3 font-bold text-slate-900">${m.name}</td>
+          <td class="py-2.5 px-2 text-slate-500 font-mono text-[11px]">${m.role}</td>
+          ${m.shifts.map((s, dIdx) => `
+            <td class="py-2.5 px-2 text-center cursor-pointer select-none hover:opacity-80" onclick="cycleShift(${mIdx}, ${dIdx})">
+              ${getShiftBadgeHtml(s)}
+            </td>
+          `).join('')}
+        </tr>
+      `).join('');
+    }
+
+    // ANALYTICS TIME RANGE HANDLER
+    function setAnalyticsRange(range) {
+      ['7d', '14d', '30d'].forEach(r => {
+        const btn = document.getElementById('range-' + r);
+        if (btn) btn.className = r === range ? "px-3 py-1 rounded-lg font-semibold bg-blue-600 text-white shadow" : "px-3 py-1 rounded-lg font-medium bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200";
+      });
+      if (range === '7d') {
+        safeSetHTML('kpi-total-volume', '78');
+        safeSetHTML('kpi-resolved', '72');
+        safeSetHTML('kpi-first-response', '28m');
+        safeSetHTML('kpi-resolution-time', '1h 45m');
+      } else if (range === '14d') {
+        safeSetHTML('kpi-total-volume', '142');
+        safeSetHTML('kpi-resolved', '128');
+        safeSetHTML('kpi-first-response', '34m');
+        safeSetHTML('kpi-resolution-time', '2h 15m');
+      } else {
+        safeSetHTML('kpi-total-volume', '310');
+        safeSetHTML('kpi-resolved', '289');
+        safeSetHTML('kpi-first-response', '31m');
+        safeSetHTML('kpi-resolution-time', '2h 05m');
+      }
+      showToast(`Đã nạp số liệu báo cáo CS Analytics cho kỳ ${range}!`);
     }
 
     // SLACK CHANNEL PICKER MODAL
@@ -1322,7 +1456,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
-    // FULL MARKDOWN CS GUIDE EDITOR CONTROLLERS
+    // MARKDOWN LIVE PREVIEW CONTROLLER
     function updateGuideLivePreview() {
       const textEl = document.getElementById('admin-guide-editor-text');
       const prevEl = document.getElementById('admin-guide-editor-preview');
@@ -1381,16 +1515,27 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
       safeSetHTML('admin-statuses-list', state.config.statuses.map(s => `
         <div class="bg-slate-50 border border-slate-200 p-2.5 rounded-xl flex items-center justify-between">
-          <span class="bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-bold">${s.code}</span>
+          <div class="flex items-center space-x-1.5">
+            <span class="bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-bold">${s.code}</span>
+            <span class="bg-slate-100 text-slate-600 border border-slate-200 text-[10px] px-1.5 py-0.2 rounded font-mono font-bold">${getCrispSegmentFromStatus(s.code)}</span>
+          </div>
           <span class="text-slate-500 text-[10px]">${s.group}</span>
         </div>
       `).join(''));
 
-      safeSetHTML('admin-cs-team-list', state.config.csTeam.map(m => `
-        <div class="bg-slate-50 p-2 rounded border border-slate-200 flex justify-between items-center text-slate-800">
-          <span>${m}</span> <span class="text-blue-600 text-[10px] font-mono">@cs member</span>
-        </div>
-      `).join(''));
+      safeSetHTML('admin-cs-team-list', state.config.csTeam.map(m => {
+        const name = typeof m === 'object' ? m.name : m;
+        const uname = typeof m === 'object' ? m.username : '@cs';
+        const tag = typeof m === 'object' ? m.slackTag : '@cs';
+        return `
+          <div class="bg-slate-50 p-2 rounded border border-slate-200 flex justify-between items-center text-slate-800">
+            <div>
+              <strong class="text-slate-900">${name}</strong> <span class="text-slate-500 font-mono text-[10px] ml-1">${uname}</span>
+            </div>
+            <span class="text-blue-600 text-[10px] font-mono font-semibold">${tag}</span>
+          </div>
+        `;
+      }).join(''));
 
       safeSetHTML('admin-dev-team-list', state.config.devTeam.map(m => `
         <div class="bg-slate-50 p-2 rounded border border-slate-200 flex justify-between items-center text-slate-800">
@@ -1423,20 +1568,39 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       safeSetHTML('add-app-select', state.config.apps.map(a => `<option value="${a.code}">${a.name} (${a.code})</option>`).join(''));
       safeSetHTML('add-channel-select', state.config.slackChannels.map(c => `<option value="${c.code}">${c.code}</option>`).join(''));
 
-      const statusOptionsHtml = state.config.statuses.map(s => `<option value="${s.code}">${s.code}</option>`).join('');
+      const statusOptionsHtml = state.config.statuses.map(s => `<option value="${s.code}">${s.code} (Crisp: ${getCrispSegmentFromStatus(s.code)})</option>`).join('');
       safeSetHTML('add-status-select', statusOptionsHtml);
       safeSetHTML('transfer-status-select', statusOptionsHtml);
       safeSetHTML('edit-status-select', statusOptionsHtml);
       safeSetHTML('status-filter-select', `<option value="ALL">All Statuses</option>` + statusOptionsHtml);
 
-      safeSetHTML('transfer-to-select', state.config.csTeam.map(m => `<option value="${m}">${m}</option>`).join(''));
+      // Transfer to select dropdown: Supports CS Online and Slack username tags
+      const csOptionsForTransfer = `
+        <option value="CS online">CS online (Tự động gán cho CS online vào giờ remind)</option>
+        ${state.config.csTeam.map(m => {
+          const label = typeof m === 'object' ? `${m.username} — ${m.name} (${m.slackTag})` : `${m} (@cs)`;
+          const val = typeof m === 'object' ? `${m.username} (${m.name})` : m;
+          return `<option value="${val}">${label}</option>`;
+        }).join('')}
+      `;
+      safeSetHTML('transfer-to-select', csOptionsForTransfer);
+
+      const csOptionsForEdit = `
+        <option value="CS online">CS online (Tự động gán vào giờ remind)</option>
+        ${state.config.csTeam.map(m => {
+          const label = typeof m === 'object' ? `${m.username} — ${m.name} (${m.slackTag})` : `${m}`;
+          const val = typeof m === 'object' ? `${m.username} (${m.name})` : m;
+          return `<option value="${val}">${label}</option>`;
+        }).join('')}
+      `;
+      safeSetHTML('edit-assignee-select', csOptionsForEdit);
     }
 
     function addNewTargetAppPrompt() {
       const code = prompt('Nhập App Code ngắn (VD: APX):');
       const name = prompt('Nhập Tên đầy đủ ứng dụng:');
       if (code && name) {
-        state.config.apps.push({ code: code.toUpperCase(), name: name, });
+        state.config.apps.push({ code: code.toUpperCase(), name: name });
         renderAdminPanels();
         showToast(`Đã thêm Target App mới: ${code.toUpperCase()}!`);
       }
@@ -1459,7 +1623,12 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
     function syncSlackGroup(group) {
       if (group === 'cs') {
-        state.config.csTeam = ['Aylin Tran', 'Ngan Pham', 'Ha Tran', 'Thao Vo (Slack @cs)'];
+        state.config.csTeam = [
+          { name: 'Aylin Tran', username: '@aylin', slackTag: '@cs-aylin' },
+          { name: 'Ngan Pham', username: '@ngan', slackTag: '@cs-ngan' },
+          { name: 'Ha Tran', username: '@ha', slackTag: '@cs-ha' },
+          { name: 'Thao Vo', username: '@thao', slackTag: '@cs-thao' }
+        ];
         renderAdminPanels();
         showToast('Đã đồng bộ thành công danh sách CS Team từ Slack user group @cs!');
       } else {
@@ -1509,9 +1678,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col md:flex-row gap-4 hover:border-slate-300 transition">
           <div class="flex-1 space-y-3 text-xs">
             <div class="flex items-center justify-between flex-wrap gap-2">
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-2 flex-wrap gap-y-1">
                 <span class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded font-bold border border-slate-200 font-mono">${t.app}</span>
                 ${getStatusBadgeHtml(t.status)}
+                ${getCrispSegmentBadgeHtml(t.status)}
                 ${getUrgencyBadgeHtml(t.urgency)}
                 ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Reopened</span>` : ''}
               </div>
@@ -1536,9 +1706,9 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
               <button onclick="switchPlatform('crisp'); showToast('Đã mở cuộc trò chuyện Crisp Chat cho store ${t.storeUrl}!');" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 View Crisp
               </button>
-              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
+              <button onclick="switchPlatform('slack'); showToast('Đã mở Slack Thread của ticket ${t.id}!');" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 View Slack
-              </a>
+              </button>
               <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 Edit
               </button>
@@ -1570,7 +1740,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
       const filtered = state.tickets.filter(t => {
         const matchApp = state.activeAppFilter === 'ALL' || t.app === state.activeAppFilter;
-        const matchAssignee = state.activeAssigneeFilter === 'ALL' || t.assignedTo === 'Aylin Tran';
+        const matchAssignee = state.activeAssigneeFilter === 'ALL' || t.assignedTo.includes('Aylin Tran') || t.assignedTo.includes('@aylin');
         const matchStatus = statusFilter === 'ALL' || t.status === statusFilter;
         const matchSearch = t.requestContent.toLowerCase().includes(searchVal) ||
           t.storeUrl.toLowerCase().includes(searchVal) ||
@@ -1583,7 +1753,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       const unreadEl = document.getElementById('stat-unread');
       const plugCountEl = document.getElementById('plugin-ticket-count');
       if (totalOpenEl) totalOpenEl.innerText = state.tickets.length;
-      if (assignedMeEl) assignedMeEl.innerText = state.tickets.filter(t => t.assignedTo === 'Aylin Tran').length;
+      if (assignedMeEl) assignedMeEl.innerText = state.tickets.filter(t => t.assignedTo.includes('Aylin Tran') || t.assignedTo.includes('@aylin')).length;
       if (unreadEl) unreadEl.innerText = state.tickets.filter(t => t.unread).length;
       if (plugCountEl) plugCountEl.innerText = state.tickets.length;
 
@@ -1591,9 +1761,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:border-slate-300 transition flex flex-col md:flex-row gap-4">
           <div class="flex-1 space-y-3 text-xs">
             <div class="flex items-center justify-between flex-wrap gap-2">
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-2 flex-wrap gap-y-1">
                 <span class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded font-bold border border-slate-200 font-mono">${t.app}</span>
                 ${getStatusBadgeHtml(t.status)}
+                ${getCrispSegmentBadgeHtml(t.status)}
                 ${getUrgencyBadgeHtml(t.urgency)}
                 ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Reopened</span>` : ''}
               </div>
@@ -1606,10 +1777,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
             <div class="space-y-1">
               <div>Store URL: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-600 hover:underline font-mono font-medium">${t.storeUrl}</a></div>
               <div>Assigned to: <strong class="text-slate-800">${t.assignedTo}</strong> <span class="text-slate-500 ml-2">at ${t.timestamp}</span></div>
-              <div class="pt-1 text-slate-800">
+              <div class="pt-1 text-slate-800 leading-relaxed">
                 <strong>Request:</strong> ${t.requestContent}
               </div>
-              <div class="text-slate-500 pt-1 flex items-center gap-1">
+              <div class="text-slate-500 pt-1 flex items-center gap-1 flex-wrap">
                 Tags: ${(t.tags || []).map(tg => `<span class="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded text-[11px] font-medium">${tg}</span>`).join('')}
               </div>
             </div>
@@ -1618,9 +1789,9 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
               <button onclick="switchPlatform('crisp'); showToast('Đã mở cuộc trò chuyện Crisp Chat cho store ${t.storeUrl}!');" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 View Crisp
               </button>
-              <a href="https://slack.com" target="_blank" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
+              <button onclick="switchPlatform('slack'); showToast('Đã mở Slack Thread của ticket ${t.id}!');" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 View Slack
-              </a>
+              </button>
               <button onclick="openEditTicketModalById('${t.id}')" class="px-3 py-1.5 rounded-lg text-xs bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 font-medium transition-colors">
                 Edit
               </button>
@@ -1650,7 +1821,8 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         <div class="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2 text-xs shadow-sm">
           <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
             ${getStatusBadgeHtml(t.status)}
-            <span class="bg-red-100 text-red-700 text-[11px] px-2 py-0.5 rounded-full font-bold border border-red-200">5</span>
+            ${getCrispSegmentBadgeHtml(t.status)}
+            ${getUrgencyBadgeHtml(t.urgency)}
             ${(t.reopenCount && t.reopenCount > 0) ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-[11px] px-2 py-0.5 rounded-full font-bold">Reopened</span>` : ''}
           </div>
           <div class="text-slate-500 text-[11px]">
@@ -1683,6 +1855,10 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           </div>
           <div class="text-slate-800">Store: <a href="#" onclick="navigateToShopInfo('${t.storeUrl}')" class="text-blue-600 font-mono font-medium">${t.storeUrl}</a></div>
           <div class="text-slate-800">Request: ${t.requestContent}</div>
+          <div class="text-slate-500 pt-1 flex items-center space-x-2">
+            <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-mono text-[10px]">Thread ID: ${t.id}</span>
+            ${getCrispSegmentBadgeHtml(t.status)}
+          </div>
         </div>
       `).join(''));
     }
@@ -1704,7 +1880,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
             <div class="flex items-center space-x-3">
               <span>Domain: <a href="#" onclick="navigateToShopInfo('${r.domain}')" class="text-blue-600 font-mono font-medium hover:underline">${r.domain}</a></span>
               <span>Crisp user: <strong class="text-slate-800">${r.crispUser}</strong></span>
-              <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-2 py-0.5 rounded shadow">+ Create Ticket</button>
+              <button onclick="createTicketFromReview('${r.domain}', '${r.title}')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-2.5 py-1 rounded shadow">+ Create Ticket</button>
             </div>
           </div>
         </div>
@@ -1766,7 +1942,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         storeUrl: domain,
         status: status,
         urgency: urgency,
-        assignedTo: 'Aylin Tran',
+        assignedTo: '@aylin (Aylin Tran)',
         timestamp: 'Just now',
         requestContent: req,
         feature: feature || 'Live preview',
@@ -1776,16 +1952,20 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         unread: true
       });
 
+      const seg = getCrispSegmentFromStatus(status);
+      updateCrispLiveSegment(seg);
+
       closeAddTicketModal();
       renderTickets();
       renderShopTickets();
-      showToast(`Đã tạo Ticket ${newId} và bắn Slack Thread thành công!`);
+      showToast(`Đã tạo Ticket ${newId} và bắn Slack Thread! Crisp Segment tự động gán: [${seg}] (${getCrispSegmentName(seg)}).`);
     }
 
     function openTransferModalById(id) {
       const ticket = state.tickets.find(t => t.id === id);
       if (ticket) {
         const idInput = document.getElementById('transfer-ticket-id');
+        const toSelect = document.getElementById('transfer-to-select');
         const statSelect = document.getElementById('transfer-status-select');
         const urgSelect = document.getElementById('transfer-urgency-select');
         const featInput = document.getElementById('transfer-feature-input');
@@ -1793,6 +1973,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         const sumInput = document.getElementById('summary-note-input');
 
         if (idInput) idInput.value = ticket.id;
+        if (toSelect) toSelect.value = ticket.assignedTo || 'CS online';
         if (statSelect) statSelect.value = ticket.status;
         if (urgSelect) urgSelect.value = ticket.urgency;
         if (featInput) featInput.value = ticket.feature || 'Live preview';
@@ -1813,17 +1994,38 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       const id = document.getElementById('transfer-ticket-id').value;
       const ticket = state.tickets.find(t => t.id === id);
       if (ticket) {
-        ticket.assignedTo = document.getElementById('transfer-to-select').value;
-        ticket.status = document.getElementById('transfer-status-select').value;
+        const oldStatus = ticket.status;
+        const newStatus = document.getElementById('transfer-status-select').value;
+        const assignedTarget = document.getElementById('transfer-to-select').value;
+        const remindTime = document.getElementById('transfer-remind-input').value;
+        
+        // Auto Reopen Logic
+        const isDoneState = (st) => st === 'Done - CS' || st === 'Done' || st === 'Done - Need CS Check' || st === 'Resolved';
+        if (isDoneState(oldStatus) && !isDoneState(newStatus)) {
+          ticket.reopenCount = (ticket.reopenCount || 0) + 1;
+          showToast(`Ticket ${id} từ ${oldStatus} ➔ ${newStatus} (Reopened lần thứ ${ticket.reopenCount})!`);
+        }
+
+        ticket.assignedTo = assignedTarget;
+        ticket.status = newStatus;
         ticket.urgency = document.getElementById('transfer-urgency-select').value;
         ticket.feature = document.getElementById('transfer-feature-input').value;
         ticket.handoffNote = `"${document.getElementById('handoff-note-input').value}"`;
         ticket.summaryNote = document.getElementById('summary-note-input').value;
 
+        // Auto Crisp Segment update
+        const seg = getCrispSegmentFromStatus(newStatus);
+        updateCrispLiveSegment(seg);
+
         closeTransferModal();
         renderTickets();
         renderShopTickets();
-        showToast(`Đã bàn giao ticket ${id} cho ${ticket.assignedTo}!`);
+
+        if (assignedTarget.includes('CS online')) {
+          showToast(`Đã bàn giao ticket ${id} cho CS online (sẽ tự động điều phối cho CS trực ca lúc ${remindTime})! Crisp Segment: [${seg}] (${getCrispSegmentName(seg)}).`);
+        } else {
+          showToast(`Đã bàn giao ticket ${id} cho ${ticket.assignedTo}! Crisp Segment tự động cập nhật: [${seg}] (${getCrispSegmentName(seg)}).`);
+        }
       }
     }
 
@@ -1833,27 +2035,30 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
         const idInput = document.getElementById('edit-ticket-id');
         const chanDisp = document.getElementById('edit-channel-display');
         const statSelect = document.getElementById('edit-status-select');
-        const featInput = document.getElementById('edit-feature-input');
         const urgSelect = document.getElementById('edit-urgency-select');
+        const assignSelect = document.getElementById('edit-assignee-select');
+        const reqLocked = document.getElementById('edit-request-locked');
         const sumInput = document.getElementById('edit-summary-input');
 
         if (idInput) idInput.value = ticket.id;
         if (chanDisp) chanDisp.innerText = ticket.channel.replace('#', '');
         if (statSelect) statSelect.value = ticket.status;
-        if (featInput) featInput.value = ticket.feature || 'Live preview';
         if (urgSelect) urgSelect.value = ticket.urgency;
+        if (assignSelect) assignSelect.value = ticket.assignedTo;
+        if (reqLocked) reqLocked.value = ticket.requestContent;
         if (sumInput) sumInput.value = ticket.summaryNote || ticket.requestContent;
         state.tempEditingTags = [...(ticket.tags || [])];
 
         const headerBadges = document.getElementById('edit-modal-header-badges');
         if (headerBadges) {
           headerBadges.innerHTML = `
-            <span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">${ticket.status}</span>
-            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-bold">5</span>
+            ${getStatusBadgeHtml(ticket.status)}
+            ${getCrispSegmentBadgeHtml(ticket.status)}
+            ${getUrgencyBadgeHtml(ticket.urgency)}
             ${(ticket.reopenCount && ticket.reopenCount > 0) ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs px-2.5 py-0.5 rounded-full font-bold">Reopened</span>` : ''}
           `;
         }
-
+        
         const countLabel = document.getElementById('edit-reopen-count-label');
         if (countLabel) {
           if (ticket.reopenCount && ticket.reopenCount > 0) {
@@ -1864,9 +2069,31 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
           }
         }
 
+        renderEditTagsPillList();
+
         const modal = document.getElementById('modal-edit-ticket');
         if (modal) modal.classList.remove('hidden');
       }
+    }
+
+    function renderEditTagsPillList() {
+      const list = document.getElementById('edit-tags-pill-list');
+      if (!list) return;
+      if (state.tempEditingTags.length === 0) {
+        list.innerHTML = `<span class="text-slate-400 text-xs italic">No tags selected</span>`;
+        return;
+      }
+      list.innerHTML = state.tempEditingTags.map(tg => `
+        <span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-[11px] font-medium flex items-center gap-1">
+          ${tg}
+          <button onclick="removeTagFromTemp('${tg}')" class="text-blue-500 hover:text-red-600 font-bold">✕</button>
+        </span>
+      `).join('');
+    }
+
+    function removeTagFromTemp(tg) {
+      state.tempEditingTags = state.tempEditingTags.filter(t => t !== tg);
+      renderEditTagsPillList();
     }
 
     function closeEditTicketModal() {
@@ -1908,14 +2135,31 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
+    function addNewMasterTag() {
+      const input = document.getElementById('new-tag-input');
+      if (input && input.value.trim()) {
+        const val = input.value.trim();
+        if (!availableTagsMaster.includes(val)) {
+          availableTagsMaster.push(val);
+        }
+        if (!state.tempEditingTags.includes(val)) {
+          state.tempEditingTags.push(val);
+        }
+        input.value = '';
+        renderTaggingSelectionList();
+        showToast(`Đã thêm tag mới: ${val}`);
+      }
+    }
+
     function deselectAllTags() {
       state.tempEditingTags = [];
       renderTaggingSelectionList();
     }
 
     function applyTagSelection() {
+      renderEditTagsPillList();
       closeTaggingModal();
-      showToast('Đã cập nhật danh sách Tags cho Ticket!');
+      showToast('Đã áp dụng danh sách Tags cho Ticket!');
     }
 
     function handleEditTicketSubmit() {
@@ -1924,24 +2168,28 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       if (ticket) {
         const oldStatus = ticket.status;
         const newStatus = document.getElementById('edit-status-select').value;
-
-        // Auto Reopen Logic: Transition from Done -> Open status
-        const isDoneState = (st) => st === 'Done - CS' || st === 'Done' || st === 'Resolved';
+        
+        // Auto Reopen Logic
+        const isDoneState = (st) => st === 'Done - CS' || st === 'Done' || st === 'Done - Need CS Check' || st === 'Resolved';
         if (isDoneState(oldStatus) && !isDoneState(newStatus)) {
           ticket.reopenCount = (ticket.reopenCount || 0) + 1;
           showToast(`Ticket ${id} từ ${oldStatus} ➔ ${newStatus} (Reopened lần thứ ${ticket.reopenCount})! Badge Reopened đã tự động được gán.`);
         }
-
+        
         ticket.status = newStatus;
-        ticket.feature = document.getElementById('edit-feature-input').value;
         ticket.urgency = document.getElementById('edit-urgency-select').value;
+        ticket.assignedTo = document.getElementById('edit-assignee-select').value;
         ticket.tags = [...state.tempEditingTags];
         ticket.summaryNote = document.getElementById('edit-summary-input').value;
 
+        // Auto Crisp Segment
+        const seg = getCrispSegmentFromStatus(newStatus);
+        updateCrispLiveSegment(seg);
+        
         closeEditTicketModal();
         renderTickets();
         renderShopTickets();
-        showToast(`Đã lưu thay đổi cho ticket ${id}!`);
+        showToast(`Đã lưu thay đổi cho ticket ${id}! Đã tự động cập nhật Crisp Segment: [${seg}] (${getCrispSegmentName(seg)}).`);
       }
     }
 
@@ -1955,7 +2203,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
 
     function filterByApp(app) {
       state.activeAppFilter = app;
-      state.config.apps.concat([{ code: 'ALL' }]).forEach(a => {
+      state.config.apps.concat([{code:'ALL'}]).forEach(a => {
         const btn = document.getElementById('appbtn-' + a.code);
         if (btn) btn.className = a.code === app ? "px-3 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shadow" : "px-3 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200";
       });
@@ -1966,7 +2214,7 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       state.activeAssigneeFilter = state.activeAssigneeFilter === mode ? 'ALL' : mode;
       const btn = document.getElementById('filter-me-btn');
       if (btn) {
-        btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1 rounded-lg text-xs bg-blue-600 text-white font-bold shadow" : "px-3 py-1 rounded-lg text-xs bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200 font-medium";
+        btn.className = state.activeAssigneeFilter === 'ME' ? "px-3 py-1.5 rounded-lg text-xs bg-blue-600 text-white font-bold shadow" : "px-3 py-1.5 rounded-lg text-xs bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200 font-medium";
       }
       renderTickets();
     }
@@ -1999,6 +2247,27 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
+    function sendCrispMessage(isNote) {
+      const input = document.getElementById('crisp-reply-input');
+      if (!input || !input.value.trim()) return;
+      const text = input.value.trim();
+      const stream = document.getElementById('crisp-chat-stream');
+      if (stream) {
+        const div = document.createElement('div');
+        if (isNote) {
+          div.className = "bg-amber-50 text-amber-900 border border-amber-200 p-2.5 rounded-xl max-w-md ml-auto text-xs italic";
+          div.innerHTML = `<strong>Internal Note:</strong> ${text}`;
+        } else {
+          div.className = "bg-blue-600 text-white p-3 rounded-2xl max-w-md ml-auto text-xs";
+          div.innerText = text;
+        }
+        stream.appendChild(div);
+        stream.scrollTop = stream.scrollHeight;
+        input.value = '';
+        showToast(isNote ? 'Đã lưu ghi chú nội bộ Crisp Chat!' : 'Đã gửi phản hồi tới khách hàng!');
+      }
+    }
+
     function showToast(msg) {
       const container = document.getElementById('toast-container');
       if (container) {
@@ -2010,14 +2279,14 @@ Quy trình vận hành chuẩn hóa dành cho nhân viên Customer Support (CS A
       }
     }
 
-    window.onload = function () {
+    window.onload = function() {
       renderAdminPanels();
       renderTickets();
       renderReviews();
       renderShopTickets();
+      renderRoster();
       renderCSGuideMarkdownView();
     };
   </script>
 </body>
-
 </html>

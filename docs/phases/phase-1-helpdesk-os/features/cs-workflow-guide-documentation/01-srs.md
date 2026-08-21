@@ -46,6 +46,11 @@ Tài liệu Đặc tả Yêu cầu Phần mềm (SRS) cho màn hình **CS Workfl
     3. **3. Quy Tắc 2 Thẻ Ghi Chú Vàng (Dual Yellow Note Cards)**:
        - *Card 1 - Note transfer case*: Ghi chú ngắn hạn ca trực giữa các CS với nhau (được ghi đè theo từng ca).
        - *Card 2 - Summary note*: Tóm tắt bản chất kỹ thuật gốc lưu trong DB (tự động nạp vào Form Transfer).
+    4. **4. Quy Tắc Gán Segment Tự Động Trên Crisp (Auto Segment Rules)**:
+       - *NW (no one waiting)*: Áp dụng khi ticket đã giải quyết xong hoặc không còn ai phải chờ (`Done - CS`, `Done - Need CS Check`, `Uninstall`, `Rejected - Dev lead`, `Done`, `Resolved`).
+       - *WR (waiting reply)*: Áp dụng khi Dev/CS đã phản hồi và đang chờ khách trả lời (`Đã check - Dev`, `Fl up 1 (12h)`, `Fl up 2 (24h)`, `Fl up 3 (36h)`).
+       - *POC (pending on customer)*: Áp dụng khi chờ thông tin bổ sung từ merchant (`CHỜ KHÁCH - CS`, `Chờ CS`, `Chờ collab - CS`).
+       - *POD (pending on dev)*: Áp dụng khi yêu cầu đang nằm trong hàng đợi hoặc kỹ sư Dev đang trực tiếp xử lý (`Chờ check - Dev`, `Đang check - Dev`).
 - **Dynamic Content Synchronization**:
   - Khi nội dung được chỉnh sửa và bấm Publish trong Admin Settings, nội dung trên màn hình CS Workflow Guide tự động cập nhật ngay lập tức mà không cần reload trang.
 

@@ -76,7 +76,9 @@ Tài liệu Đặc tả Yêu cầu Phần mềm (SRS) cho màn hình **Admin & S
   3. Thanh lọc App Filter trên Dashboard và danh sách App ở Sidebar tự động cập nhật ngay lập tức.
 - **3.2. Duplicate Channel Prevention**: Trong Modal Slack Channel Picker, các kênh đã tồn tại trong `state.config.slackChannels` bắt buộc ở trạng thái `disabled`, hiển thị nhãn `Already Mapped` để tránh ánh xạ trùng lặp.
 - **3.3. Real-time Live Markdown Preview**: Mọi ký tự gõ vào `#admin-guide-editor-text` lập tức kích hoạt `updateGuideLivePreview()` để parse và hiển thị trên `#admin-guide-editor-preview` với độ trễ < 50ms.
-- **3.4. Slack User Group Sync Integration**: Nút `Sync @cs` và `Sync @dev` cập nhật mảng nhân sự tương ứng và làm mới danh sách `transfer-to-select` trong Modal Transfer Ticket.
+- **3.4. Slack User Group Sync & Transfer Recipient Routing**: Nút `Sync @cs` và `Sync @dev` cập nhật mảng nhân sự tương ứng. Danh sách `transfer-to-select` trong Modal Transfer Ticket hỗ trợ:
+  - Chọn tài khoản CS theo `@username` kèm tên đầy đủ và tag Slack cá nhân (VD: `@aylin — Aylin Tran (@cs-aylin)`).
+  - Tùy chọn đặc biệt **`CS online`**: Tự động gán ticket cho nhân sự CS trực ca vào đúng khung giờ nhắc nhở (`Remind time`).
 - **3.5. Plain UI & No-Emoji Policy**: Toàn bộ các nút bấm và nhãn trong Admin Settings tuân thủ thiết kế plain text, không dùng icon emoji.
 
 ---

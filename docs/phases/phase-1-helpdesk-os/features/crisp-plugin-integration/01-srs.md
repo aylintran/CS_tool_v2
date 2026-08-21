@@ -29,8 +29,14 @@ Tài liệu Đặc tả Yêu cầu Phần mềm (SRS) cho **Crisp Livechat & Sid
 ### 2.1 In Scope
 - **Crisp Chat Simulation Area (`#platform-crisp`)**:
   - Khung hội thoại Livechat: Tên khách hàng (`Woodesign Ireland`), Store URL, trạng thái online (`● Live`), nhãn kênh `Crisp Livechat`.
+  - **Auto Crisp Segment Badge**: Hiển thị Segment viết tắt tự động gán theo trạng thái ticket (`NW`, `WR`, `POC`, `POD`).
   - Khung luồng tin nhắn trao đổi giữa Merchant và CS Agent.
   - Ô nhập phản hồi (`Reply to customer...`), nút `Send Reply` và nút `Internal Note`.
+- **Crisp Auto Segment Mapping Rules**:
+  - `NW` (no one waiting): Khi ticket hoàn thành hoặc không ai phải chờ (`Done - CS`, `Done - Need CS Check`, `Uninstall`, `Rejected - Dev lead`, `Done`).
+  - `WR` (waiting reply): Khi CS/Dev đã phản hồi và đang chờ khách trả lời (`Đã check - Dev`, `Fl up 1 (12h)`, `Fl up 2 (24h)`, `Fl up 3 (36h)`).
+  - `POC` (pending on customer): Khi chờ thông tin bổ sung từ merchant (`CHỜ KHÁCH - CS`, `Chờ CS`, `Chờ collab - CS`).
+  - `POD` (pending on dev): Khi đang trong hàng đợi xử lý của Dev (`Chờ check - Dev`, `Đang check - Dev`).
 - **Crisp Right Sidebar Plugin (`#plugin-content-tickets`, `#plugin-content-store`)**:
   - **Tab Controls**: Tab `Tickets (N)` (`#plugtab-tickets`) và Tab `Store info` (`#plugtab-store`).
   - **Quick Action Header**: Nút `+ Add ticket` mở Modal tạo ticket mới với domain của phiên chat hiện tại được điền tự động.

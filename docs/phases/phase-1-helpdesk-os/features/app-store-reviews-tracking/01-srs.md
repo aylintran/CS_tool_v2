@@ -2,12 +2,12 @@
 feature_slug: app-store-reviews-tracking
 phase_slug: phase-1-helpdesk-os
 doc_type: srs
-version: 1.0
-status: draft
+version: 2.1
+status: approved
 owner: "@ba"
 reviewers: ["@po", "@tech-lead", "@qa-lead"]
 created_at: 2026-08-20
-last_updated: 2026-08-20
+last_updated: 2026-08-21
 links:
   related_docs:
     - ../../00-prd.md
@@ -20,59 +20,135 @@ consumed_by:
 # SRS: App Store Customer Reviews & Automated 3-Way Tracking (`app-store-reviews-tracking`)
 
 ## 1. Purpose
-Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho màn hình **App Store Customer Reviews** tích hợp tính năng **Tracking 3 Chiều Tự Động (Store Review ➔ Store Domain ➔ Crisp Chat ID)**. Màn hình giúp CS xem biểu đồ phân bố sao, danh mục khiếu nại hàng đầu, danh sách các bài review từ Shopify App Store, và chủ động mở phiên chat Crisp hoặc xem thông tin Shop 360° để hỗ trợ khách hàng ngay lập tức.
+Tài liệu Đặc tả Yêu cầu Phần mềm (SRS) cho màn hình **App Store Reviews** trong Internal Web App thuộc hệ thống Helpdesk OS. Tính năng này giải quyết bài toán tiếp nhận và xử lý khiếu nại của merchant từ Shopify App Store thông qua cơ chế **Tracking 3 Chiều Tự Động (Store Review ➔ Store Domain ➔ Crisp Chat ID)**, hỗ trợ CS Agent phân tích các chủ đề khiếu nại phổ biến, mở nhanh cuộc trò chuyện Crisp với merchant, điều hướng sang Shop 360°, và chuyển đổi 1-click từ bài review thành ticket kỹ thuật trên Slack.
 
 ---
 
 ## 2. Scope
 
 ### 2.1 In Scope
-- **Tracking 3 Chiều Tự Động**: Tự động khớp tên merchant/review trên Shopify App Store với Store Domain và phiên Crisp Chat ID của merchant đó.
-- **Top Stats Grid**: Biểu đồ Rating Breakdown (5★ -> 1★) và danh sách Top Complaint Themes (Scanner freeze, Billing...).
-- **Recent Reviews Feed Item**:
-  - Rating (sao), Tiêu đề review, Category badge (`Bug signal`, `Positive`...), Timestamp, Author details.
-  - **Khung metadata tracking**: Hiển thị `Store Domain` (link clickable) và nút **`Crisp`**.
-  - **Bộ nút tác vụ**: `Create ticket` (pre-fill form), `Crisp`, và **`Store Info`** (chuyển thẳng tới Shop 360°).
+- **3-Way Auto Linking Banner**:
+  - Banner giới thiệu cơ chế liên kết 3 chiều thông minh (`Store Review ➔ Store Domain ➔ Crisp Chat ID`).
+- **Rating & Complaint Themes Summary**:
+  - Khung thống kê điểm đánh giá trung bình: `4.8 / 5.0 (96 reviews)`, số lượng review tiêu cực `reviews < 3 stars (12)`.
+  - Khung phân tích chủ đề khiếu nại hàng đầu (Top Complaint Themes): `CSS layout issue`, `Option loading slow`, `Pricing confusion`.
+- **Reviews Feed Container (`#reviews-list-container`)**:
+  - Danh sách bài đánh giá render động từ `state.reviews` qua hàm `renderReviews()`.
+  - Cấu trúc mỗi thẻ review:
+    - Dòng tiêu đề: Điểm số sao (`5/5`, `1/5`), Tiêu đề đánh giá, Badge phân loại (VD: `Positive Feedback` nền xanh, `Negative - Needs Outreach` nền đỏ), Thời gian đánh giá.
+    - Dòng nội dung: Văn bản phản hồi chi tiết từ merchant.
+    - Dòng Footer: Tên tác giả (`Author`), Domain cửa hàng (link gọi `navigateToShopInfo(domain)`), Tên người dùng Crisp (`Crisp user`), và nút tác vụ `+ Create Ticket`.
+- **1-Click Ticket Creation Workflow (`createTicketFromReview(domain, title)`)**:
+  - Tự động nạp `domain` vào ô `#add-domain-input`.
+  - Tự động nạp chuỗi `Review khiếu nại: [Title]` vào ô `#add-request-input`.
+  - Mở Modal Add Ticket để CS chọn App, Channel, và bắn Slack Thread.
 
 ### 2.2 Out of Scope
-- Tự động xóa các review xấu trên Shopify App Store (phải tuân thủ chính sách Shopify).
+- Tự động phản hồi lên trang công khai Shopify App Store mà không qua tài khoản Shopify Partners của Admin.
 
 ---
 
 ## 3. Key Business Rules
 
-- **3.1. 3-Way Auto Linking**: Mỗi bài review kéo về từ Shopify App Store API được hệ thống quét thuật toán matching (Email / Store Domain / Author) để tìm Crisp Chat ID tương ứng.
-- **3.2. One-click Ticket Conversion**: Bấm `Create ticket` từ bài review sẽ tự động mở Form Add Ticket với Store Domain và nội dung review được điền sẵn.
-- **3.3. Store Info Navigation**: Bấm nút `Store Info` hoặc click vào Store Domain sẽ điều hướng CS thẳng tới màn hình Shop 360° của cửa hàng đó.
+- **3.1. 3-Way Auto Resolution Algorithm**: Khi có review mới từ Shopify App Store, hệ thống tự động đối chiếu thông tin tác giả, email và tên cửa hàng để tìm ra:
+  1. Store Domain chính xác trên hệ thống.
+  2. Crisp Chat Session ID tương ứng của merchant đó.
+- **3.2. 1-Click Ticket Conversion**: Khi CS click vào nút `+ Create Ticket` trên bất kỳ thẻ review nào:
+  1. Gọi hàm `createTicketFromReview(domain, title)`.
+  2. Điền tự động `domain` vào form tạo ticket.
+  3. Điền tự động mô tả `Review khiếu nại: [title]` vào ô yêu cầu.
+  4. Mở Modal Add Ticket `#modal-add-ticket`.
+- **3.3. Shop 360° Seamless Navigation**: Click vào tên domain cửa hàng tại dòng footer của thẻ review sẽ kích hoạt hàm `navigateToShopInfo(domain)` để chuyển ngay sang view Shop 360° của cửa hàng đó.
+- **3.4. No-Emoji Plain Styling**: Toàn bộ các nút bấm và nhãn trạng thái trong màn hình Reviews đều áp dụng phong cách plain button, không chứa icon emoji.
 
 ---
 
-## 4. QA Scenarios
+## 4. Domain Model
 
-1. Kiểm tra hiển thị biểu đồ Rating Breakdown và Top Complaint Themes chính xác.
-2. Kiểm tra mỗi thẻ Review hiển thị đúng số sao, tiêu đề, tác giả, và badge loại review.
-3. Kiểm tra khung metadata hiển thị Store Domain matched và nút `Crisp`.
-4. Kiểm tra click `Cris` mở đúng phiên chat của merchant đó trên Crisp.
-5. Kiểm tra click `Store Info` trên thẻ review điều hướng thành công tới màn hình Shop 360°.
-6. Kiểm tra click `Create ticket` mở Form Add Ticket pre-fill sẵn thông tin Store Domain và nội dung review.
-7. Kiểm tra gửi ticket tạo từ review xuất hiện bài post trên Slack Thread.
-8. Kiểm tra hiển thị banner hướng dẫn Tracking 3 chiều tự động ở trên cùng màn hình.
+### 4.1 Entities
+- `AppReview`:
+  - `id` (string): ID bài review.
+  - `stars` (string): Số sao đánh giá (e.g. `5/5`, `1/5`).
+  - `title` (string): Tiêu đề bài đánh giá.
+  - `content` (string): Nội dung chi tiết.
+  - `badge` (string): Nhãn phân loại (e.g. `Negative - Needs Outreach`).
+  - `badgeColor` (string): CSS classes cho màu badge.
+  - `time` (string): Thời gian đăng.
+  - `author` (string): Tên tác giả.
+  - `domain` (string): Domain cửa hàng được ánh xạ.
+  - `crispUser` (string): Tên profile trên Crisp Chat.
 
 ---
 
-## 5. User Stories
+## 5. Data Model & Validation Rules
 
-### Story: US-04 — CS chuyển Review tiêu cực thành Ticket hỗ trợ và mở Crisp Chat 1-click
+| Field | Type | Required | Default | Rule |
+| :--- | :--- | :--- | :--- | :--- |
+| `title` | string | Yes | None | Tiêu đề review từ Shopify App Store. |
+| `content` | string | Yes | None | Nội dung bài đánh giá. |
+| `domain` | string | Yes | None | Domain merchant được hệ thống tự động nhận diện. |
+| `crisp_user` | string | No | `""` | Tên tài khoản chat trên Crisp nếu khớp được session. |
+
+---
+
+## 6. State Transitions
+
+- **Chuyển đổi Review sang Ticket**:
+  - `Review độc lập ➔ Click Create Ticket ➔ Pre-fill Modal ➔ Tạo Ticket thành công ➔ Đẩy Slack Thread`.
+
+---
+
+## 7. Runtime/behavior contract
+
+- **Input**: Mảng `state.reviews`.
+- **Output**: Render danh sách thẻ review vào `#reviews-list-container` qua `safeSetHTML`.
+- **Fallback**: Nếu chưa có bài review nào, hiển thị thông báo an toàn `Chưa có bài đánh giá nào.`
+
+---
+
+## 8. QA Scenarios
+
+1. Kiểm tra màn hình Reviews hiển thị banner 3-Way Auto Linking ở trên cùng.
+2. Kiểm tra khối thống kê hiển thị điểm số trung bình `4.8 / 5.0 (96 reviews)` và số review tiêu cực `reviews < 3 stars (12)`.
+3. Kiểm tra danh sách Top Complaint Themes hiển thị đủ các nhóm vấn đề (CSS layout, Option loading, Pricing).
+4. Kiểm tra danh sách thẻ review render đúng số sao, tiêu đề, nội dung và tên tác giả.
+5. Kiểm tra bài review 1 sao có badge màu đỏ `Negative - Needs Outreach`.
+6. Kiểm tra bài review 5 sao có badge màu xanh lá `Positive Feedback`.
+7. Kiểm tra click vào Store Domain trên thẻ review điều hướng thành công sang màn hình Shop 360° với domain tương ứng.
+8. Kiểm tra click `+ Create Ticket` trên bài review mở Modal Add Ticket với trường Store Domain và Request Content đã được nạp sẵn.
+9. Kiểm tra lưu tạo ticket từ review: ticket mới xuất hiện trên CS Dashboard và có đầy đủ thông tin domain.
+10. Kiểm tra các nút trong màn hình Reviews không chứa icon emoji.
+11. Kiểm tra màu sắc và độ tương phản chuẩn Light Mode.
+12. Kiểm tra hàm `createTicketFromReview` hoạt động an toàn kể cả khi ô input form chưa được render.
+13. Kiểm tra thông tin `Crisp user` hiển thị đúng tên merchant tương ứng.
+14. Kiểm tra Toast thông báo hiển thị sau khi tạo ticket từ review thành công.
+15. Kiểm tra danh sách review cuộn mượt mà trên custom scrollbar.
+
+---
+
+## 9. Implementation notes for AI code generation
+
+- **Preserved DOM Identifiers**: `reviews-list-container`, `modal-add-ticket`, `add-domain-input`, `add-request-input`.
+- **Defensive Rendering**: Sử dụng `safeSetHTML('reviews-list-container', ...)` để chống crash DOM.
+
+---
+
+## 10. Final implementation assumptions to review
+
+- Cơ chế 3-way matching hoạt động dựa trên thuật toán so khớp domain và email đã định danh trong cơ sở dữ liệu.
+
+---
+
+## 11. User Stories
+
+### Story: US-01 — CS chuyển đổi Review tiêu cực thành Ticket hỗ trợ 1-click
 **As a** CS Agent  
-**I want to** xem bài đánh giá kém sao trên App Store Feed, thấy ngay Store Domain và nút mở Crisp Chat  
-**So that** mở chat hỗ trợ merchant tức thì và chuyển review đó thành Ticket xử lý trên Slack.
+**I want to** bấm nút `+ Create Ticket` trực tiếp từ bài review 1 sao trên App Store  
+**So that** hệ thống tự động điền sẵn domain và nội dung khiếu nại vào ticket để tôi gửi ngay cho Dev team hỗ trợ.
 
 #### Acceptance Criteria (Gherkin)
-- **Given** CS đang ở màn hình App Store Customer Reviews  
-  **When** CS thấy bài review 1 sao về lỗi Scanner freeze từ store `kaifit.myapp.io`  
-  **Then** Khung metadata hiển thị `Store Domain: kaifit.myapp.io` và nút `Cris (Mykola)`  
-  **When** CS bấm `Create ticket`  
-  **Then** Form Add Ticket mở ra với Store Domain `kaifit.myapp.io` và nội dung review được điền sẵn.
-
-### Links
-- Business rule: [SRS Section 3.1](#31-3-way-auto-linking) & [Section 3.2](#32-one-click-ticket-conversion)
+- **Given** CS đang xem màn hình App Store Reviews và thấy bài review 1 sao của `kaifit.myapp.io`  
+  **When** CS click vào nút `+ Create Ticket`  
+  **Then** Modal Add Ticket tự động mở ra  
+  **And** Ô Store Domain được điền sẵn `kaifit.myapp.io`  
+  **And** Ô Request Content được điền sẵn `Review khiếu nại: [Title của review]`.

@@ -2,12 +2,12 @@
 feature_slug: crisp-plugin-integration
 phase_slug: phase-1-helpdesk-os
 doc_type: srs
-version: 1.0
-status: draft
+version: 2.1
+status: approved
 owner: "@ba"
 reviewers: ["@po", "@tech-lead", "@qa-lead"]
 created_at: 2026-08-20
-last_updated: 2026-08-20
+last_updated: 2026-08-21
 links:
   related_docs:
     - ../../00-prd.md
@@ -20,54 +20,75 @@ consumed_by:
 # SRS: Crisp Plugin Integration & Ticket / Store Controls (`crisp-plugin-integration`)
 
 ## 1. Purpose
-Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho Sidebar Plugin tích hợp trực tiếp bên trong giao diện Crisp Chat. Plugin giúp nhân viên CS tiếp nhận chat của merchant, kiểm tra thông tin Store Domain / Sub-domain / Visitor Data, tạo Ticket đẩy lên Slack Thread dưới tên cá nhân CS, và thực hiện chuyển giao ca trực (Transfer Ticket).
+Tài liệu Đặc tả Yêu cầu Phần mềm (SRS) cho **Crisp Livechat & Sidebar Plugin Simulator** trong hệ thống Helpdesk OS. Module này cung cấp không gian làm việc tích hợp: mô phỏng hội thoại Livechat trực tiếp với merchant và bảng điều khiển Helpdesk OS Plugin tại sidebar bên phải, cho phép CS Agent xem thông tin cửa hàng, quản lý danh sách sub-domains, đọc live Visitor Metadata, tạo ticket đẩy lên Slack Thread dưới danh nghĩa cá nhân (Slack OAuth User Token), và quản lý/chuyển giao ticket trực tiếp trong lúc chat.
 
 ---
 
 ## 2. Scope
 
 ### 2.1 In Scope
-- **Crisp Sidebar Plugin View Layout**:
-  - **Top Bar**: Ô tìm kiếm real-time `🔍 Search by request` & Nút bấm `Add ticket`.
-  - **Store Meta Header**: Hiển thị `Store URL` và `Sub domain` tương ứng với đoạn chat Crisp.
-  - **Danh sách thẻ Ticket**: Mỗi thẻ ticket hiển thị:
-    - Badge trạng thái (`🟡 Đang check`, `🟢 done`...) & Comment counter badge (`🔴 5`).
-    - Thông tin `Channel`, `Assigned to` (CS đảm nhận), timestamp (`at: hh:mm dd/mm/yyyy`).
-    - Nội dung `Request` và nhãn `Feature`.
-    - Bộ 3 nút tác vụ: `Edit`, `View Slack`, `Transfer`.
-  - **Footer**: Hiển thị tên nhân viên CS đang trực (`CS name: <Name>`).
-- **Form Add Ticket**: Form tạo ticket gồm các trường: Target App (`APO`, `APB`, `ACS`), Slack Channel (`#apo-paid-task`, `#apo-urgent-case`...), Status (12 trạng thái), Urgency (1/2), Feature Tag, Request Content.
-- **Form Transfer Ticket**: Modal bàn giao ca trực gồm các trường: `Transfer to` (chọn CS nhận ca), `Remind` (ngày giờ nhắc nhở), `Status` (12 trạng thái), `Urgency` (1/2), `Handoff note` (ghi chú ca trực) và nút `Submit Note`.
+- **Crisp Chat Simulation Area (`#platform-crisp`)**:
+  - Khung hội thoại Livechat: Tên khách hàng (`Woodesign Ireland`), Store URL, trạng thái online (`● Live`), nhãn kênh `Crisp Livechat`.
+  - Khung luồng tin nhắn trao đổi giữa Merchant và CS Agent.
+  - Ô nhập phản hồi (`Reply to customer...`), nút `Send Reply` và nút `Internal Note`.
+- **Crisp Right Sidebar Plugin (`#plugin-content-tickets`, `#plugin-content-store`)**:
+  - **Tab Controls**: Tab `Tickets (N)` (`#plugtab-tickets`) và Tab `Store info` (`#plugtab-store`).
+  - **Quick Action Header**: Nút `+ Add ticket` mở Modal tạo ticket mới với domain của phiên chat hiện tại được điền tự động.
+  - **Tab Tickets Content**:
+    - Hiển thị thông tin Store URL đang chat (VD: `61cde3-42.myshopify.com`).
+    - Danh sách ticket cards thu nhỏ (`#plugin-tickets-container`): Status Badge, Urgency Badge, Reopened Badge, Channel name, Assigned to, Timestamp, Request summary, Feature name (`Live preview`).
+    - Cụm Action Buttons: `Edit` (mở Modal Edit), `View Slack` (chuyển sang tab mô phỏng Slack Thread), `Transfer` (mở Modal Transfer).
+  - **Tab Store Info Content**:
+    - Quản lý Sub-domains: Ô nhập sub-domain mới (`#new-subdomain-input`), nút `+` (`addSubdomain()`), và danh sách tag pills hiển thị sub-domains đã gắn (`#subdomain-list`).
+    - Bảng dữ liệu **Visitor Data (Live Meta)**: Bảng chia 2 cột hiển thị các tham số live:
+      - `store_url`: Domain cửa hàng.
+      - `store_id`: Mã ID cửa hàng Shopify.
+      - `store_country`: Quốc gia của merchant.
+      - `store_plan`: Gói cước Shopify (e.g. `Shopify Premium`).
+      - `store_email`: Email tài khoản quản trị store.
+      - `user_agent`: Thông tin trình duyệt/thiết bị của merchant.
+      - `add_charge`: Mã version cước phí (e.g. `V3`).
+      - `app_version`: Phiên bản app đang cài đặt (e.g. `v2`).
+      - `app_plan`: Gói cước ứng dụng (e.g. `FREE`, `GROWTH`).
+      - `pricing_ver`: Version bảng giá áp dụng (e.g. `v5`).
 
 ### 2.2 Out of Scope
-- **Add Sub-domain**: Tính năng thêm và quản lý sub-domain thuộc phạm vi màn hình **Shop 360° Detail** (Crisp Plugin chỉ hiển thị read-only các sub-domain đã được thêm).
-- Chỉnh sửa trực tiếp tin nhắn gốc trên Crisp Chat.
-- Quản lý phân quyền tài khoản admin Slack (thuộc về Slack App Configuration).
+- Tự động thay đổi mã theme Liquid trực tiếp từ trong khung chat Crisp mà không có sự xác nhận của merchant.
+- Nhúng gọi video/audio call (chỉ hỗ trợ Livechat text).
 
 ---
 
 ## 3. Key Business Rules
 
-- **3.1. Slack OAuth Integration**: Khi CS bấm `Gửi Ticket lên Slack`, hệ thống sử dụng Slack User OAuth Token của chính CS đó (ví dụ: Aylin Tran) để post bài vào Slack Channel được chọn.
-- **3.2. Auto Domain Matching**: Plugin tự động lấy Crisp Website ID / Visitor URL để tra cứu Store Domain và Sub-domains tương ứng trong DB.
-- **3.3. Dual Note Structure**:
-  - `Handoff / Transfer note`: Ghi chú ngắn hạn cho ca trực (không lưu dài hạn).
-  - `Summary note`: Tóm tắt cốt lõi ticket lưu cố định trong DB, tự động fill vào Transfer modal khi mở.
-- **3.4. Sub-domain Tracking**: Khi một sub-domain mới được thêm thành công, tất cả ticket liên quan đến sub-domain đó sẽ được tự động gom vào danh sách ticket của Store.
+- **3.1. Pre-filled Domain on Ticket Creation**: Khi CS bấm `+ Add ticket` từ thanh tiêu đề của Crisp Plugin, hệ thống bắt buộc tự động gán giá trị Store Domain hiện tại của phiên chat (e.g. `61cde3-42.myshopify.com`) vào ô `#add-domain-input` trong Modal Add Ticket.
+- **3.2. Dynamic Sub-domain Association**: Khi CS gõ một sub-domain mới vào ô `#new-subdomain-input` và bấm `+`:
+  1. Kiểm tra chuỗi không được để trống.
+  2. Tạo mới một tag pill sub-domain màu xanh nhạt (`bg-slate-100 text-slate-800 text-[10px] px-2 py-0.5 rounded border border-slate-300 font-mono`).
+  3. Gắn sub-domain này vào danh sách sub-domains của store trong DB.
+  4. Hiển thị Toast thông báo: `Đã gắn sub-domain [Val] vào tracking store!`.
+- **3.3. Slack OAuth User Token Execution**: Khi ticket được tạo từ Crisp Plugin và bật tùy chọn `Auto-trigger Slack Thread`, bài post trên Slack bắt buộc hiển thị tác giả là tài khoản cá nhân của CS (Aylin Tran) thay vì Bot chung, giúp Dev nhận diện đúng người phụ trách để reply trực tiếp.
+- **3.4. Tab State Persistence**: Khi chuyển đổi qua lại giữa Tab `Tickets` và `Store info`, trạng thái form và danh sách dữ liệu được giữ nguyên vẹn mà không bị tải lại toàn bộ plugin.
+- **3.5. Plain UI & No-Emoji Policy**: Toàn bộ các nút bấm và nhãn trong Crisp Plugin đều tuân thủ phong cách plain text, không dùng icon emoji.
 
 ---
 
 ## 4. Domain Model
 
 ### 4.1 Entities
-- `CrispSession`: Lưu thông tin session chat Crisp (website_id, session_id, visitor_email).
-- `StoreInfo`: Thông tin cửa hàng (store_domain, sub_domains, store_id, country, app_plan, visitor_data).
-- `Ticket`: Vé hỗ trợ (ticket_id, store_domain, status, urgency, assigned_to, request_content, summary_note, handoff_note, tags).
-
-### 4.2 Enums
-- `TargetApp`: `APO`, `APB`, `ACS`.
-- `UrgencyLevel`: `1` (Khẩn cấp), `2` (Bình thường).
-- `TicketStatus`: 12 trạng thái custom (`Chờ collab - CS`, `Chờ check - Dev`, `Đang check - Dev`, `Đã check - Dev`, `Rejected - Dev lead`, `CHỜ KHÁCH - CS`, `Chờ CS`, `Uninstall`, `Done - CS`, `Fl up 1 (12h)`, `Fl up 2 (24h)`, `Fl up 3 (36h)`).
+- `CrispVisitorMeta`:
+  - `storeUrl` (string): URL chính của merchant.
+  - `storeId` (string): ID duy nhất trên Shopify.
+  - `storeCountry` (string): Tên quốc gia.
+  - `storePlan` (string): Gói cước Shopify.
+  - `storeEmail` (string): Email merchant.
+  - `userAgent` (string): Thông tin User-Agent.
+  - `addCharge` (string): Mã phụ phí.
+  - `appVersion` (string): Version app.
+  - `appPlan` (string): Gói app merchant đang dùng.
+  - `pricingVer` (string): Phiên bản định giá.
+- `Subdomain`:
+  - `domain` (string): Chuỗi subdomain phụ (e.g. `checkout.woodesign.ie`).
+  - `parentStoreUrl` (string): Domain store chính liên kết.
 
 ---
 
@@ -75,92 +96,75 @@ Cung cấp tài liệu tả chi tiết yêu cầu phần mềm cho Sidebar Plugi
 
 | Field | Type | Required | Default | Rule |
 | :--- | :--- | :--- | :--- | :--- |
-| `store_domain` | string | Yes | None | Phải đúng định dạng domain (e.g. `domain.myshopify.com` hoặc custom domain). |
-| `sub_domains` | array<string> | No | `[]` | Mảng các sub-domain liên kết với Store Domain chính. |
-| `target_app` | enum | Yes | `APO` | Phải thuộc `TargetApp` enum. |
-| `slack_channel` | string | Yes | `#apo-paid-task` | Tên channel Slack hợp lệ có CS và Dev tham gia. |
-| `status` | enum | Yes | `Chờ check - Dev` | Phải thuộc 1 trong 12 `TicketStatus` enums. |
-| `urgency` | integer | Yes | `1` | Giá trị `1` (Khẩn cấp) hoặc `2` (Bình thường). |
-| `request_content` | string | Yes | None | Tối thiểu 5 ký tự. Đồng bộ trực tiếp làm nội dung bài đăng trên Slack Thread. |
-| `summary_note` | string | No | `""` | Tóm tắt cốt lõi lưu DB. Được dùng để auto-fill vào form Transfer. |
-| `handoff_note` | string | No | `""` | Ghi chú ca trực ngắn hạn giữa các CS. |
+| `store_url` | string | Yes | None | Phải là chuỗi domain hợp lệ, không chứa ký tự đặc biệt ngoài dấu gạch ngang và chấm. |
+| `store_id` | string | Yes | None | Chuỗi số nguyên dương đại diện cho Shopify Shop ID. |
+| `store_email` | string | Yes | None | Phải đúng cấu trúc email chuẩn RFC 5322. |
+| `app_plan` | string | Yes | `FREE` | Phải thuộc danh mục gói cước hợp lệ (`FREE`, `BASIC`, `GROWTH`, `PREMIUM`). |
+| `subdomain_input` | string | No | `""` | Tối thiểu 3 ký tự khi bấm thêm sub-domain. |
 
 ---
 
 ## 6. State Transitions
 
-- **Tạo ticket mới**: `(None) -> Chờ check - Dev` hoặc `Chờ collab - CS`.
-- **Bàn giao ca**: `Chuyển assigned_to từ CS ca cũ sang CS ca mới` (giữ nguyên hoặc cập nhật Status).
-
-### 6.1 Disallowed Transitions
-- Không cho phép chuyển trạng thái về `None` hoặc trạng thái không thuộc 12 trạng thái quy chuẩn.
+- **Chuyển Tab Plugin**:
+  - `switchPluginTab('tickets')`: Kích hoạt tab Tickets (`#plugin-content-tickets`), ẩn tab Store info (`#plugin-content-store`).
+  - `switchPluginTab('store')`: Kích hoạt tab Store info (`#plugin-content-store`), ẩn tab Tickets (`#plugin-content-tickets`).
+- **Thêm Sub-domain**:
+  - `Chưa liên kết` ➔ `Đã liên kết vào danh sách Tracking`.
 
 ---
 
-## 7. Runtime / Behavior Contract
+## 7. Runtime/behavior contract
 
-- **Input**: User action click nút trên Crisp Plugin Sidebar.
-- **Output**: Tạo Ticket mới trong DB, phát API Slack `chat.postMessage` qua User Token, tự động re-render danh sách ticket trên Crisp Plugin.
-- **Fallback**: Nếu Slack API lỗi ngắt kết nối, ticket vẫn được ghi nhận trong DB với nhãn `Slack Pending Sync` và không crash giao diện Crisp Plugin.Đồng thời có cảnh báo "System slack connection failed" trong phần Tab Tickets và thêm nút 'resend' khi click vào sẽ gửi lại message lên slack.
+- **Input**: Phiên chat active trên Crisp, click chuyển tab hoặc click thêm sub-domain.
+- **Output**: Cập nhật DOM của `#plugin-tickets-container`, `#subdomain-list` và bảng Visitor Data.
+- **Fallback**: Nếu store chưa có ticket nào, render dòng thông báo rỗng an toàn: `Chưa có ticket nào được tạo cho store domain này.`
 
 ---
 
 ## 8. QA Scenarios
 
-1. Kiểm tra hiển thị Tab Tickets với đúng Store Domain tương ứng phiên Crisp Chat.
-2. Kiểm tra click `+ Add ticket` mở modal tạo ticket đúng với dữ liệu domain pre-fill.
-3. Kiểm tra chọn đúng 1 trong 12 trạng thái custom trên Add Ticket Modal.
-4. Kiểm tra gửi ticket thành công xuất hiện bài post trên Slack dưới tên CS cá nhân.
-5. Kiểm tra tin nhắn đếm counter ticket trên Crisp Plugin tăng lên ngay sau khi tạo.
-6. Kiểm tra chuyển sang Tab Store Info hiển thị đầy đủ thông tin Visitor Data (store_id, user_agent...).
-7. Kiểm tra danh sách sub-domain của Store hiển thị đầy đủ và chính xác trên Tab Store Info.
-8. Kiểm tra khi một sub-domain được thêm từ màn hình Shop 360°, thông tin sub-domain và các ticket liên quan tự động hiển thị trên Crisp Plugin.
-9. Kiểm tra click `Transfer` trên ticket mở modal bàn giao ca pre-fill Summary Note.
-10. Kiểm tra nhập Handoff Note mới và submit Transfer thành công.
-11. Kiểm tra click `View Slack` mở tab trang Slack thread tương ứng.
-12. Kiểm tra khi chuyển cửa sổ chat Crisp khác, thông tin Crisp Plugin tự động reload tương ứng.
-13. Kiểm tra tính năng lọc ticket theo app trên Crisp Plugin.
-14. Kiểm tra hiển thị thông báo Toast khi thao tác thành công.
-15. Kiểm tra trường hợp mất kết nối mạng hiển thị lỗi thân thiện.
+1. Kiểm tra chuyển đổi giữa Tab `Tickets` và Tab `Store info` hiển thị đúng panel nội dung tương ứng.
+2. Kiểm tra Tab Tickets hiển thị đúng số lượng ticket mở của store đang chat.
+3. Kiểm tra click `+ Add ticket` mở Modal Add Ticket với ô Store Domain đã được điền sẵn domain của phiên chat.
+4. Kiểm tra trên từng thẻ ticket trong Crisp Plugin: hiển thị Status badge, Urgency badge, Channel và tên CS phụ trách.
+5. Kiểm tra click `Edit` trên thẻ ticket của Crisp Plugin mở đúng Modal Edit Ticket của ticket đó.
+6. Kiểm tra click `Transfer` mở Modal Transfer Ticket với Summary Note được nạp sẵn.
+7. Kiểm tra click `View Slack` chuyển sang nền tảng mô phỏng Slack Thread.
+8. Kiểm tra chuyển sang Tab Store Info: bảng Visitor Data hiển thị đầy đủ 10 trường metadata.
+9. Kiểm tra nhập subdomain vào `#new-subdomain-input` và bấm `+`: tag pill mới được tạo và thêm vào `#subdomain-list`.
+10. Kiểm tra nhập chuỗi rỗng vào `#new-subdomain-input` và bấm `+`: hệ thống không tạo tag pill rác.
+11. Kiểm tra sau khi thêm subdomain thành công, ô input tự động được xóa trắng (`input.value = ''`).
+12. Kiểm tra hiển thị Toast notification xác nhận sau khi thêm subdomain thành công.
+13. Kiểm tra các nút trong Crisp Plugin không chứa icon emoji.
+14. Kiểm tra giao diện Light Mode có độ tương phản cao, chữ rõ nét trên nền trắng.
+15. Kiểm tra khi có ticket mới được tạo, biến đếm `#plugin-ticket-count` trên tiêu đề tab tự động cập nhật số lượng mới.
 
 ---
 
-## 9. Implementation Notes for AI Code Generation
+## 9. Implementation notes for AI code generation
 
-- Sử dụng Crisp Widget SDK (`$crisp.get()` & `$crisp.push()`) để tương tác với chat session.
-- Đảm bảo token Slack OAuth được lưu an toàn trong kho Secrets/Env và chỉ gọi qua backend API trung gian.
-- Response time hiển thị Plugin phải < 300ms.
+- **DOM Preservation**: Bắt buộc giữ nguyên vẹn các ID: `plugtab-tickets`, `plugtab-store`, `plugin-content-tickets`, `plugin-content-store`, `plugin-ticket-count`, `plugin-tickets-container`, `new-subdomain-input`, `subdomain-list`.
+- **Defensive Guard**: Sử dụng `safeSetHTML` khi render danh sách `plugin-tickets-container`.
 
 ---
 
-## 10. Final Implementation Assumptions to Review
+## 10. Final implementation assumptions to review
 
-- Giả định tất cả CS Agent đã đăng nhập thành công tài khoản Slack cá nhân trên ứng dụng Helpdesk OS.
+- Crisp Plugin chạy dưới dạng Sidebar Iframe nhúng trong Crisp Inbox dashboard của CS Agent.
 
 ---
 
 ## 11. User Stories
 
-### Story: US-01 — CS tạo Ticket từ Crisp Plugin đẩy lên Slack Thread
+### Story: US-01 — CS tra cứu Visitor Data và thêm Sub-domain từ Crisp Plugin
 **As a** CS Agent  
-**I want to** tạo ticket trực tiếp từ Crisp Plugin bên cạnh cửa sổ chat với merchant  
-**So that** tóm tắt yêu cầu của khách và gửi lên Slack Thread cho Dev hỗ trợ xử lý mà không cần mở nhiều tab.
+**I want to** mở Tab Store info trên Crisp Plugin để xem thông số kỹ thuật của merchant và thêm sub-domain theo dõi  
+**So that** tôi nắm rõ gói cước và cấu hình kỹ thuật của khách hàng ngay trong lúc tư vấn.
 
 #### Acceptance Criteria (Gherkin)
-- **Given** CS đang mở cuộc chat với merchant trên Crisp  
-  **When** CS bấm nút `+ Add ticket` trên Crisp Plugin, chọn Channel `#apo-paid-task` và nhập nội dung `Request: Button style mismatch`  
-  **Then** Hệ thống tạo Ticket mới trong DB và gửi tin nhắn đăng bài lên kênh Slack `#apo-paid-task` dưới tên tài khoản Slack của CS  
-  **And** Thẻ Ticket mới xuất hiện ngay lập tức trên Crisp Plugin và CS Dashboard.
-
-- **Given** CS nhập nội dung request rỗng (dưới 5 ký tự)  
-  **When** CS bấm `Gửi Ticket lên Slack`  
-  **Then** Hệ thống báo lỗi: `"Request Content phải chứa ít nhất 5 ký tự"`.
-
-### Links
-- Business rule: [SRS Section 3.1](#31-slack-oauth-integration)
-
-### Definition of Done
-- [x] Code merged
-- [x] Unit tests pass
-- [x] AC tests pass (QA)
-- [x] Docs updated
+- **Given** CS đang mở cuộc trò chuyện với merchant trên Crisp  
+  **When** CS click vào tab `Store info`  
+  **Then** Bảng Visitor Data hiển thị đầy đủ thông tin: `store_url`, `store_id`, `store_plan`, `app_version`  
+  **And** CS nhập `checkout.kaifit.vn` vào ô `#new-subdomain-input` và bấm nút `+`  
+  **Then** Hệ thống thêm sub-domain vào danh sách hiển thị và bắn Toast thông báo thành công.
